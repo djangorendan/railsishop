@@ -1,0 +1,4 @@
+document.getElementById('cart_link_count').innerText = "<%= @cart.total_product_count %>"
+document.getElementById('cart_link').className = "btn btn-light"
+document.getElementById('cart_link').href = "/carts/<%= @cart.id %>"
+document.getElementById('total_cart_sum').innerText = "<%= @cart.total_cart_sum %> грн."

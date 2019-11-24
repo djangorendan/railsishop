@@ -1,0 +1,87 @@
+<p id="notice"><%= notice %></p>
+
+<h3>Личный кабинет пользователя <%= current_user.full_name %></h3>
+
+<div class="row">
+  <div class="col-9">
+    <% @orders.each do |order| %>
+    <table class="table table-hover">
+      <thead>
+      </thead>
+      <tbody>
+        <% order.cart.cart_products.each do |cart_product| %>
+          <tr>
+            <td colspan="1">Заказ№ <%= order.id %></td>
+            <td colspan="1" class="text-right">
+              <% if order.status == 'Новый' %>
+                Статус: <span style="color: green"><%= order.status %></span>
+              <% elsif order.status == 'Отменен' %>
+                Статус: <span style="color: red"><%= order.status %></span>
+              <% elsif order.status == 'Выполнен' %>
+                Статус: <span style="color: blue"><%= order.status %></span>
+              <% elsif order.status == 'Оплачен' %>
+                Статус: <span style="color: orange"><%= order.status %></span>
+              <% elsif order.status == 'Принят' %>
+                Статус: <span style="color: yellow"><%= order.status %></span>
+              <% end %>
+            </td>
+            <td colspan="3" class="text-right">
+              <!-- Button trigger modal -->
+              <% if order.status == 'Отменен' %>
+                <button type="button" class="btn btn-danger disabled">
+                  Отменить заказ
+                </button>
+              <% else %>
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#orderCancelModal">
+                  Отменить заказ
+                </button>
+              <% end %>
+            </td>
+          </tr>
+          <tr>
+            <td><%= link_to image_tag(cart_product.product.attachments.first.category_main_image_thumb.url), cart_product.product %></td>
+            <td class="text-left">
+              <div><%= link_to cart_product.product.name, cart_product.product %></div>
+              <div style="font-size: 0.5rem"><%= cart_product.product.summary %></div>
+            </td>
+            <td>
+              <%= cart_product.product_count %>
+            </td>
+            <td><%= cart_product.product.price %> грн.</td>
+            <td id="product_<%= cart_product.product.id %>_sum"><%= cart_product.total_product_sum %> грн.</td>
+          </tr>
+        <% end %>
+          <tr>
+            <td colspan="4"></td>
+            <td colspan="1" id="total_cart_sum"><%= order.cart.total_cart_sum %> грн.</td>
+          </tr>
+      </tbody>
+    </table>
+
+    <!-- Modal -->
+    <div class="modal fade" id="orderCancelModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="modal-title" id="orderCancelModalLabel">Укажите причину</h2>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <input name="reason">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+            <%= link_to "Отменить", order_cancel_path(order.id), class: "btn btn-danger" %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <% end %>
+  </div>
+  <div class="col-3">
+
+  </div>
+</div>

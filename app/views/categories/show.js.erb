@@ -1,0 +1,7 @@
+<% if @products.present?%>
+  $('#products_container').html("<%= escape_javascript render(:partial => 'patrials/products') %>");
+<% else %>
+  $('#products_container').html('Пусто');
+<% end%>
+
+$('#filter_form').html("<%= escape_javascript render(:partial => 'patrials/filter_form') %>");

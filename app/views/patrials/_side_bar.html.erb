@@ -1,0 +1,89 @@
+<style media="screen">
+  .card {
+    margin-bottom: 10px;
+  }
+
+  .card-header {
+    font-size: 1rem;
+    text-align: center;
+  }
+
+  .card-body {
+    font-size: 0.76rem;
+    padding: 0.25rem 1.25rem;
+  }
+  .card-text {
+    margin-bottom: 5px;
+  }
+
+  .card-col {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+</style>
+
+<% if @category %>
+  <%=  render "patrials/filter_form" %>
+<% end %>
+
+<div class="card">
+  <h5 class="card-header">Контакты</h5>
+  <div class="card-body">
+    <p class="card-text">
+      <i class="fas fa-map-marker-alt"></i>
+      <a href="https://goo.gl/maps/xDpFrBhJJS55bYpo9" target="_blank">
+        г. Харьков <br/>
+        ул. Космическая 22 <br/>
+        офис 142
+      </a>
+    </p>
+    <p class="card-text">
+      <img src="https://shop.kyivstar.ua/bundles/kyivstarreview/img/Kyivstar_2015_logo_-_Brandmark.png?47" height="16px" width="16px" style="vertical-align: top;">
+      <a href="tel:+380983630957">098-363-09-57</a>
+    </p>
+    <p class="card-text">
+      <img src="https://www.lifecell.ua/uploads/feincms_ceo_images/lifecell_logo.png" height="16px" width="16px" style="vertical-align: top;">
+      <a href="tel:+380634521002">063-452-10-02</a>
+    </p>
+    <p class="card-text">
+      <img src="https://www.freepnglogos.com/uploads/vodafone-png-logo/vodafone-logo-2019-edigital-australia-19.png" height="16px" width="16px" style="vertical-align: top;">
+      <a href="tel:+380951160266">095-116-02-66</a>
+    </p>
+    <p class="card-text">
+      <i class="fab fa-telegram-plane"></i>
+      <a href="tg://resolve?domain=Angar.kh.ua">063-452-10-02</a>
+    </p>
+    <p class="card-text">
+      <i class="fab fa-viber"></i>
+      <a href="viber://chat?number=+380634521002">063-452-10-02</a>
+    </p>
+    <p class="card-text">
+      <i class="fas fa-envelope"></i>
+      <a href="mailto:angarkharkiv@gmail.com" class="card-text">angarkharkiv.kh.ua</a>
+    </p>
+  </div>
+</div>
+
+<div class="card">
+  <h5 class="card-header">График работы</h5>
+  <div class="row card-body text-center">
+    <div class="col card-col text-left">
+      <p class="card-text">Понедельник:</p>
+      <p class="card-text">Вторник:</p>
+      <p class="card-text">Среда:</p>
+      <p class="card-text">Четверг:</p>
+      <p class="card-text">Пятница:</p>
+      <p class="card-text">Суббота:</p>
+      <p class="card-text">Воскресенье:</p>
+    </div>
+    <div class="col card-col">
+      <p class="card-text">09:00-21:00</p>
+      <p class="card-text">09:00-21:00</p>
+      <p class="card-text">09:00-21:00</p>
+      <p class="card-text">09:00-21:00</p>
+      <p class="card-text">09:00-21:00</p>
+      <p class="card-text">10:00-18:00</p>
+      <p class="card-text">11:00-16:00</p>
+    </div>
+  </div>
+</div>

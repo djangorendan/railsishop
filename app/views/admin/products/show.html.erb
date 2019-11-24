@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @product.name %>
+</p>
+
+<p>
+  <strong>Category:</strong>
+  <%= @product.category %>
+</p>
+
+<p>
+  <strong>Properties:</strong>
+  <% @product.product_properties.order(:id).each do |pp| %>
+    <% if pp.property.root? %>
+      <li><%= pp.property.name %>:</li>
+    <% else %>
+      <ul>
+        <li><%= pp.property.name %>: <%= pp.value %></li>
+      </ul>
+    <% end %>
+  <% end %>
+</p>
+
+<%= link_to 'Edit', edit_admin_product_path(@product) %> |
+<%= link_to 'Back', admin_products_path %>

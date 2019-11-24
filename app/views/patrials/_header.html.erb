@@ -1,0 +1,113 @@
+<div class="container-fluid" style="font-family: 'Russo One', sans-serif;">
+  <div class="row justify-content-between">
+    <div class="col-md-auto col-sm-12 text-center">
+      <span style="font-size: 50px; font-family: 'Permanent Marker', cursive; color: blue;"><a href="/">Angar.kh.ua</a></span>
+    </div>
+    <div class="col-md-auto">
+      <address class="" style="margin-bottom: -1rem;">
+        <ul style="list-style: none">
+          <li>
+            <i class="fas fa-map-marker-alt"></i>
+            <a href="https://goo.gl/maps/xDpFrBhJJS55bYpo9" target="_blank">
+              г. Харьков ул. Космическая 22 офис 142
+            </a>
+          </li>
+          <li>
+            <img src="https://shop.kyivstar.ua/bundles/kyivstarreview/img/Kyivstar_2015_logo_-_Brandmark.png?47" height="16px" width="16px" style="vertical-align: top;">
+            <a href="tel:+380983630957">098-363-09-57</a>
+            <img src="https://www.lifecell.ua/uploads/feincms_ceo_images/lifecell_logo.png" height="16px" width="16px" style="vertical-align: top;">
+            <a href="tel:+380634521002">063-452-10-02</a>
+            <img src="https://www.freepnglogos.com/uploads/vodafone-png-logo/vodafone-logo-2019-edigital-australia-19.png" height="16px" width="16px" style="vertical-align: top;">
+            <a href="tel:+380951160266">095-116-02-66</a>
+          </li>
+          <li>
+            <i class="far fa-clock"></i>
+            пн-пт: 9:00-21:00, сб: 10:00-18:00, вс: 11:00 - 16:00
+          </li>
+        </ul>
+      </address>
+    </div>
+    <div class="col-xl-4 col-auto text-right" style="margin-top: 15px;">
+      <% if current_user %>
+        <%= link_to "Личный кабинет", orders_path, class: "btn btn-primary" %>
+        <%= link_to "Выход", destroy_user_session_path, method: :delete, class: "btn btn-dark", style: "color: white" %>
+      <% else %>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+          Авторизация
+        </button>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<nav class="navbar navbar-expand-md navbar-dark bg-primary" style="padding: 5px 0 5px 1rem; margin-bottom: 10px; font-family: 'Russo One', sans-serif;">
+  <button class="navbar-toggler order-first" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/">Главная</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="https://docs.google.com/spreadsheets/d/1MHJE8QwpMQtp5pESb031vKWT_pocnjgAB9Wv5z6bpRM/edit#gid=2124455559" target="_blank">Прайс</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Категории товаров
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <% categories.each do |category| %>
+              <%= link_to category.name, category_path(category), class: "dropdown-item" %>
+            <% end %>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">О нас</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Способы оплаты</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Способы доставки</a>
+      </li>
+    </ul>
+  </div>
+  <div class="col-auto">
+    <%= form_tag results_path, method: :get, role: 'search', class: "form-inline my-2 my-lg-0" do %>
+      <%= text_field_tag :query, params[:query], class: "form-control", placeholder: "Поиск" %>
+      <button class="btn btn-outline-light" type="submit" style="margin-left: 10px;"><i class="fas fa-search"></i></button>
+    <% end %>
+  </div>
+  <div class="col-auto header_buttons">
+    <% if session[:current_cart_id] && carts_products_count != 0 %>
+      <a href="/carts/<%= session[:current_cart_id] %>" id="cart_link" class="btn btn-light"><i class="fas fa-shopping-cart"></i> <span id="cart_link_count"><%= carts_products_count %><span></a>
+    <% else %>
+      <a href="/carts/<%= session[:current_cart_id] %>" id="cart_link" class="btn btn-light disabled"><i class="fas fa-shopping-cart"></i> <span id="cart_link_count">0</span></a>
+    <% end %>
+  </div>
+</nav>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="exampleModalLabel">Авторизация</h2>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <%= render "users/sessions/new" %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+        <%= link_to "Регистрация", new_registration_path(resource_name), class: "btn btn-primary" %>
+        <%= link_to "Востановление пароля", new_password_path(resource_name), class: "btn btn-primary" %>
+      </div>
+    </div>
+  </div>
+</div>

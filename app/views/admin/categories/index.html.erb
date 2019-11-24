@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Categories</h1>
+
+<ul>
+<% @categories.roots.order(:position).each do |category| %>
+  <li>
+    <%= category.position %> <%= link_to category.name, edit_admin_category_path(category) %>
+    (<%= link_to 'Destroy', admin_category_path(category), method: :delete, data: { confirm: 'Are you sure?' } %>)
+  </li>
+  <ul>
+    <% category.children.each do |child| %>
+      <li>
+        <%= child.position %> <%= link_to child.name, edit_admin_category_path(child) %>
+        (<%= link_to 'Destroy', admin_category_path(child), method: :delete, data: { confirm: 'Are you sure?' } %>)
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+</ul>
+
+<br>
+
+<%= link_to 'New Category', new_admin_category_path %>

@@ -1,0 +1,33 @@
+<style media="screen">
+  .text-on-img {
+    position: absolute;
+    color: white;
+    width: 100%;
+    top: 165px;
+  }
+</style>
+
+<h3>Результаты поиска по запросу <em><%= params[:query]%></em></h3>
+
+<div id="products_container">
+  <div class="row">
+    <% @search_results.each do |product| %>
+      <div class="col-4">
+        <div class="card text-center">
+          <div class="text-on-img">
+            <h4 class="card-title" style="margin: 0"><%= link_to product.name, product, style: "color: white;" %></h4>
+            <p class="card-text" style="font-size: 0.6rem;"><%= product.summary %></p>
+          </div>
+          <%= link_to image_tag(product.attachments.first.product_main_image_thumb.url, alt: product.name, class: "product_img"), product %>
+          <div class="card-body">
+            <p class="card-text text-right" style="font-size: 1.5rem"><%= product.price %> грн.</p>
+            <div class="row justify-content-between">
+              <%= link_to "Подробнее", product, class: "btn btn-outline-primary col-5", style: "margin: 0 10px;" %>
+              <%= link_to "В корзину", product_to_cart_carts_path(product_id: product.id), remote: true, class: "btn btn-warning col-5", style: "margin: 0 10px;" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

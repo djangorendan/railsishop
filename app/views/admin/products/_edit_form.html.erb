@@ -1,0 +1,84 @@
+<%= form_for [:admin, product] do |form| %>
+  <% if product.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(product.errors.count, "error") %> prohibited this product from being saved:</h2>
+
+      <ul>
+      <% product.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <% if @product.attachments? %>
+    <ul>
+      <% @product.attachments.each do |attachment| %>
+        <li><%= link_to(image_tag(attachment.thumb.url, alt: 'Image'), attachment.url, target: '_blank') %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <div>
+    <%= form.label :attachments %>
+    <%= form.file_field :attachments, multiple: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :summary %>
+    <%= form.text_field :summary %>
+  </div>
+
+  <div class="field">
+    <%= form.label :discription %>
+    <%= form.text_field :discription %>
+  </div>
+
+  <div class="field">
+    <%= form.label :price %>
+    <%= form.number_field :price %>
+  </div>
+
+  <div class="field">
+    <%= form.label :quantity %>
+    <%= form.number_field :quantity %>
+  </div>
+
+  <div class="field">
+    <%= form.label :display %>
+    <%= form.check_box :display %>
+  </div>
+
+  <div class="field">
+    <%= form.label :category_id %>
+    <%= form.collection_select :category_id, Category.all, :id, :name %>
+  </div>
+
+  <div class="field">
+    Properties:
+    <ul>
+      <% @product.product_properties.order(:id).each do |pp| %>
+        <% if pp.property.root? %>
+          <li><%= pp.property.name %></li>
+        <% else %>
+          <%= form.fields_for :product_properties, pp do |pp_form| %>
+            <ul>
+              <li><%= pp.property.name %>: <%= pp_form.text_field :value %></li>
+            </ul>
+          <% end %>
+        <% end %>
+      <% end %>
+    </ul>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
+
+<%= link_to 'New Product', new_admin_product_path %>

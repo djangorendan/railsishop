@@ -1,0 +1,87 @@
+<style media="screen">
+  .form-row>.col {
+    padding: 0 5px 10px 5px;
+  }
+</style>
+
+<h2>Регистрация</h2>
+
+<div class="row">
+  <div class="col-md-7 col-12">
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
+
+      <div class="form-row">
+        <div class="col">
+          <%= f.text_field :phone, class: "form-control", placeholder: "Телефон" %>
+        </div>
+
+        <div class="col">
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder: "Адресс электронной почты" %>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="col">
+          <%= f.text_field :first_name, class: "form-control", placeholder: "Имя" %>
+        </div>
+
+        <div class="col">
+          <%= f.text_field :last_name, class: "form-control", placeholder: "Фамилия" %>
+        </div>
+      </div>
+
+
+      <h3>Доставка <em>не обязательно</em></h3>
+
+      <div class="radio_buttons">
+        <input type="radio" name="delivery" value="departament" id="departament" checked>
+        <label for="departament">На отделение</label>
+        <input type="radio" name="delivery" value="address" id="address">
+        <label for="address">На адрес</label>
+      </div>
+
+      <div class="form-row">
+        <div class="col">
+          <%= f.text_field :city, list: "city_name", class: "form-control", placeholder: "Город" %>
+            <datalist id="city_name">
+              <option value="Boston">
+              <option value="Cambridge">
+            </datalist>
+        </div>
+
+        <div class="col" style="display: block" id="departament_field">
+          <%= f.text_field :departament, list: "departament_name", class: "form-control", placeholder: "Отделение Новой Почты" %>
+            <datalist id="departament_name">
+              <option value="№1 - тута">
+              <option value="№2 - тама">
+            </datalist>
+        </div>
+
+        <div class="col-7" style="display: none" id="address_field">
+          <%= f.text_field :departament, list: "address_name", class: "form-control", placeholder: "Адрес" %>
+            <datalist id="address_name">
+              <option value="улица тута">
+              <option value="проспект тама">
+            </datalist>
+        </div>
+      </div>
+
+
+      <div class="actions">
+        <%= f.submit "Зарегесирироваться", class: "btn btn-primary btn-block" %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $('#address').on('click', function(){
+    $('#address_field').css('display', 'block');
+    $('#departament_field').css('display', 'none');
+  });
+  $('#departament').on('click', function(){
+    $('#address_field').css('display', 'none');
+    $('#departament_field').css('display', 'block');
+  });
+</script>

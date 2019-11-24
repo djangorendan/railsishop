@@ -1,0 +1,78 @@
+<style media="screen">
+  .aaa {
+    border: 1px solid #dee2e6;
+    border-top: 0px;
+    border-bottom-left-radius: .25rem;
+    border-bottom-right-radius: .25rem;
+    padding-left: 15px;
+  }
+</style>
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb" style="margin-bottom: 0.5rem">
+    <li class="breadcrumb-item"><a href="/">Главная</a></li>
+    <li class="breadcrumb-item"><%= link_to @product.category.name, @product.category %></li>
+    <li class="breadcrumb-item active" aria-current="page"><%= @product.name %></li>
+  </ol>
+</nav>
+
+<div class="row">
+  <div class="col-12 col-md-4">
+    <% @product.attachments.each do |photo| %>
+      <%= image_tag(photo.product_main_image_thumb.url, width: '100%', style: "padding-bottom: 8px;") %>
+    <% end %>
+  </div>
+  <div class="col-12 col-md-8">
+    <div class="row">
+      <h1 class="col-8"><%= @product.name %></h1>
+      <p class="col-4 text-right">Индекс: <%= @product.id %></p>
+    </div>
+    <div class="text-right" style="font-size: 2.5rem;"><%= @product.price %> грн.</div>
+    <% unless @product.display %>
+      <h4 style="color: red;">Нет в наличии</h4>
+    <% end %>
+    <% if @product.display %>
+      <%= form_tag product_to_cart_carts_path, method: 'get', class: 'row', style: 'margin: 0', remote: true do %>
+        <%= hidden_field_tag(:product_id, value = @product.id) %>
+        <%= number_field_tag(:product_count, '1',min: 1, max: @product.quantity, class: "form-control col-2", style: "margin-right: 10px;") %>
+        <%= submit_tag("Добавить в корзину", class: "btn btn-primary col-auto") %>
+      <% end %>
+    <% end %>
+    <ul class="discription-navbar nav nav-tabs" id="myTab" role="tablist" style="padding-top: 10px;">
+      <li class="nav-item" style="width: 18%;">
+        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#discription" role="tab" aria-controls="discription" aria-selected="true">Описание</a>
+      </li>
+      <li class="nav-item text-center" style="width: 60%;">
+        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#specifications" role="tab" aria-controls="specifications" aria-selected="false">Технические характеристики</a>
+      </li>
+      <li class="nav-item" style="width: 22%;">
+        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#comments" role="tab" aria-controls="comments" aria-selected="false">Комментарии</a>
+      </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+      <div class="tab-pane fade show active aaa" id="discription" role="tabpanel" aria-labelledby="home-tab">
+        <h2>Описание:</h2>
+        <div style="padding-left: 15px">
+          <%= @product.discription %>
+        </div>
+      </div>
+      <div class="tab-pane fade aaa" id="specifications" role="tabpanel" aria-labelledby="profile-tab">
+        <h2>Технические характеристики:</h2>
+        <ul class="specs">
+          <% @product.product_properties.order(:id).each do |pp| %>
+            <% if pp.property.root? %>
+              <li><%= pp.property.name %>:</li>
+            <% else %>
+              <ul>
+                <li><%= pp.property.name %>: <%= pp.value %></li>
+              </ul>
+            <% end %>
+          <% end %>
+        </ul>
+      </div>
+      <div class="tab-pane fade aaa" id="comments" role="tabpanel" aria-labelledby="contact-tab">
+        <h2>Комментарии:</h2>
+      </div>
+    </div>
+  </div>
+</div>

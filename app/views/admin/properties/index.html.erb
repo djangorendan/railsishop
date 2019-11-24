@@ -1,0 +1,22 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Properties</h1>
+
+<ul>
+  <% @properties.roots.order(:position).each do |property| %>
+    <li>
+      <%= property.position %> <%= link_to property.name, edit_admin_property_path(property) %>
+      (<%= link_to 'Destroy', admin_property_path(property), method: :delete, data: { confirm: 'Are you sure?' } %>)
+    </li>
+    <ul>
+      <% property.children.each do |child| %>
+        <li>
+          <%= child.position %> <%= link_to child.name, edit_admin_property_path(child) %>
+          (<%= link_to 'Destroy', admin_property_path(child), method: :delete, data: { confirm: 'Are you sure?' } %>)
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+</ul>
+
+<%= link_to 'New Property', new_admin_property_path %>

@@ -1,0 +1,46 @@
+<style media="screen">
+  .price-form-control {
+    font-size: 0.75rem;
+  }
+
+</style>
+
+<div class="card">
+  <h5 class="card-header">Фильтры</h5>
+  <div class="card-body card-col">
+    <%= form_for category_path, method: 'GET', remote: true, html: {id: 'patrials/filter_form'} do |f| %>
+      <div class="row" style="margin-bottom: 10px;">
+        <%= f.hidden_field :product_properties, id: 'product_properties_field' %>
+        <%= f.hidden_field :order_by, id: 'order_by_field' %>
+        <%= f.hidden_field :order_to, id: 'order_to_field' %>
+        <div class="col-12" style="padding-left: 1.25rem">
+          Цена:
+        </div>
+        <div class="col-6" style="padding: 0 0.25rem 0 1.25rem;">
+          <%= f.number_field :price_down, value: @price_down, class: 'form-control price-form-control', placeholder: "От:" %>
+        </div>
+        <div class="col-6" style="padding: 0 1.25rem 0 0.25rem;">
+          <%= f.number_field :price_up, value: @price_up, class: 'form-control price-form-control', placeholder: "До:" %>
+        </div>
+      </div>
+
+      <ul style="padding-inline-start: 0.25rem; list-style-type: none;">
+        <% @category.properties.each do |property| %>
+            <% property.children.each do |property_child| %>
+              <li><%= property_child.name %></li>
+              <ul style="padding-inline-start: 0.5rem; list-style-type: none; font-size: 0.8rem;">
+                <% property_child.product_properties.grouped_with_product_count.each do |product_property| %>
+                  <% if product_property.value %>
+                    <li><input class="filter_checkbox" type="checkbox" data-category-property-id="<%= product_property.property_id%>" data-product-name="<%= product_property.value%>" <%= filter_checked?(@product_properties, product_property.value) ? 'checked' : ''%>><%= product_property.value%>
+                    (<%= product_property.products_count%>)</li>
+                  <% end %>
+                <% end %>
+              </ul>
+            <% end %>
+        <% end %>
+      </ul>
+
+      <%= f.submit 'Применить фильтрацию', class: "d-none" %>
+    <% end %>
+  </div>
+</div>
