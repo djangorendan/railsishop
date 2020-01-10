@@ -34,13 +34,6 @@
 
       <h3>Доставка <em>не обязательно</em></h3>
 
-      <div class="radio_buttons">
-        <input type="radio" name="delivery" value="departament" id="departament" checked>
-        <label for="departament">На отделение</label>
-        <input type="radio" name="delivery" value="address" id="address">
-        <label for="address">На адрес</label>
-      </div>
-
       <div class="form-row">
         <div class="col">
           <%= f.text_field :city, list: "city_name", class: "form-control", placeholder: "Город" %>
@@ -57,16 +50,7 @@
               <option value="№2 - тама">
             </datalist>
         </div>
-
-        <div class="col-7" style="display: none" id="address_field">
-          <%= f.text_field :departament, list: "address_name", class: "form-control", placeholder: "Адрес" %>
-            <datalist id="address_name">
-              <option value="улица тута">
-              <option value="проспект тама">
-            </datalist>
-        </div>
       </div>
-
 
       <div class="actions">
         <%= f.submit "Зарегесирироваться", class: "btn btn-primary btn-block" %>
@@ -74,14 +58,3 @@
     <% end %>
   </div>
 </div>
-
-<script type="text/javascript">
-  $('#address').on('click', function(){
-    $('#address_field').css('display', 'block');
-    $('#departament_field').css('display', 'none');
-  });
-  $('#departament').on('click', function(){
-    $('#address_field').css('display', 'none');
-    $('#departament_field').css('display', 'block');
-  });
-</script>

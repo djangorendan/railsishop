@@ -86,6 +86,8 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    devise-russian (2.0.1.1)
+      devise
     erubi (1.9.0)
     execjs (2.7.0)
     ffi (1.11.1)
@@ -243,6 +245,7 @@ DEPENDENCIES
   chromedriver-helper
   coffee-rails (~> 4.2)
   devise
+  devise-russian (~> 2.0, >= 2.0.1.1)
   friendly_id
   jbuilder (~> 2.5)
   kaminari

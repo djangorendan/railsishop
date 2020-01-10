@@ -31,19 +31,11 @@ class ImageUploader < CarrierWave::Uploader::Base
 
   # Create different versions of your uploaded files:
   version :thumb do
-    process resize_to_fit: [100, 100]
-  end
-
-  version :product_no_main_thumb do
-    process resize_to_fit: [125, 140]
+    process resize_to_fit: [130, 130]
   end
 
   version :index_admin_thumb do
     process resize_to_fit: [50, 50]
-  end
-
-  version :category_main_image_thumb do
-    process resize_to_fit: [180, 200]
   end
 
   version :product_main_image_thumb do

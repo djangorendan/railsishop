@@ -1,9 +1,9 @@
 <p id="notice"><%= notice %></p>
 
-<h3>Личный кабинет пользователя <%= link_to current_user.full_name, edit_user_registration_path(current_user) %></h3>
+<h3>Заказы</h3>
 
 <div class="row">
-  <div class="col-12">
+  <div class="col-9">
     <% @orders.each do |order| %>
       <table class="table table-hover">
         <thead>
@@ -11,29 +11,15 @@
             <th>
               <div class="row">
                 <div class="col-6">
-                  <%= link_to 'Заказ №' + order.id.to_s, edit_order_path(order) %>
+                  <%= link_to 'Заказ №' + order.id.to_s, edit_admin_order_path(order) %>
                   <span style="font-size: 0.7rem"><%= order.created_at %></span>
                 </div>
                 <div class="col-6 text-right" id="change_stasus_form_<%= order.id %>">
-                  <% if order.status == 'Новый' %>
-                    Статус: <span style="color: green"><%= order.status %></span>
-                  <% elsif order.status == 'Отменен' %>
-                    Статус: <span style="color: red"><%= order.status %></span>
-                  <% elsif order.status == 'Выполнен' %>
-                    Статус: <span style="color: blue"><%= order.status %></span>
-                  <% elsif order.status == 'Оплачен' %>
-                    Статус: <span style="color: orange"><%= order.status %></span>
-                  <% elsif order.status == 'Принят' %>
-                    Статус: <span style="color: yellow"><%= order.status %></span>
-                  <% end %>
-                  <% if order.status == 'Отменен' %>
-                    <button type="button" class="btn btn-danger disabled">
-                      Отменить заказ
-                    </button>
-                  <% else %>
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#orderCancelModal_<%= order.id %>">
-                      Отменить заказ
-                    </button>
+                  <%= form_for [:admin, order] do |form| %>
+                    <%= form.select :status, options_for_select(
+                      ["Новый", "Принят", "Оплачен", "Выполнен", "Отменен"], selected: order.status
+                    ),{},{class: "form-control-sm", style: "font-size: 0.7rem", id: "change_stasus_input_"+order.id.to_s} %>
+                    <%= form.submit "", style: "display: none" %>
                   <% end %>
                 </div>
               </div>
@@ -51,7 +37,7 @@
                         <%= link_to image_tag(cart_product.product.attachments.first.index_admin_thumb.url), edit_admin_product_path(cart_product.product) %>
                       </div>
                       <div class="col" style="padding-left: 10px;">
-                        <div><%= link_to cart_product.product.name, product_path(cart_product.product) %> - <span style="font-size: 0.9rem;"><%= cart_product.product_count %> шт.</span></div>
+                        <div><%= link_to cart_product.product.name, edit_admin_product_path(cart_product.product) %> - <span style="font-size: 0.9rem;"><%= cart_product.product_count %> шт.</span></div>
                         <div style="font-size: 0.7rem;"><%= cart_product.product.summary %></div>
                       </div>
                     </div>
@@ -89,13 +75,13 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <form action="/orders/<%= order.id %>/cancel">
+          <form action="orders/<%= order.id %>/cancel">
             <div class="modal-body">
               Выберите причину: <br/>
-                <input type="radio" name="reason" value="Передумал" id="order_cancel_reason_1">
-                <label for="order_cancel_reason_1">Передумал</label><br/>
-                <input type="radio" name="reason" value="Не перезвонили" id="order_cancel_reason_2">
-                <label for="order_cancel_reason_2">Не перезвонили</label>
+                <input type="radio" name="reason" value="Не дозвонился" id="order_cancel_reason_1">
+                <label for="order_cancel_reason_1">Не дозвонился</label><br/>
+                <input type="radio" name="reason" value="По желанию клиента" id="order_cancel_reason_2">
+                <label for="order_cancel_reason_2">По желанию клиента</label>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
@@ -106,6 +92,19 @@
       </div>
     </div>
 
+    <script type="text/javascript">
+      $('#change_stasus_input_<%= order.id %>').on('change', function(){
+        if ($(this).val() == 'Отменен') {
+          $('#orderCancelModal_<%= order.id %>').modal()
+        }else{
+          $('#change_stasus_form_<%= order.id %>').find('[type=submit]').trigger('click');
+        }
+      })
+    </script>
+
     <% end %>
+  </div>
+  <div class="col-3">
+    Статистика:
   </div>
 </div>

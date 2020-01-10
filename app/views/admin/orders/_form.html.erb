@@ -6,7 +6,7 @@
 
   <div class="row">
     <div class="col-4">
-      <%= form_with(model: order) do |form| %>
+      <%= form_for [:admin, order] do |form| %>
         <% if order.errors.any? %>
           <div id="error_explanation">
             <h2><%= pluralize(order.errors.count, "error") %> prohibited this order from being saved:</h2>
@@ -20,23 +20,23 @@
         <% end %>
 
         <div class="field">
-          <%= form.telephone_field :phone, value: (current_user.phone if current_user), placeholder: 'Телефон', class: "form-control", required: true %>
+          <%= form.telephone_field :phone, placeholder: 'Телефон', class: "form-control", required: true %>
         </div>
         <div class="field">
-          <%= form.email_field :email, value: (current_user.email if current_user), placeholder: 'Адрес электронной почты', class: "form-control", required: true %>
+          <%= form.email_field :email, placeholder: 'Адрес электронной почты', class: "form-control", required: true %>
         </div>
         <div class="field">
-          <%= form.text_field :first_name, value: (current_user.first_name if current_user), placeholder: 'Имя', class: "form-control", required: true %>
+          <%= form.text_field :first_name, placeholder: 'Имя', class: "form-control", required: true %>
         </div>
         <div class="field">
-          <%= form.text_field :last_name, value: (current_user.last_name if current_user), placeholder: 'Фамилия', class: "form-control", required: true %>
+          <%= form.text_field :last_name, placeholder: 'Фамилия', class: "form-control", required: true %>
         </div>
         <div class="field">
           <%= form.select :payment, raw(
             "<option>Наличными</option>
             <option>На карту Приват Банка</option>
             <option>Наложенный платеж</option>"
-          ), {}, {class: "form-control"} %>
+          ), {prompt: "Способ оплаты"}, {class: "form-control"} %>
         </div>
         <div class="field">
           <%= form.select :delivery, raw(
@@ -45,13 +45,13 @@
           ), {}, {class: "form-control"} %>
         </div>
         <div class="delivery" style="display: none;">
-          <input type="radio" name="delivery" value="departament" id="departament" checked>
-          <label for="departament">На отделение</label>
-          <input type="radio" name="delivery" value="address" id="address">
-          <label for="address">На адрес</label>
+            <input type="radio" name="delivery" value="departament" id="departament" checked>
+            <label for="departament">На отделение</label>
+            <input type="radio" name="delivery" value="address" id="address">
+            <label for="address">На адрес</label>
 
           <div class="field">
-            <%= form.text_field :city, value: (current_user.city if current_user), list: "city_name", class: "form-control", placeholder: "Город" %>
+            <%= form.text_field :city, list: "city_name", class: "form-control", placeholder: "Город" %>
               <datalist id="city_name">
                 <option value="Boston">
                 <option value="Cambridge">
@@ -59,7 +59,7 @@
           </div>
 
           <div class="field" style="display: block" id="departament_field">
-            <%= form.text_field :departament, value: (current_user.departament if current_user), list: "departament_name", class: "form-control", placeholder: "Отделение Новой Почты" %>
+            <%= form.text_field :departament, list: "departament_name", class: "form-control", placeholder: "Отделение Новой Почты" %>
               <datalist id="departament_name">
                 <option value="№1 - тута">
                 <option value="№2 - тама">
@@ -67,13 +67,11 @@
           </div>
 
           <div class="field" style="display: none" id="address_field">
-            <%= text_field_tag :address,"", list: "address_name", class: "form-control", placeholder: "Адрес" %>
+            <%= text_field_tag :departament, list: "address_name", class: "form-control", placeholder: "Адрес" %>
               <datalist id="address_name">
                 <option value="улица тута">
                 <option value="проспект тама">
               </datalist>
-              <%= text_field_tag :house,"", placeholder: "Номер дома", class: "form-control" %>
-              <%= text_field_tag :apartment,"", placeholder: "Номер квартиры", class: "form-control" %>
           </div>
         </div>
 
@@ -81,7 +79,8 @@
           <%= form.text_area :discription, placeholder: "Примичания", class: "form-control" %>
         </div>
 
-        <%= form.submit "Оформить заказ", class: "btn btn-primary btn-block" %>
+        <%= form.submit "Изменить заказ", class: "btn btn-primary btn-block" %>
+        <%= link_to 'Назад', admin_orders_path, class: "btn btn-outline-primary btn-block", style: "margin-top: 5px;" %>
       <% end %>
     </div>
     <div class="col-8">
@@ -89,7 +88,7 @@
         <thead>
         </thead>
         <tbody>
-          <% @cart.cart_products.each do |cart_product| %>
+          <% order.cart.cart_products.each do |cart_product| %>
             <tr>
               <td><%= link_to image_tag(cart_product.product.attachments.first.thumb.url), cart_product.product %></td>
               <td class="text-left">
@@ -105,7 +104,7 @@
           <% end %>
             <tr>
               <td colspan="4"></td>
-              <td colspan="1" id="total_cart_sum"><%= @cart.total_cart_sum %> грн.</td>
+              <td colspan="1" id="total_cart_sum"><%= order.cart.total_cart_sum %> грн.</td>
             </tr>
         </tbody>
       </table>
@@ -120,16 +119,6 @@
   $('#departament').on('click', function(){
     $('#address_field').css('display', 'none');
     $('#departament_field').css('display', 'block');
-  });
-
-  $('#order_payment').on('click', function(){
-    if($(this).val() == 'Наложенный платеж'){
-      $('#order_delivery').val('Доставка Новой Почтой');
-      $('.delivery').css('display', 'block');
-    }else if ($(this).val() == 'Наличными') {
-      $('#order_delivery').val('Самовывоз');
-      $('.delivery').css('display', 'none');
-    }
   });
 
   $('#order_delivery').on('change', function(){

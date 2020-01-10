@@ -20,5 +20,5 @@ class CategoriesController < ApplicationController
     #   instance_variable_set("@#{product_propertie}", true)
     # end
   end
-  
+
 end

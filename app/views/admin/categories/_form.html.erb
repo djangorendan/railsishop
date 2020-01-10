@@ -1,3 +1,13 @@
+<style media="screen">
+  .photo_label {
+    cursor: pointer;
+    border: 1px dashed black;
+  }
+  .w-100 {
+    text-align: right;
+  }
+</style>
+
 <%= form_for [:admin, @category] do |form| %>
   <% if category.errors.any? %>
     <div id="error_explanation">
@@ -11,35 +21,65 @@
     </div>
   <% end %>
 
-  <div>
-    <%= image_tag(@category.image.url, alt: 'Image') if @category.image? %>
-    <%= form.label :image %>
-    <%= form.file_field :image %>
+  <div class="row">
+    <div class="col-2 field">
+      <% if @category.image? %>
+        <%= form.label :image, image_tag(@category.image.url, size: "180x200", id: "img"), class: "photo_label" %>
+        <%= form.file_field :image, class: "d-none" %>
+      <% else %>
+        <%= form.label :image, image_tag("a3722359401_10.jpg", size: "180x200", id: "img"),class: "photo_label" %>
+        <%= form.file_field :image, class: "d-none" %>
+      <% end %>
+    </div>
+
+    <div class="col">
+      <div class="field">
+        <%= form.label :name, "Наименование:" %>
+        <%= form.text_field :name, class: "form-control" %>
+      </div>
+
+      <div class="field">
+        <%= form.label :parent_id, "Родитель:" %>
+        <%= form.collection_select :parent_id, Category.roots, :id, :name, {:prompt => true}, {:class => "form-control"} %>
+      </div>
+
+      <div class="field">
+        <%= form.label :position, "Позиция:" %>
+        <%= form.number_field :position, class: "form-control" %>
+      </div>
+
+      <div class="field">
+        <%= form.label :property_ids, "Характеристики:" %>
+        <%= form.collection_select :property_ids, Property.roots, :id, :name, {}, :multiple => true, class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="col-2 actions">
+      <%= form.submit 'Сохранить категорию', class: "w-100 btn" %>
+      <%= link_to 'Назад', admin_categories_path, class: "w-100 btn" %>
+    </div>
+
   </div>
 
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
-  </div>
 
-  <div class="field">
-    <%= form.label :parent_id %>
-    <%= form.collection_select :parent_id, Category.roots, :id, :name, :prompt => true %>
-  </div>
 
-  <div class="field">
-    <%= form.label :position %>
-    <%= form.number_field :position %>
-  </div>
-
-  <div class="field">
-    <%= form.label :property_ids %>
-    <%= form.collection_select :property_ids, Property.roots, :id, :name, {}, :multiple => true %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
 <% end %>
 
-<%= link_to 'New Category', new_admin_category_path %>
+<script>
+  $('#category_image').change(function () {
+    var input = $(this)[0];
+    if (input.files && input.files[0]) {
+      if (input.files[0].type.match('image.*')) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          $('#img').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(input.files[0]);
+      } else {
+        console.log('ошибка, не изображение');
+      }
+    } else {
+      console.log('хьюстон у нас проблема');
+    }
+  });
+</script>

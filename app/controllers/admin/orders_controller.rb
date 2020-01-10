@@ -1,13 +1,13 @@
-class OrdersController < ApplicationController
+class Admin::OrdersController < ApplicationController
+  layout "admin"
   before_action :set_order, only: [:show, :edit, :update, :destroy]
-  before_action :set_user, only: [:create]
 
   after_action :update_product_quantity, only: [:create]
 
   # GET /orders
   # GET /orders.json
   def index
-    @orders = Order.order(id: :desc).where(user_id: current_user)
+    @orders = Order.order(id: :desc).all
   end
 
   # GET /orders/1
@@ -28,16 +28,20 @@ class OrdersController < ApplicationController
   # POST /orders
   # POST /orders.json
   def create
-    @order = Order.new(user_id: @user.id, cart_id: session[:current_cart_id], status: 'Новый')
+    user = User.find_or_create_by(email: params[:email])
+    user.update(
+      phone: params[:phone],
+      first_name: params[:first_name],
+      last_name: params[:last_name],
+      city: params[:city],
+      departament: params[:departament]
+      )
+    @order = Order.new(user_id: user.id, cart_id: session[:current_cart_id], status: 'Новый')
     @order.update(order_params)
-    unless params[:address].blank?
-      departament = params[:address] + params[:house] + params[:apartment]
-      @order.update(departament: departament)
-    end
-
+    sign_in(user)
     respond_to do |format|
       if @order.save
-        format.html { redirect_to orders_path, notice: 'Заказ №'+ @order.id.to_s + ' успешно создан. В близжайшее время с Вами свяжется менеджер.' }
+        format.html { redirect_to orders_path, notice: 'Заказ №'+ @order.id + 'успешно создан. В близжайшее время с Вами свяжется менеджер.' }
         format.json { render :show, status: :created, location: @order }
       else
         format.html { render :new }
@@ -51,7 +55,7 @@ class OrdersController < ApplicationController
   def update
     respond_to do |format|
       if @order.update(order_params)
-        format.html { redirect_to orders_path, notice: 'Заказ успешно обновлен' }
+        format.html { redirect_to admin_orders_path, notice: 'Order was successfully updated.' }
         format.json { render :show, status: :ok, location: @order }
       else
         format.html { render :edit }
@@ -81,7 +85,7 @@ class OrdersController < ApplicationController
         end
       end
       @order.update(status: 'Отменен', discription: params[:reason])
-      redirect_to orders_path, notice: 'Заказ №' + @order.id.to_s + ' успешно отменен.'
+      redirect_to admin_orders_path, notice: 'Заказ №' + @order.id.to_s + ' успешно отменен.'
   end
 
   private
@@ -93,19 +97,6 @@ class OrdersController < ApplicationController
         product.save
       end
       session[:current_cart_id] = nil
-    end
-
-    def set_user
-      @user = User.find_or_create_by(email: params[:order][:email])
-      if @user.save
-        @user.update(
-          phone: params[:order][:phone],
-          first_name: params[:order][:first_name],
-          last_name: params[:order][:last_name],
-          city: params[:order][:city],
-          departament: params[:order][:departament])
-      end
-      sign_in(@user)
     end
 
     # Use callbacks to share common setup or constraints between actions.
