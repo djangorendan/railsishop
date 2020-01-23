@@ -30,4 +30,8 @@ Rails.application.routes.draw do
   get 'results', to: 'results#index', as: 'results'
 
   get '/admin' => 'admin/orders#index'
+
+  get '/about_us', to: 'etc#about_us'
+  get '/delivery', to: 'etc#delivery'
+  get '/payments', to: 'etc#payments'
 end

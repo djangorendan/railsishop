@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable, # :validatable and :omniauthable
-  has_many :orders
+  has_many :orders, dependent: :nullify
 
   def full_name
     first_name+' '+last_name
