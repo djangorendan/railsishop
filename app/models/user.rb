@@ -3,6 +3,8 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable, # :validatable and :omniauthable
   has_many :orders, dependent: :nullify
 
+  # validates :first_name, :last_name, :email, presence: true
+
   def full_name
     first_name+' '+last_name
   end
@@ -32,4 +34,5 @@ class User < ApplicationRecord
          :registerable,
          :recoverable,
          :rememberable
+         
 end

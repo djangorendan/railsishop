@@ -4,4 +4,5 @@
   $('#products_container').html('Пусто');
 <% end%>
 
-$('#filter_form').html("<%= escape_javascript render(:partial => 'patrials/filter_form') %>");
+$('#filter_form_div').html("<%= escape_javascript render(:partial => 'patrials/filter_form') %>");
+$('body').trigger('filterUpdated');

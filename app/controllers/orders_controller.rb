@@ -34,6 +34,8 @@ class OrdersController < ApplicationController
       departament = params[:address] + params[:house] + params[:apartment]
       @order.update(departament: departament)
     end
+    OrderMailer.with(order: @order).new_order.deliver_now
+    OrderMailer.with(order: @order).new_order_admin.deliver_now
 
     respond_to do |format|
       if @order.save
@@ -82,6 +84,7 @@ class OrdersController < ApplicationController
       end
       @order.update(status: 'Отменен', discription: params[:reason])
       redirect_to orders_path, notice: 'Заказ №' + @order.id.to_s + ' успешно отменен.'
+      OrderMailer.with(order: @order).cancel_order.deliver_now
   end
 
   private
@@ -96,14 +99,19 @@ class OrdersController < ApplicationController
     end
 
     def set_user
-      @user = User.find_or_create_by(email: params[:order][:email])
-      if @user.save
-        @user.update(
-          phone: params[:order][:phone],
-          first_name: params[:order][:first_name],
-          last_name: params[:order][:last_name],
-          city: params[:order][:city],
-          departament: params[:order][:departament])
+      password = Devise.friendly_token(8)
+      password_confirmation = password
+      @user = User.create_with(
+        phone: params[:order][:phone],
+        first_name: params[:order][:first_name],
+        last_name: params[:order][:last_name],
+        city: params[:order][:city],
+        departament: params[:order][:departament],
+        password: password
+      ).find_or_initialize_by(email: params[:order][:email])
+      if @user.new_record?
+        @user.save
+        UserMailer.with(user: @user, password: password).welcome_mail.deliver_now
       end
       sign_in(@user)
     end

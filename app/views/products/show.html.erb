@@ -17,12 +17,12 @@
 </nav>
 
 <div class="row">
-  <div class="col-12 col-md-4">
+  <div class="col-12 col-md-5">
     <% @product.attachments.each do |photo| %>
       <%= image_tag(photo.product_main_image_thumb.url, width: '100%', style: "padding-bottom: 8px;") %>
     <% end %>
   </div>
-  <div class="col-12 col-md-8">
+  <div class="col-12 col-md-7">
     <div class="row">
       <h1 class="col-8"><%= @product.name %></h1>
       <p class="col-4 text-right">Индекс: <%= @product.id %></p>
@@ -39,13 +39,13 @@
       <% end %>
     <% end %>
     <ul class="discription-navbar nav nav-tabs" id="myTab" role="tablist" style="padding-top: 10px;">
-      <li class="nav-item" style="width: 18%;">
+      <li class="nav-item text-center" style="width: 25%;">
         <a class="nav-link active" id="home-tab" data-toggle="tab" href="#discription" role="tab" aria-controls="discription" aria-selected="true">Описание</a>
       </li>
-      <li class="nav-item text-center" style="width: 60%;">
+      <li class="nav-item text-center" style="width: 50%;">
         <a class="nav-link" id="profile-tab" data-toggle="tab" href="#specifications" role="tab" aria-controls="specifications" aria-selected="false">Технические характеристики</a>
       </li>
-      <li class="nav-item" style="width: 22%;">
+      <li class="nav-item text-center" style="width: 25%;">
         <a class="nav-link" id="contact-tab" data-toggle="tab" href="#comments" role="tab" aria-controls="comments" aria-selected="false">Комментарии</a>
       </li>
     </ul>

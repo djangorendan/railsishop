@@ -4,14 +4,14 @@
   }
 </style>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+<%= form_for(resource, as: resource_name, url: session_path(resource_name), html:{id: 'sign_in_user', :'data-type' => 'json'}, remote: true) do |f| %>
 
   <div class="auth_field">
-    <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "Адрес электронной почты", class: "form-control" %>
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "Адрес электронной почты", class: "form-control", required: true %>
   </div>
 
   <div class="auth_field">
-    <%= f.password_field :password, autocomplete: "current-password", placeholder: "Пароль", class: "form-control" %>
+    <%= f.password_field :password, autocomplete: "current-password", placeholder: "Пароль", class: "form-control", required: true %>
   </div>
 
   <% if devise_mapping.rememberable? %>

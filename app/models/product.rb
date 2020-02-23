@@ -34,8 +34,8 @@ class Product < ApplicationRecord
     product_properties.each do |key, product_properties_by_category|
 
       product_ids_1 = ProductProperty.select('product_id').where(
-        "name IN (#{product_properties_by_category.map{|pp| "'#{pp}'"}.join(',')})"
-      ).group('name, product_id').map{|pp| pp.product_id}.sort()
+        "value IN (#{product_properties_by_category.map{|pp| "'#{pp}'"}.join(',')})"
+      ).group('value, product_id').map{|pp| pp.product_id}.sort()
 
       if product_ids.length > 0
         product_ids.map!{|pi| pi if product_ids_1.include?(pi)}

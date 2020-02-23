@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   resources :orders, except: [:show, :destroy] do
     get :cancel
   end
-  devise_for :users, controllers: { registrations: 'users/registrations' }
+  devise_for :users, controllers: { registrations: 'users/registrations'}
 
   resources :products, only: :show
   resources :categories, only: :show

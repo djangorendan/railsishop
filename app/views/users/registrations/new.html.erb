@@ -13,21 +13,21 @@
 
       <div class="form-row">
         <div class="col">
-          <%= f.text_field :phone, class: "form-control", placeholder: "Телефон" %>
+          <%= f.text_field :phone, class: "form-control", placeholder: "Телефон", required: true %>
         </div>
 
         <div class="col">
-          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder: "Адресс электронной почты" %>
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder: "Адресс электронной почты", required: true %>
         </div>
       </div>
 
       <div class="form-row">
         <div class="col">
-          <%= f.text_field :first_name, class: "form-control", placeholder: "Имя" %>
+          <%= f.text_field :first_name, class: "form-control", placeholder: "Имя", required: true %>
         </div>
 
         <div class="col">
-          <%= f.text_field :last_name, class: "form-control", placeholder: "Фамилия" %>
+          <%= f.text_field :last_name, class: "form-control", placeholder: "Фамилия", required: true %>
         </div>
       </div>
 

@@ -4,12 +4,15 @@ class Users::RegistrationsController < Devise::RegistrationsController
   before_action :configure_sign_up_params, only: [:create]
   before_action :configure_account_update_params, only: [:update]
 
-  before_action :set_password, only: [:create]
+  # respond_to :html, :json
 
-  def set_password
-    password = Devise.friendly_token
-    password_confirmation = password
-  end
+  # before_action :set_password, only: [:create]
+  #
+  # def set_password
+  #   password = Devise.friendly_token(8)
+  #   password_confirmation = password
+  #   UserMailer.with(user: user).welcome_mail.deliver_now
+  # end
 
   # GET /resource/sign_up
   # def new
@@ -17,9 +20,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # POST /resource
-  # def create
-  #   super
-  # end
+  def create
+    super do |user|
+      password = Devise.friendly_token(8)
+      password_confirmation = password
+      user.update(password: password)
+      UserMailer.with(user: @user, password: password).welcome_mail.deliver_now
+    end
+  end
 
   # GET /resource/edit
   # def edit
