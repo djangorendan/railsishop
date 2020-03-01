@@ -3,9 +3,9 @@ module ApplicationHelper
     Category.all
   end
 
-  def carts_products_count
+  def current_cart
     cart_id = session[:current_cart_id]
-    Cart.find(cart_id).total_product_count if cart_id
+    Cart.find(session[:current_cart_id]) if cart_id
   end
 
   def filter_checked? prorerties, name

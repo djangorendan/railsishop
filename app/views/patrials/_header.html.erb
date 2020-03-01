@@ -1,4 +1,38 @@
-<div class="container-fluid" style="font-family: 'Russo One', sans-serif;">
+<style media="screen">
+  a.nav-link.nav-custom,a.nav-link.nav-custom :hover {
+    color: yellow !important;
+  }
+
+  #query::placeholder {
+    color: yellow;
+  }
+
+  #query {
+    color: #007bff;
+  }
+
+  .btn-outline-warning.custom-button {
+    margin-left: 5px;
+    color: yellow;
+    border-color: yellow;
+  }
+
+  .btn-outline-warning.custom-button:hover {
+    color: #007bff;
+    background-color: yellow;
+  }
+
+  .btn-custom {
+    background-color: yellow;
+    color: #007bff !important;
+  }
+
+  .btn-custom:hover {
+    cursor: pointer;
+  }
+</style>
+
+<div class="container-fluid">
   <div class="row justify-content-between">
     <div class="col-md-auto col-sm-12 text-center">
       <span style="font-size: 50px; font-family: 'Permanent Marker', cursive; color: blue;"><a href="/">Angar.kh.ua</a></span>
@@ -29,11 +63,11 @@
     </div>
     <div class="col-xl-4 col-auto text-right" style="margin-top: 15px;">
       <% if current_user %>
-        <%= link_to "Личный кабинет", orders_path, class: "btn btn-primary" %>
-        <%= link_to "Выход", destroy_user_session_path, method: :delete, class: "btn btn-dark", style: "color: white" %>
+        <%= link_to "Личный кабинет", orders_path, class: "btn btn-primary", style: "color: yellow;" %>
+        <%= link_to "Выход", destroy_user_session_path, method: :delete, class: "btn btn-dark", style: "color: yellow;" %>
       <% else %>
         <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+        <button type="button" style="color: yellow;" class="btn btn-primary" data-toggle="modal" data-target="#registrationModal">
           Авторизация
         </button>
       <% end %>
@@ -41,7 +75,7 @@
   </div>
 </div>
 
-<nav class="navbar navbar-expand-md navbar-dark bg-primary" style="padding: 5px 0 5px 1rem; margin-bottom: 10px; font-family: 'Russo One', sans-serif;">
+<nav class="navbar navbar-expand-md navbar-dark bg-primary" style="padding: 5px 0 5px 1rem; margin-bottom: 10px;">
   <button class="navbar-toggler order-first" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -49,13 +83,13 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" href="/">Главная</a>
+        <a class="nav-link nav-custom" href="/">Главная</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="https://docs.google.com/spreadsheets/d/1MHJE8QwpMQtp5pESb031vKWT_pocnjgAB9Wv5z6bpRM/edit#gid=2124455559" target="_blank">Прайс</a>
+        <a class="nav-link nav-custom" href="https://docs.google.com/spreadsheets/d/1MHJE8QwpMQtp5pESb031vKWT_pocnjgAB9Wv5z6bpRM/edit#gid=2124455559" target="_blank">Прайс</a>
       </li>
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="nav-link nav-custom dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Категории товаров
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -65,37 +99,43 @@
         </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/about_us">О нас</a>
+        <a class="nav-link nav-custom" href="/about_us">О нас</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/payments">Способы оплаты</a>
+        <a class="nav-link nav-custom" href="/payments">Способы оплаты</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/delivery">Способы доставки</a>
+        <a class="nav-link nav-custom" href="/delivery">Способы доставки</a>
       </li>
     </ul>
   </div>
   <div class="col-auto">
     <%= form_tag results_path, method: :get, role: 'search', class: "form-inline my-2 my-lg-0" do %>
       <%= text_field_tag :query, params[:query], class: "form-control", placeholder: "Поиск" %>
-      <button class="btn btn-outline-light" type="submit" style="margin-left: 10px;"><i class="fas fa-search"></i></button>
+      <button class="btn btn-outline-warning custom-button" type="submit"><i class="fas fa-search"></i></button>
     <% end %>
   </div>
   <div class="col-auto header_buttons">
-    <% if session[:current_cart_id] && carts_products_count != 0 %>
-      <a href="/carts/<%= session[:current_cart_id] %>" id="cart_link" class="btn btn-light"><i class="fas fa-shopping-cart"></i> <span id="cart_link_count"><%= carts_products_count %><span></a>
+    <% if session[:current_cart_id] && current_cart.total_product_count != 0 %>
+      <a id="cart_link" type="" class="btn btn-custom" data-toggle="modal" data-target="#cartModal">
+        <i class="fas fa-shopping-cart"></i>
+        <span id="cart_link_count"><%= current_cart.total_product_count %><span>
+      </a>
     <% else %>
-      <a href="/carts/<%= session[:current_cart_id] %>" id="cart_link" class="btn btn-light disabled"><i class="fas fa-shopping-cart"></i> <span id="cart_link_count">0</span></a>
+      <a id="cart_link" type="" class="btn btn-custom disabled" data-toggle="modal" data-target="#cartModal">
+        <i class="fas fa-shopping-cart"></i>
+        <span id="cart_link_count">0<span>
+      </a>
     <% end %>
   </div>
 </nav>
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- Registration Modal -->
+<div class="modal fade" id="registrationModal" tabindex="-1" role="dialog" aria-labelledby="registrationModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h2 class="modal-title" id="exampleModalLabel">Авторизация</h2>
+        <h2 class="modal-title" id="registrationModalLabel">Авторизация</h2>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -104,9 +144,30 @@
         <%= render "users/sessions/new" %>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-        <%= link_to "Регистрация", new_registration_path(resource_name), class: "btn btn-primary" %>
-        <%= link_to "Востановление пароля", new_password_path(resource_name), class: "btn btn-primary" %>
+        <button type="button" class="btn btn-dark" style="color:yellow;" data-dismiss="modal">Закрыть</button>
+        <%= link_to "Регистрация", new_registration_path(resource_name), class: "btn btn-primary", style: "color:yellow;" %>
+        <%= link_to "Востановление пароля", new_password_path(resource_name), class: "btn btn-primary", style: "color:yellow;" %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Cart Modal -->
+<div class="modal fade" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="cartModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="cartModalLabel">Корзина товаров</h2>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <%= render "carts/show" %>
+      </div>
+      <div class="modal-footer">
+        <%= link_to "Оформить заказ", new_order_path(), class: "btn btn-primary", style: "color: yellow;" %>
+        <%= link_to "Очистить корзину", delete_all_products_from_cart_carts_path, class: "btn btn-primary", style: "color: yellow;" %>
       </div>
     </div>
   </div>

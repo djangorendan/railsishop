@@ -27,12 +27,19 @@
       <ul style="padding-inline-start: 0.25rem; list-style-type: none;">
         <% @category.properties.each do |property| %>
             <% property.children.each do |property_child| %>
-              <li><%= property_child.name %></li>
+              <li>
+                <a class="" data-toggle="collapse" href="#property_<%= property_child.id %>" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">
+                  <%= property_child.name %>
+                </a>
+              </li>
               <ul style="padding-inline-start: 0.5rem; list-style-type: none; font-size: 0.8rem;">
                 <% property_child.product_properties.grouped_with_product_count.each do |product_property| %>
                   <% if product_property.value %>
-                    <li><input class="filter_checkbox" type="checkbox" data-category-property-id="<%= product_property.property_id%>" data-product-name="<%= product_property.value%>" <%= filter_checked?(@product_properties, product_property.value) ? 'checked' : ''%>><%= product_property.value%>
-                    (<%= product_property.products_count%>)</li>
+                    <div class="collapse multi-collapse" id="property_<%= property_child.id %>">
+                      <li><input class="filter_checkbox" type="checkbox" data-category-property-id="<%= product_property.property_id%>" data-product-name="<%= product_property.value%>" <%= filter_checked?(@product_properties, product_property.value) ? 'checked' : ''%>><%= product_property.value%>
+                      (<%= product_property.products_count%>)</li>
+                    </div>
+
                   <% end %>
                 <% end %>
               </ul>
