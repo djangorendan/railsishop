@@ -71,6 +71,6 @@ class Admin::PropertiesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def property_params
-      params.require(:property).permit(:name, :position, :parent_id)
+      params.require(:property).permit(:name, :position, :parent_id, :display_filter, :display_product)
     end
 end

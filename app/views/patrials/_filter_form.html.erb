@@ -26,7 +26,7 @@
 
       <ul style="padding-inline-start: 0.25rem; list-style-type: none;">
         <% @category.properties.each do |property| %>
-            <% property.children.each do |property_child| %>
+            <% property.children.filter_displayed.each do |property_child| %>
               <li>
                 <a class="" data-toggle="collapse" href="#property_<%= property_child.id %>" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">
                   <%= property_child.name %>

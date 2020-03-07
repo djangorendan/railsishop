@@ -26,6 +26,16 @@
     <%= form.collection_select :parent_id, Property.roots, :id, :name, :prompt => true %>
   </div>
 
+  <div class="field">
+    <%= form.label :display_filter %>
+    <%= form.check_box :display_filter %>
+  </div>
+
+  <div class="field">
+    <%= form.label :display_product %>
+    <%= form.check_box :display_product %>
+  </div>
+
   <div class="actions">
     <%= form.submit %>
   </div>

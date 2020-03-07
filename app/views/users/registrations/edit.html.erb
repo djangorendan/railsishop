@@ -53,6 +53,11 @@
 
       <h3>Замена пароля <em>оставьте пустым, если не хотите менять</em></h3>
 
+      <div class="" style="margin-bottom: 10px;">
+        <%= f.label :current_password, 'Текущий пароль (для подтверждения изменений)' %>
+        <%= f.password_field :current_password, autocomplete: "current-password", class: 'form-control' %>
+      </div>
+
       <div class="form-row">
         <div class="col">
           <%= f.password_field :password, autocomplete: "new-password", class: 'form-control', placeholder: "Новый пароль" %>

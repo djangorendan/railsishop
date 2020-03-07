@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_04_124347) do
+ActiveRecord::Schema.define(version: 2019_11_18_125205) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,28 +18,28 @@ ActiveRecord::Schema.define(version: 2019_12_04_124347) do
   create_table "cart_products", force: :cascade do |t|
     t.bigint "cart_id"
     t.bigint "product_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.integer "product_count"
     t.integer "total_product_sum"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["cart_id"], name: "index_cart_products_on_cart_id"
     t.index ["product_id"], name: "index_cart_products_on_product_id"
   end
 
   create_table "carts", force: :cascade do |t|
+    t.integer "total_cart_sum", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "total_cart_sum", default: 0
   end
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
     t.string "ancestry"
     t.integer "position"
+    t.string "image"
+    t.string "slug"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "slug"
-    t.string "image"
     t.index ["ancestry"], name: "index_categories_on_ancestry"
     t.index ["slug"], name: "index_categories_on_slug", unique: true
   end
@@ -70,15 +70,15 @@ ActiveRecord::Schema.define(version: 2019_12_04_124347) do
     t.string "payment"
     t.string "status"
     t.text "discription"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "delivery"
     t.string "phone"
     t.string "email"
     t.string "first_name"
     t.string "last_name"
     t.string "city"
     t.string "departament"
+    t.string "delivery"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["cart_id"], name: "index_orders_on_cart_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
@@ -95,18 +95,18 @@ ActiveRecord::Schema.define(version: 2019_12_04_124347) do
 
   create_table "products", force: :cascade do |t|
     t.string "name"
+    t.string "slug"
+    t.string "summary"
+    t.integer "price"
+    t.integer "quantity"
+    t.boolean "display"
+    t.text "discription"
+    t.integer "views"
+    t.integer "index"
     t.bigint "category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.json "attachments"
-    t.string "slug"
-    t.string "summary"
-    t.text "discription"
-    t.integer "price"
-    t.integer "quantity"
-    t.boolean "display"
-    t.integer "views"
-    t.integer "index"
     t.index ["category_id"], name: "index_products_on_category_id"
     t.index ["index"], name: "index_products_on_index", unique: true
     t.index ["slug"], name: "index_products_on_slug", unique: true
@@ -115,9 +115,11 @@ ActiveRecord::Schema.define(version: 2019_12_04_124347) do
   create_table "properties", force: :cascade do |t|
     t.string "name"
     t.string "ancestry"
+    t.integer "position"
+    t.boolean "display_filter"
+    t.boolean "display_product"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "position"
     t.index ["ancestry"], name: "index_properties_on_ancestry"
   end
 
@@ -131,9 +133,9 @@ ActiveRecord::Schema.define(version: 2019_12_04_124347) do
     t.datetime "updated_at", null: false
     t.string "first_name"
     t.string "last_name"
+    t.string "phone"
     t.string "city"
     t.string "departament"
-    t.string "phone"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["phone"], name: "index_users_on_phone", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

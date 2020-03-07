@@ -6,6 +6,13 @@ class CreateOrders < ActiveRecord::Migration[5.2]
       t.string :payment
       t.string :status
       t.text :discription
+      t.string :phone
+      t.string :email
+      t.string :first_name
+      t.string :last_name
+      t.string :city
+      t.string :departament
+      t.string :delivery
 
       t.timestamps
     end

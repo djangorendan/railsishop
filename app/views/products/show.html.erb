@@ -41,7 +41,9 @@
               <li><%= pp.property.name %>:</li>
             <% else %>
               <ul>
-                <li><%= pp.property.name %>: <%= pp.value %></li>
+                <% if pp.value? %>
+                  <li><%= pp.property.name %>: <%= pp.value %></li>
+                <% end %>
               </ul>
             <% end %>
           <% end %>
