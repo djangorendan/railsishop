@@ -10,6 +10,7 @@ class CartsController < ApplicationController
   end
 
   def product_to_cart
+    @product = Product.find(params[:product_id])
     product_in_cart = @cart.cart_products.find_or_create_by(product_id: @product.id)
     if params[:product_count]
       product_in_cart.update(product_count: params[:product_count])
@@ -25,13 +26,10 @@ class CartsController < ApplicationController
   end
 
   def delete_product_from_cart
-    @cart.cart_products.find(params[:cart_products_id]).delete
+    @cart_product = @cart.cart_products.find(params[:cart_products_id])
+    @cart_product.delete
     respond_to do |format|
-      if @cart.cart_products.count > 0
-        format.html { redirect_to @cart }
-      else
-        format.html { redirect_to root_path }
-      end
+      format.js
     end
   end
 
@@ -44,11 +42,13 @@ class CartsController < ApplicationController
 
   private
     def set_cart_for_add_product
-      @product = Product.find(params[:product_id])
-      @cart = Cart.find(session[:current_cart_id])
-      rescue ActiveRecord::RecordNotFound
-      @cart = Cart.create
-      session[:current_cart_id] = @cart.id
+      if session[:current_cart_id]
+        @cart = Cart.find_by_id(session[:current_cart_id])
+      end
+      if session[:current_cart_id].nil?
+        @cart = Cart.create!
+        session[:current_cart_id] = @cart.id
+      end
     end
 
     def cart_params

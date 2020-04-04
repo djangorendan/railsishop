@@ -1,13 +1,15 @@
-document.getElementById('cart_product_<%= @cart_product.id%>').remove()
-// 
-// var cart_notice = document.createElement("div");
-// cart_notice.className = "fixed-top alert alert-primary text-center notice"
-// cart_notice.innerText = "<%= @product.name %> убран из корзину";
-//
-// document.body.appendChild(cart_notice);
-//
-// setTimeout(
-//   function(){
-//     cart_notice.remove();
-//   }, 2000
-// )
+document.getElementById('cart_product_<%= @cart_product.id %>').remove()
+document.getElementById('cart_link_count').innerText = "<%= @cart.total_product_count %>";
+document.getElementById('total_cart_sum').innerText = "<%= @cart.total_cart_sum %> грн.";
+
+var cart_notice = document.createElement("div");
+cart_notice.className = "alert alert-primary fixed-top notice text-center";
+cart_notice.innerText = "<%= @cart_product.product.name %> убран из корзины";
+
+document.body.appendChild(cart_notice);
+
+setTimeout(
+  function(){
+    cart_notice.remove();
+  }, 2000
+)

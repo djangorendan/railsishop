@@ -6,7 +6,7 @@ document.getElementById('total_cart_sum').innerText = "<%= @cart.total_cart_sum 
 // document.getElementById('product_<%= @product.id %>_name').innerText = "<%= @product.name %>"
 
 var cart_notice = document.createElement("div");
-cart_notice.className = "alert alert-primary position-fixed notice text-center";
+cart_notice.className = "alert alert-primary fixed-top notice text-center";
 cart_notice.innerText = "<%= @product.name %> успешно добавлен в корзину";
 
 document.body.appendChild(cart_notice);
