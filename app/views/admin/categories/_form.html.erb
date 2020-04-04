@@ -3,9 +3,15 @@
     cursor: pointer;
     border: 1px dashed black;
   }
+
   .w-100 {
     text-align: right;
   }
+
+  .field {
+    margin-bottom: 10px;
+  }
+
 </style>
 
 <%= form_for [:admin, @category] do |form| %>
@@ -27,30 +33,30 @@
         <%= form.label :image, image_tag(@category.image.url, size: "180x200", id: "img"), class: "photo_label" %>
         <%= form.file_field :image, class: "d-none" %>
       <% else %>
-        <%= form.label :image, image_tag("a3722359401_10.jpg", size: "180x200", id: "img"),class: "photo_label" %>
+        <%= form.label :image, image_tag("favicon.jpeg", size: "180x200", id: "img"),class: "photo_label" %>
         <%= form.file_field :image, class: "d-none" %>
       <% end %>
     </div>
 
     <div class="col">
-      <div class="field">
-        <%= form.label :name, "Наименование:" %>
-        <%= form.text_field :name, class: "form-control" %>
+      <div class="row field">
+        <%= form.label :name, "Наименование:", class: "col-2" %>
+        <%= form.text_field :name, class: "form-control col-10" %>
       </div>
 
-      <div class="field">
-        <%= form.label :parent_id, "Родитель:" %>
-        <%= form.collection_select :parent_id, Category.roots, :id, :name, {:prompt => true}, {:class => "form-control"} %>
+      <div class="row field">
+        <%= form.label :parent_id, "Родитель:", class: "col-2" %>
+        <%= form.collection_select :parent_id, Category.roots, :id, :name, {:prompt => true}, {:class => "col-10 form-control"} %>
       </div>
 
-      <div class="field">
-        <%= form.label :position, "Позиция:" %>
-        <%= form.number_field :position, class: "form-control" %>
+      <div class="row field">
+        <%= form.label :position, "Позиция:", class: "col-2" %>
+        <%= form.number_field :position, class: "col-10 form-control" %>
       </div>
 
-      <div class="field">
-        <%= form.label :property_ids, "Характеристики:" %>
-        <%= form.collection_select :property_ids, Property.roots, :id, :name, {}, :multiple => true, class: "form-control" %>
+      <div class="row field">
+        <%= form.label :property_ids, "Характеристики:", class: "col-2" %>
+        <%= form.collection_select :property_ids, Property.roots, :id, :name, {}, :multiple => true, class: "col-10 form-control", style: "height: 350px;" %>
       </div>
     </div>
 
@@ -58,11 +64,7 @@
       <%= form.submit 'Сохранить категорию', class: "w-100 btn" %>
       <%= link_to 'Назад', admin_categories_path, class: "w-100 btn" %>
     </div>
-
   </div>
-
-
-
 <% end %>
 
 <script>

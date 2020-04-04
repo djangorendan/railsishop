@@ -4,7 +4,7 @@
   }
 
   #query::placeholder {
-    color: yellow;
+    color: #007bff;
   }
 
   #query {
@@ -30,12 +30,23 @@
   .btn-custom:hover {
     cursor: pointer;
   }
+
+  .notice {
+    color: yellow;
+    top: 100px;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
 </style>
 
 <div class="container-fluid">
   <div class="row justify-content-between">
     <div class="col-md-auto col-sm-12 text-center">
-      <span style="font-size: 50px; font-family: 'Permanent Marker', cursive; color: blue;"><a href="/">Angar.kh.ua</a></span>
+      <a href="/">
+        <%= image_tag('logo.jpeg', alt: 'logo', style: 'height: 65px;') %>
+      </a>
     </div>
     <div class="col-md-auto">
       <address class="" style="margin-bottom: -1rem;">
@@ -61,7 +72,7 @@
         </ul>
       </address>
     </div>
-    <div class="col-xl-4 col-auto text-right" style="margin-top: 15px;">
+    <div class="col-md-auto text-right" style="margin-top: 15px;">
       <% if current_user %>
         <%= link_to "Личный кабинет", orders_path, class: "btn btn-primary", style: "color: yellow;" %>
         <%= link_to "Выход", destroy_user_session_path, method: :delete, class: "btn btn-dark", style: "color: yellow;" %>
@@ -94,7 +105,7 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <% categories.each do |category| %>
-              <%= link_to category.name, category_path(category), class: "dropdown-item" %>
+              <%= link_to category.name, category_path(category), class: "dropdown-item", style: "color: #007bff;" %>
             <% end %>
         </div>
       </li>

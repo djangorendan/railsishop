@@ -8,6 +8,7 @@ class Product < ApplicationRecord
   accepts_nested_attributes_for :product_properties, :allow_destroy => true
 
   has_many :cart_products, dependent: :destroy
+  has_many :product_comments, dependent: :destroy
 
   extend FriendlyId
   friendly_id :name, use: :slugged

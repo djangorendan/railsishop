@@ -1,22 +1,25 @@
 <h1>Категории</h1>
 
-<ul>
-<% @categories.roots.order(:position).each do |category| %>
-  <li>
-    <%= category.position %> <%= link_to category.name, edit_admin_category_path(category) %>
-    ( <%= link_to 'Удалить', admin_category_path(category), method: :delete, data: { confirm: 'Вы уверены, что хотите удалить категорию ' + category.name + '?' } %> )
-  </li>
-  <ul>
-    <% category.children.each do |child| %>
-      <li>
-        <%= child.position %> <%= link_to child.name, edit_admin_category_path(child) %>
-        (<%= link_to 'Удалить', admin_category_path(child), method: :delete, data: { confirm: 'Вы уверены, что хотите удалить подкатегорию ' + child.name + '?' } %>)
-      </li>
-    <% end %>
-  </ul>
-<% end %>
-</ul>
-
-<br>
-
-<%= link_to '+ Довавить категорию', new_admin_category_path %>
+<div class="row">
+  <div class="col-9">
+    <ul>
+      <% @categories.roots.order(:position).each do |category| %>
+        <li>
+          <%= category.position %> <%= link_to category.name, edit_admin_category_path(category) %>
+          ( <%= link_to 'Удалить', admin_category_path(category), method: :delete, data: { confirm: 'Вы уверены, что хотите удалить категорию ' + category.name + '?' } %> )
+        </li>
+        <ul>
+          <% category.children.each do |child| %>
+            <li>
+              <%= child.position %> <%= link_to child.name, edit_admin_category_path(child) %>
+              (<%= link_to 'Удалить', admin_category_path(child), method: :delete, data: { confirm: 'Вы уверены, что хотите удалить подкатегорию ' + child.name + '?' } %>)
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
+    </ul>
+  </div>
+  <div class="col-3 text-right">
+    <%= link_to '+ Довавить категорию', new_admin_category_path %>
+  </div>
+</div>

@@ -1,10 +1,15 @@
 Rails.application.routes.draw do
+  resources :product_comments
   resources :orders, except: [:show, :destroy] do
     get :cancel
   end
   devise_for :users, controllers: { registrations: 'users/registrations'}
 
-  resources :products, only: :show
+  resources :products, only: :show do
+    get :create_product_comment
+    get :like_comment
+    get :dislike_comment
+  end
   resources :categories, only: :show
 
   resources :carts do

@@ -9,15 +9,20 @@
     border: solid 1px black;
     padding: 1px 4px;
     border-radius: 50%;
+    font-weight: normal;
+    font-style: normal;
   }
+
   .delete_product_from_cart:hover {
     color: white;
     background-color: black;
     text-decoration: none;
   }
+
 </style>
 
 <% if current_cart %>
+
   <table class="table table-hover">
     <thead>
       <tr>
@@ -30,20 +35,24 @@
     </thead>
     <tbody>
       <% current_cart.cart_products.each do |cart_product| %>
-        <tr>
-          <td><%= link_to image_tag(cart_product.product.attachments.first.thumb.url), cart_product.product %></td>
-          <td class="text-left">
+        <tr id="cart_product_<%= cart_product.id %>">
+          <td id="product_img">
+            <%= link_to image_tag(cart_product.product.attachments.first.thumb.url), cart_product.product %>
+          </td>
+          <td class="text-left" id="product_<%= cart_product.product.id %>_name">
             <div id="product_name"><%= link_to cart_product.product.name, cart_product.product %></div>
             <div style="font-size: 0.5rem"><%= cart_product.product.summary %></div>
           </td>
-          <td>
+          <td id="product_quantity">
             <input type="number" name="quantity" class="form-control cart_item_id" data-id="<%= cart_product.product.id %>"
             data-price="<%= cart_product.product.price %>"
             max="<%= cart_product.product.quantity %>" min="1" value="<%= cart_product.product_count %>">
           </td>
-          <td><%= cart_product.product.price %> грн.</td>
+          <td id="product_price">
+            <%= cart_product.product.price %> грн.
+          </td>
           <td id="product_<%= cart_product.product.id %>_sum"><%= cart_product.total_product_sum %> грн.</td>
-          <td><%= link_to "X", delete_product_from_cart_carts_url(cart_products_id: cart_product.id), class: "delete_product_from_cart" %></td>
+          <td><%= link_to "X", delete_product_from_cart_carts_url(cart_products_id: cart_product.id), class: "delete_product_from_cart", remote: true %></td>
         </tr>
       <% end %>
     </tbody>
@@ -52,9 +61,9 @@
     Итого:
     <span id="total_cart_sum"><%= current_cart.total_cart_sum %> грн.</span>
   </div>
-<% else %>
 
 <% end %>
+
 <script type="text/javascript">
   $('.cart_item_id').on('click', function(){
     product_count = $(this).val(),

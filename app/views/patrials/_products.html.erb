@@ -16,8 +16,8 @@
     <div class="col-4">
       <div class="card text-center">
         <div class="text-on-img">
-          <h4 class="card-title" style="margin: 0"><%= link_to product.name, product, style: "color: white;" %></h4>
-          <p class="card-text" style="font-size: 0.6rem;"><%= product.summary %></p>
+          <h4 class="card-title" style="margin: 0"><%= link_to product.name, product, style: "color: yellow;" %></h4>
+          <p class="card-text" style="font-size: 0.6rem; color: yellow;"><%= product.summary %></p>
         </div>
         <%= link_to image_tag(product.attachments.first.product_main_image_thumb.url, width: '280px', height: '210px', alt: product.name, class: "product_img"), product %>
         <div class="card-body">

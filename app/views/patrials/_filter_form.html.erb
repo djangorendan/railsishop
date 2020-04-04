@@ -39,7 +39,6 @@
                       <li><input class="filter_checkbox" type="checkbox" data-category-property-id="<%= product_property.property_id%>" data-product-name="<%= product_property.value%>" <%= filter_checked?(@product_properties, product_property.value) ? 'checked' : ''%>><%= product_property.value%>
                       (<%= product_property.products_count%>)</li>
                     </div>
-
                   <% end %>
                 <% end %>
               </ul>

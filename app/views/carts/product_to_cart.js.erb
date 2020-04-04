@@ -1,5 +1,18 @@
-document.getElementById('cart_link_count').innerText = "<%= @cart.total_product_count %>"
-document.getElementById('cart_link').className = "btn"
-document.getElementById('cart_link').setAttribute("style", "background-color: yellow; color: #007bff !important; cursor: pointer")
-// document.getElementById('cart_link').href = "/carts/<%= @cart.id %>"
-document.getElementById('total_cart_sum').innerText = "<%= @cart.total_cart_sum %> грн."
+document.getElementById('cart_link_count').innerText = "<%= @cart.total_product_count %>";
+document.getElementById('cart_link').className = "btn";
+document.getElementById('cart_link').setAttribute("style", "background-color: yellow; color: #007bff !important; cursor: pointer");
+document.getElementById('total_cart_sum').innerText = "<%= @cart.total_cart_sum %> грн.";
+
+// document.getElementById('product_<%= @product.id %>_name').innerText = "<%= @product.name %>"
+
+var cart_notice = document.createElement("div");
+cart_notice.className = "alert alert-primary position-fixed notice text-center";
+cart_notice.innerText = "<%= @product.name %> успешно добавлен в корзину";
+
+document.body.appendChild(cart_notice);
+
+setTimeout(
+  function(){
+    cart_notice.remove();
+  }, 2000
+)
