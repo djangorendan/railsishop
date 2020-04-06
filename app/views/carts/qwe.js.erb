@@ -1,0 +1,14 @@
+qwe();
+function qwe() {
+  var cart_notice = document.createElement("div");
+  cart_notice.className = "alert alert-danger fixed-top notice text-center";
+  cart_notice.innerText = "Превышен лимит";
+
+  document.body.appendChild(cart_notice);
+
+  setTimeout(
+    function(){
+      cart_notice.remove();
+    }, 2000
+  )
+}

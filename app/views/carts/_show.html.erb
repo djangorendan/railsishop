@@ -21,8 +21,6 @@
 
 </style>
 
-<% if current_cart %>
-
   <table class="table table-hover">
     <thead>
       <tr>
@@ -62,26 +60,26 @@
     <span id="total_cart_sum"><%= current_cart.total_cart_sum %> грн.</span>
   </div>
 
-<% end %>
-
 <script type="text/javascript">
-  $('.cart_item_id').on('click', function(){
-    product_count = $(this).val(),
-    product_id = $(this).attr('data-id'),
-    product_price = $(this).attr('data-price'),
-    data = {
+  $('#product_quantity input').on('change input', function() {
+    var product_count = parseInt($(this).val());
+    var max_product_count = parseInt($(this).attr('max'));
+    if (product_count > max_product_count) {
+      $(this).val(max_product_count);
+      product_count = max_product_count;
+    }
+    send_request(product_count, $(this).attr('data-id'));
+  });
+
+  function send_request(product_count, product_id) {
+    var data = {
       product_id: product_id,
-      product_count: product_count
-    },
+      product_count: product_count,
+      add_in_cart_modal: true
+    };
     $.ajax({
       url: "<%= product_to_cart_carts_path %>",
-      data: data,
-      success: function(data){
-        $('#product_'+product_id+'_sum').html(product_price*product_count+' грн.')
-        $('#total_cart_sum').html(sum(product_price*product_count)+' грн.')
-      },
-      error: function(data){
-      },
+      data: data
     });
-  })
+  }
 </script>

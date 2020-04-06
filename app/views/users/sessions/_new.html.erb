@@ -4,7 +4,7 @@
   }
 </style>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name), html:{id: 'sign_in_user', :'data-type' => 'json'}, remote: true) do |f| %>
+<%= form_for(resource, as: resource_name, url: session_path(resource_name), html:{id: 'sign_in_user'}) do |f| %>
 
   <div class="auth_field">
     <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "Адрес электронной почты", class: "form-control", required: true %>
@@ -25,3 +25,22 @@
     <%= f.submit "Авторизироваться", class: "btn btn-primary btn-block", style: "color: yellow;" %>
   </div>
 <% end %>
+<script>
+  var form = $('#sign_in_user');
+  form.submit(function(e) {
+    e.preventDefault();
+    $.ajax({
+      url: form.attr('action'),
+      type: form.attr('method'),
+      datatype: 'json',
+      data: form.serialize(),
+      success: function(response) {
+        location.reload();
+
+      }, error: function() {
+        form.find("[type='submit']").attr('disabled', false);
+        console.log('errrrrrrrrrrrrrrrrrrrrrrrrrrror');
+      }
+    })
+  });
+</script>

@@ -129,10 +129,10 @@
   </div>
   <div class="col-auto header_buttons">
     <% if session[:current_cart_id] && current_cart.total_product_count != 0 %>
-      <a id="cart_link" type="" class="btn btn-custom" data-toggle="modal" data-target="#cartModal">
+      <%= link_to cart_path(id: session[:current_cart_id]), remote: true, id: "cart_link", class: "btn btn-custom"  do %>
         <i class="fas fa-shopping-cart"></i>
         <span id="cart_link_count"><%= current_cart.total_product_count %><span>
-      </a>
+      <%end%>
     <% else %>
       <a id="cart_link" type="" class="btn btn-custom disabled" data-toggle="modal" data-target="#cartModal">
         <i class="fas fa-shopping-cart"></i>
@@ -175,7 +175,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <%= render "carts/show" %>
+
       </div>
       <div class="modal-footer">
         <%= link_to "Оформить заказ", new_order_path(), class: "btn btn-primary", style: "color: yellow;" %>

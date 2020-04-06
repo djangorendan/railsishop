@@ -3,16 +3,21 @@ document.getElementById('cart_link').className = "btn";
 document.getElementById('cart_link').setAttribute("style", "background-color: yellow; color: #007bff !important; cursor: pointer");
 document.getElementById('total_cart_sum').innerText = "<%= @cart.total_cart_sum %> грн.";
 
-// document.getElementById('product_<%= @product.id %>_name').innerText = "<%= @product.name %>"
+<% if @add_in_cart_modal%>
+  $("#product_<%= @product.id %>_sum").html("<%= @total_product_sum %> грн.");
+<% else %>
+  notice();
+  function notice() {
+    var cart_notice = document.createElement("div");
+    cart_notice.className = "alert alert-primary fixed-top notice text-center";
+    cart_notice.innerText = "<%= @product.name %> успешно добавлен в корзину";
 
-var cart_notice = document.createElement("div");
-cart_notice.className = "alert alert-primary fixed-top notice text-center";
-cart_notice.innerText = "<%= @product.name %> успешно добавлен в корзину";
+    document.body.appendChild(cart_notice);
 
-document.body.appendChild(cart_notice);
-
-setTimeout(
-  function(){
-    cart_notice.remove();
-  }, 2000
-)
+    setTimeout(
+      function(){
+        cart_notice.remove();
+      }, 2000
+    )
+  }
+<%end%>

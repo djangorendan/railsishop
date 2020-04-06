@@ -2,14 +2,23 @@ document.getElementById('cart_product_<%= @cart_product.id %>').remove()
 document.getElementById('cart_link_count').innerText = "<%= @cart.total_product_count %>";
 document.getElementById('total_cart_sum').innerText = "<%= @cart.total_cart_sum %> грн.";
 
-var cart_notice = document.createElement("div");
-cart_notice.className = "alert alert-primary fixed-top notice text-center";
-cart_notice.innerText = "<%= @cart_product.product.name %> убран из корзины";
+notice();
+function notice(){
+  var cart_notice = document.createElement("div");
+  cart_notice.className = "alert alert-primary fixed-top notice text-center";
+  cart_notice.innerText = "<%= @cart_product.product.name %> убран из корзины";
 
-document.body.appendChild(cart_notice);
+  document.body.appendChild(cart_notice);
 
-setTimeout(
-  function(){
-    cart_notice.remove();
-  }, 2000
-)
+  setTimeout(
+    function(){
+      cart_notice.remove();
+    }, 2000
+  )
+
+}
+
+if (<%= @cart.total_product_count %> == 0){
+  $("#cartModal").modal('hide');
+  $("#cart_link").className = "btn btn-custom disabled";
+}
