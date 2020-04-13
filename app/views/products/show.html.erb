@@ -1,6 +1,14 @@
+<% content_for :head do %>
+  <title><%= @product.name %> | Angar.kh.ua</title>
+<% end %>
+
 <style media="screen">
   .breadcrumb-item {
     font-size: 0.6rem;
+  }
+
+  .image_button {
+    cursor: pointer;
   }
 </style>
 
@@ -13,7 +21,10 @@
 </nav>
 
 <h1>
-  <div><%= @product.name %></div>
+  <div>
+    <%= @product.properties.product_type.product_properties.first.value %>
+    <%= @product.name %>
+  </div>
   <div style="font-size: 15px"><%= @product.summary %></div>
 </h1>
 
@@ -35,12 +46,18 @@
         <h2>Фото:</h2>
         <div class="row">
           <div class="col">
-            <% @product.attachments.from(1).each do |photo| %>
-              <%= image_tag(photo.product_main_image_thumb.url, width: '100%', style: "padding-bottom: 8px;") %>
+            <% @product.product_photos.not_main.each do |photo| %>
+              <a data-toggle="modal" data-target="#photoModal" class="image_button" data-id="<%= photo.id %>">
+                <%= image_tag(photo.image.url, width: '100%', alt: @product.name, style: "padding-bottom: 8px;") %>
+              </a>
             <% end %>
           </div>
           <div class="col">
-            <%= image_tag(@product.attachments.first.product_main_image_thumb.url, alt: @product.name, class: "product_img") %>
+            <% @product.product_photos.main.each do |photo| %>
+              <a data-toggle="modal" data-target="#photoModal" class="image_button" data-id="<%= photo.id %>">
+                <%= image_tag(photo.image.url, alt: @product.name) %>
+              </a>
+            <% end %>
           </div>
         </div>
       </div>
@@ -113,5 +130,53 @@
   <h2>Описание:</h2>
   <div style="padding-left: 15px">
     <%= @product.discription %>
-  </div>  
+  </div>
 </div>
+
+<!-- PhotoModal -->
+<div class="modal fade" id="photoModal" tabindex="-1" role="dialog" aria-labelledby="photoModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="photoModalLabel"><%= @product.name %></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <div class="row">
+            <div class="col-3">
+
+            </div>
+            <div class="col-9">
+              <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                  <% @product.product_photos.each do |photo| %>
+                    <div class="carousel-item" id="photo_<%= photo.id %>">
+                      <%= image_tag(photo.image.url, width: '100%') %>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+              <!-- Кнопки карусели -->
+              <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+              </a>
+              <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+              </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+    $('.image_button').on('click', function(){
+      photo_id = $(this).attr('data-id');
+      $('#photo_'+photo_id).addClass("active");
+    });
+</script>

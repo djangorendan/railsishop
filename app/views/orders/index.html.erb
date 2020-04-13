@@ -1,3 +1,7 @@
+<% content_for :head do %>
+  <title>Личный кабинет | Angar.kh.ua</title>
+<% end %>
+
 <h3>Личный кабинет пользователя <%= link_to current_user.full_name, edit_user_registration_path(current_user) %></h3>
 
 <div class="row">

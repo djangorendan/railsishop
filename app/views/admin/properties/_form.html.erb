@@ -1,3 +1,10 @@
+<style media="screen">
+  .w-100 {
+    text-align: right;
+  }
+
+</style>
+
 <%= form_for [:admin, property] do |form| %>
   <% if property.errors.any? %>
     <div id="error_explanation">
@@ -11,34 +18,43 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
-  </div>
+  <div class="row">
+    <div class="col">
+      <div class="row form-group">
+        <%= form.label :name, 'Наименование:', class: "col-2 col-form-label" %>
+        <%= form.text_field :name, class: "form-control col-10", autofocus: true %>
+      </div>
 
-  <div class="field">
-    <%= form.label :position %>
-    <%= form.text_field :position %>
-  </div>
+      <div class="row form-group">
+        <%= form.label :parent_id, 'Родитель:', class: "col-2 col-form-label" %>
+        <%= form.collection_select :parent_id, Property.roots, :id, :name, {:prompt => true}, {:class => "col-10 form-control"} %>
+      </div>
 
-  <div class="field">
-    <%= form.label :parent_id %>
-    <%= form.collection_select :parent_id, Property.roots, :id, :name, :prompt => true %>
-  </div>
+      <div class="form-group">
+        <div class="col-6 form-check form-check-inline">
+          <%= form.label :display_filter, "Отображение в фильтрах:", class: "form-check-label" %>
+          <%= form.check_box :display_filter, class: "form-check-input", style: "margin-left: 5px;" %>
+        </div>
+        <div class="form-check form-check-inline">
+          <%= form.label :display_product, "Отображение в продукте:", class: "form-check-label" %>
+          <%= form.check_box :display_product, checked: true, class: "form-check-input check_box_display", style: "margin-left: 5px;" %>
+        </div>
+      </div>
 
-  <div class="field">
-    <%= form.label :display_filter %>
-    <%= form.check_box :display_filter %>
-  </div>
+      <div class="row form-group">
+        <%= form.label :position, 'Позиция:',class: "col-2 col-form-label" %>
+        <%= form.text_field :position, class: "form-control col-10" %>
+      </div>
 
-  <div class="field">
-    <%= form.label :display_product %>
-    <%= form.check_box :display_product %>
-  </div>
+      <div class="row form-group">
+        <%= form.label :discription, 'Позиция:',class: "col-2 col-form-label" %>
+        <%= form.text_area :discription, rows: '12',class: "form-control col-10" %>
+      </div>
+    </div>
 
-  <div class="actions">
-    <%= form.submit %>
+    <div class="col-2 actions text-right">
+      <%= form.submit "Сохранить хар-ку",class: "w-100 btn" %>
+      <%= link_to 'Назад', admin_properties_path, class: "w-100 btn" %>
+    </div>
   </div>
 <% end %>
-
-<%= link_to 'New Property', new_admin_property_path %>

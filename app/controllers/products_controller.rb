@@ -13,6 +13,7 @@ class ProductsController < ApplicationController
 
   def show
     @product = Product.friendly.find(params[:id])
+    @product.increment!(:views)
   end
 
   def create_product_comment

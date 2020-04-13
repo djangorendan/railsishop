@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :product_comments
   resources :orders, except: [:show, :destroy] do
     get :cancel
   end
@@ -21,6 +20,7 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
+    resources :product_photos
     resources :categories, except: :show
     resources :properties
     resources :products, except: :show

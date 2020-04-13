@@ -14,7 +14,9 @@
                 <%= link_to property.name, edit_admin_property_path(property) %>
               </div>
               <div class="col-auto">
-                (<%= link_to 'Destroy', admin_property_path(property), method: :delete, data: { confirm: 'Are you sure?' } %>)
+                <%= link_to admin_property_path(property), method: :delete, data: { confirm: 'Are you sure?' } do %>
+                  &times;
+                <% end %>
               </div>
             </div>
           </div>
@@ -22,10 +24,16 @@
           <div id="collapse_<%= property.id %>" class="collapse" aria-labelledby="heading_<%= property.id %>" data-parent="#accordionExample">
             <div class="card-body">
                 <% property.children.each do |child| %>
-                  <li>
-                    <%= link_to child.name, edit_admin_property_path(child) %>
-                    (<%= link_to 'Destroy', admin_property_path(child), method: :delete, data: { confirm: 'Are you sure?' } %>)
-                  </li>
+                  <div class="row justify-content-between">
+                    <div class="col-auto" style="margin-left: 60px;">
+                      <%= link_to child.name, edit_admin_property_path(child) %>
+                    </div>
+                    <div class="col text-right">
+                      <%= link_to admin_property_path(child), method: :delete, data: { confirm: 'Are you sure?' } do %>
+                        &times;
+                      <% end %>
+                    </div>
+                  </div>
                 <% end %>
             </div>
           </div>
@@ -33,7 +41,7 @@
       </div>
     <% end %>
   </div>
-  <div class="col-3">
+  <div class="col-3 text-right">
     <%= link_to '+ Добавить хар-ку', new_admin_property_path %>
   </div>
 </div>

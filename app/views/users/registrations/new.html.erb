@@ -1,3 +1,7 @@
+<% content_for :head do %>
+  <title>Регистрация | Angar.kh.ua</title>
+<% end %>
+
 <style media="screen">
   .form-row>.col {
     padding: 0 5px 10px 5px;
@@ -37,18 +41,18 @@
       <div class="form-row">
         <div class="col">
           <%= f.text_field :city, list: "city_name", class: "form-control", placeholder: "Город" %>
-            <datalist id="city_name">
+            <!-- <datalist id="city_name">
               <option value="Boston">
               <option value="Cambridge">
-            </datalist>
+            </datalist> -->
         </div>
 
         <div class="col" style="display: block" id="departament_field">
           <%= f.text_field :departament, list: "departament_name", class: "form-control", placeholder: "Отделение Новой Почты" %>
-            <datalist id="departament_name">
+            <!-- <datalist id="departament_name">
               <option value="№1 - тута">
               <option value="№2 - тама">
-            </datalist>
+            </datalist> -->
         </div>
       </div>
 

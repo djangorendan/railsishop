@@ -7,7 +7,7 @@
   .delete_product_from_cart {
     color: black;
     border: solid 1px black;
-    padding: 1px 4px;
+    padding: 0px 5px;
     border-radius: 50%;
     font-weight: normal;
     font-style: normal;
@@ -35,7 +35,9 @@
       <% current_cart.cart_products.each do |cart_product| %>
         <tr id="cart_product_<%= cart_product.id %>">
           <td id="product_img">
-            <%= link_to image_tag(cart_product.product.attachments.first.thumb.url), cart_product.product %>
+            <% cart_product.product.product_photos.main.each do |photo| %>
+              <%= link_to image_tag(photo.image.url, width: '130px'), cart_product.product %>
+            <% end %>
           </td>
           <td class="text-left" id="product_<%= cart_product.product.id %>_name">
             <div id="product_name"><%= link_to cart_product.product.name, cart_product.product %></div>
@@ -50,7 +52,11 @@
             <%= cart_product.product.price %> грн.
           </td>
           <td id="product_<%= cart_product.product.id %>_sum"><%= cart_product.total_product_sum %> грн.</td>
-          <td><%= link_to "X", delete_product_from_cart_carts_url(cart_products_id: cart_product.id), class: "delete_product_from_cart", remote: true %></td>
+          <td>
+            <%= link_to delete_product_from_cart_carts_url(cart_products_id: cart_product.id), class: "delete_product_from_cart", remote: true do %>
+              &times;
+            <% end %>
+          </td>
         </tr>
       <% end %>
     </tbody>

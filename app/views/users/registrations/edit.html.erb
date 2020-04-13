@@ -1,3 +1,7 @@
+<% content_for :head do %>
+  <title>Редактирование личных данных | Angar.kh.ua</title>
+<% end %>
+
 <style media="screen">
   .form-row>.col {
     padding: 0 5px 10px 5px;
@@ -69,7 +73,7 @@
       </div>
 
       <div class="actions">
-        <%= f.submit "Update", class: "btn btn-primary btn-block" %>
+        <%= f.submit "Сохранить изменения", class: "btn btn-primary btn-block", style: "color: yellow;" %>
       </div>
     <% end %>
   </div>

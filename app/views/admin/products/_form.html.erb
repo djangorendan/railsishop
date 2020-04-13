@@ -1,3 +1,10 @@
+<style media="screen">
+  .w-100 {
+    text-align: right;
+  }
+
+</style>
+
 <%= form_for [:admin, product] do |form| %>
   <% if product.errors.any? %>
     <div id="error_explanation">
@@ -12,50 +19,41 @@
   <% end %>
 
 <div class="row">
-  <div class="col-2">
-    <%= form.label :attachments %>
-    <%= form.file_field :attachments, multiple: true %>
-  </div>
-
   <div class="col">
-    <div class="field">
-      <%= form.label :name %>
-      <%= form.text_field :name %>
+    <div class="form-group">
+      <%= form.label :display, "Отображение:" %>
+      <%= form.check_box :display, checked: true %>
     </div>
 
-    <div class="field">
-      <%= form.label :summary %>
-      <%= form.text_field :summary %>
+    <div class="row form-group">
+      <%= form.label :category_id, "Категория:", class: "col-2 col-form-label" %>
+      <%= form.collection_select :category_id, Category.all, :id, :name,{}, {class: "col-10 form-control", autofocus: true} %>
     </div>
 
-    <div class="field">
-      <%= form.label :discription %>
-      <%= form.text_field :discription %>
+    <div class="row form-group">
+      <%= form.label :name, "Наименование:", class: "col-2 col-form-label" %>
+      <%= form.text_field :name, class: "col-10 form-control" %>
     </div>
 
-    <div class="field">
-      <%= form.label :price %>
-      <%= form.number_field :price %>
+    <div class="row form-group">
+      <%= form.label :price, "Цена:", class: "col-2 col-form-label" %>
+      <%= form.number_field :price, class: "col-10 form-control" %>
     </div>
 
-    <div class="field">
-      <%= form.label :quantity %>
-      <%= form.number_field :quantity %>
+    <div class="row form-group">
+      <%= form.label :quantity, "Количество:", class: "col-2 col-form-label" %>
+      <%= form.number_field :quantity, class: "col-10 form-control" %>
     </div>
 
-    <div class="field">
-      <%= form.label :display %>
-      <%= form.check_box :display %>
-    </div>
-
-    <div class="field">
-      <%= form.label :category_id %>
-      <%= form.collection_select :category_id, Category.all, :id, :name %>
+    <div class="row form-group">
+      <%= form.label :discription, "Описание:", class: "col-2 col-form-control" %>
+      <%= form.text_area :discription, class: "form-control col-10", rows: "9" %>
     </div>
   </div>
 
   <div class="col-2 actions">
-    <%= form.submit %>
+    <%= form.submit "Создать продукт", class: "w-100 btn" %>
+    <%= link_to 'Назад', admin_products_path, class: "w-100 btn" %>
   </div>
 </div>
 <% end %>

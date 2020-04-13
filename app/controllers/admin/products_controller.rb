@@ -1,8 +1,9 @@
 class Admin::ProductsController < ApplicationController
   layout "admin"
 
-  before_action :set_product, only: [:edit, :update, :destroy]
+  before_action :set_product, only: [:edit, :update, :destroy, :create_summary]
   after_action :create_product_properties, only: :create
+  after_action :create_summary, only: :update
 
   # GET /products
   # GET /products.json
@@ -49,6 +50,17 @@ class Admin::ProductsController < ApplicationController
     end
   end
 
+  def create_summary
+    model_processor = @product.properties.model_processor.product_properties.first.value
+    ram_size = @product.properties.ram_size.product_properties.first.value
+    ram_type = @product.properties.ram_type.product_properties.first.value
+    rom_size = @product.properties.rom_size.product_properties.first.value
+    rom_type = @product.properties.rom_type.product_properties.first.value
+    video_chiset = @product.properties.video_chiset.product_properties.first.value
+
+    @product.update(summary: model_processor + '/' + ram_size + ' ' + ram_type + '/' + rom_type + ' ' + rom_size + '/' + video_chiset)
+  end
+
   # DELETE /products/1
   # DELETE /products/1.json
   def destroy
@@ -75,6 +87,6 @@ class Admin::ProductsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
       params.require(:product).permit(:name, :category_id, :summary, :display, :discription, :price, :quantity,
-        product_properties_attributes: [:id, :value], attachments: [])
+        product_properties_attributes: [:id, :value])
     end
 end

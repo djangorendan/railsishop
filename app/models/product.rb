@@ -7,18 +7,20 @@ class Product < ApplicationRecord
   has_many :product_properties, dependent: :destroy
   accepts_nested_attributes_for :product_properties, :allow_destroy => true
 
+  has_many :properties, through: :product_properties
+
+  has_many :product_photos, dependent: :destroy
+
   has_many :cart_products, dependent: :destroy
   has_many :product_comments, dependent: :destroy
 
   extend FriendlyId
   friendly_id :name, use: :slugged
 
-  mount_uploaders :attachments, ImageUploader
-
   paginates_per 9
 
   scope :displayed, -> { where.not(display: false) }
-
+  
   scope :filter_by_category, -> (params) {
     return unless params
     where("

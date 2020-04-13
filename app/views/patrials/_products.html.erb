@@ -19,7 +19,9 @@
           <h4 class="card-title" style="margin: 0"><%= link_to product.name, product, style: "color: yellow;" %></h4>
           <p class="card-text" style="font-size: 0.6rem; color: yellow;"><%= product.summary %></p>
         </div>
-        <%= link_to image_tag(product.attachments.first.product_main_image_thumb.url, width: '280px', height: '210px', alt: product.name, class: "product_img"), product %>
+        <% product.product_photos.main.each do |photo| %>
+          <%= link_to image_tag(photo.image.url, width: '280px', height: '210px', alt: product.name, class: "product_img"), product %>
+        <% end %>
         <div class="card-body">
           <p class="card-text text-right" style="font-size: 1.5rem"><%= product.price %> грн.</p>
           <div class="row justify-content-between">

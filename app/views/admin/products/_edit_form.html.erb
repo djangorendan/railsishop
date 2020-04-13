@@ -1,3 +1,10 @@
+<style media="screen">
+  .photos {
+    margin-top: 15px;
+  }
+
+</style>
+
 <%= form_for [:admin, product] do |form| %>
   <% if product.errors.any? %>
     <div id="error_explanation">
@@ -11,74 +18,88 @@
     </div>
   <% end %>
 
-  <% if @product.attachments? %>
-    <ul>
-      <% @product.attachments.each do |attachment| %>
-        <li><%= link_to(image_tag(attachment.thumb.url, alt: 'Image'), attachment.url, target: '_blank') %></li>
+<div class="row">
+  <div class="col-3"> <!-- photos -->
+    <% @product.product_photos.main.each do |photo| %>
+      <%= image_tag(photo.image.url, alt: 'Image', width: '100%') %>
+    <% end %>
+    <div class="row">
+      <% @product.product_photos.not_main.each do |photo| %>
+        <div class="col-6 photos">
+          <%= image_tag(photo.image.url, alt: 'Image', width: '100%') %>
+        </div>
       <% end %>
-    </ul>
-  <% end %>
-
-  <div>
-    <%= form.label :attachments %>
-    <%= form.file_field :attachments, multiple: true %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
-  </div>
+  <div class="col-7"> <!-- main -->
+    <div class="">
+      <%= form.label :display, "Отображение:" %>
+      <%= form.check_box :display %>
+    </div>
 
-  <div class="field">
-    <%= form.label :summary %>
-    <%= form.text_field :summary %>
-  </div>
+    <div class="row form-group">
+      <%= form.label :category_id, "Категория:", class: "col-3 col-form-label" %>
+      <%= form.collection_select :category_id, Category.all, :id, :name, {}, {class: "col-9 form-control", autofocus: true} %>
+    </div>
 
-  <div class="field">
-    <%= form.label :discription %>
-    <%= form.text_field :discription %>
-  </div>
+    <div class="row form-group">
+      <%= form.label :name, "Наименование:", class: "col-3 col-form-label" %>
+      <%= form.text_field :name, class: "col-9 form-control" %>
+    </div>
 
-  <div class="field">
-    <%= form.label :price %>
-    <%= form.number_field :price %>
-  </div>
+    <div class="row form-group">
+      <%= form.label :summary, class: "col-3 col-form-label" %>
+      <%= form.text_field :summary, class: "col-9 form-control", readonly: true %>
+    </div>
 
-  <div class="field">
-    <%= form.label :quantity %>
-    <%= form.number_field :quantity %>
-  </div>
+    <div class="row form-group">
+      <%= form.label :price, "Цена:", class: "col-3 col-form-label" %>
+      <%= form.number_field :price, class: "col-9 form-control" %>
+    </div>
 
-  <div class="field">
-    <%= form.label :display %>
-    <%= form.check_box :display %>
-  </div>
+    <div class="row form-group">
+      <%= form.label :quantity, "Количество:", class: "col-3 col-form-label" %>
+      <%= form.number_field :quantity, class: "col-9 form-control" %>
+    </div>
 
-  <div class="field">
-    <%= form.label :category_id %>
-    <%= form.collection_select :category_id, Category.all, :id, :name %>
-  </div>
+    <div class="row form-group">
+      <%= form.label :discription, "Описание:",class: "col-3 col-form-label" %>
+      <%= form.text_area :discription, rows: "5", class: "col-9 form-control" %>
+    </div>
 
-  <div class="field">
-    Properties:
-    <ul>
-      <% @product.product_properties.order(:id).each do |pp| %>
-        <% if pp.property.root? %>
-          <li><%= pp.property.name %></li>
-        <% else %>
-          <%= form.fields_for :product_properties, pp do |pp_form| %>
-            <ul>
-              <li><%= pp.property.name %>: <%= pp_form.text_field :value %></li>
-            </ul>
+    <div class="row">
+      <h2>Характеристики:</h2>
+        <% @product.product_properties.order(:id).each do |pp| %>
+          <% if pp.property.root? %>
+            <button class="btn btn-primary btn-block" type="button" data-toggle="collapse"
+              data-target="#collapse_<%= pp.property.id %>" aria-expanded="false"
+              aria-controls="collapseExample" style="margin-bottom: 15px;">
+              <%= pp.property.name %>
+            </button>
+          <% else %>
+          <div class="col-12">
+            <div class="collapse" id="collapse_<%= pp.property.root.id %>" style="margin: 0 15px 0 0;">
+              <%= form.fields_for :product_properties, pp do |pp_form| %>
+                <div class="row form-group">
+                  <span class="col-3 col-form-label"><%= pp.property.name %>:</span>
+                  <%= pp_form.text_field :value, class: "col-9 form-control" %>
+                </div>
+              <% end %>
+            </div>
+          </div>
           <% end %>
         <% end %>
-      <% end %>
-    </ul>
+    </div>
+
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
+  <div class="col-2 text-right"> <!-- actions -->
+    <%= link_to "Добавить фото", new_admin_product_photo_path(product_id: product.id), class: "btn" %><br/>
+    <%= form.submit "Сохранить продукт", class: "btn" %><br/>
+    <%= link_to 'Новый продукт', new_admin_product_path, class: "btn" %><br/>
+    <%= link_to "Назад", admin_products_path, class: "btn" %>
   </div>
+</div>
+
 <% end %>
-
-<%= link_to 'New Product', new_admin_product_path %>

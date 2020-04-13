@@ -1,10 +1,10 @@
 document.getElementById('cart_link_count').innerText = "<%= @cart.total_product_count %>";
 document.getElementById('cart_link').className = "btn";
 document.getElementById('cart_link').setAttribute("style", "background-color: yellow; color: #007bff !important; cursor: pointer");
-document.getElementById('total_cart_sum').innerText = "<%= @cart.total_cart_sum %> грн.";
 
 <% if @add_in_cart_modal%>
   $("#product_<%= @product.id %>_sum").html("<%= @total_product_sum %> грн.");
+  $("#total_cart_sum").html("<%= @cart.total_cart_sum %> грн.");
 <% else %>
   notice();
   function notice() {

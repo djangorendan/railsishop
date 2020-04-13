@@ -52,28 +52,28 @@
 
           <div class="field">
             <%= form.text_field :city, value: (current_user.city if current_user), list: "city_name", class: "form-control", placeholder: "Город" %>
-              <datalist id="city_name">
+              <!-- <datalist id="city_name">
                 <option value="Boston">
                 <option value="Cambridge">
-              </datalist>
+              </datalist> -->
           </div>
 
           <div class="field" style="display: block" id="departament_field">
             <%= form.text_field :departament, value: (current_user.departament if current_user), list: "departament_name", class: "form-control", placeholder: "Отделение Новой Почты" %>
-              <datalist id="departament_name">
+              <!-- <datalist id="departament_name">
                 <option value="№1 - тута">
                 <option value="№2 - тама">
-              </datalist>
+              </datalist> -->
           </div>
 
           <div class="field" style="display: none" id="address_field">
-            <%= text_field_tag :address,"", list: "address_name", class: "form-control", placeholder: "Адрес" %>
-              <datalist id="address_name">
+            <%= text_field_tag :address,"", list: "address_name", class: "form-control", placeholder: "Адрес", style: "margin-bottom: 10px;" %>
+              <!-- <datalist id="address_name">
                 <option value="улица тута">
                 <option value="проспект тама">
-              </datalist>
-              <%= text_field_tag :house,"", placeholder: "Номер дома", class: "form-control" %>
-              <%= text_field_tag :apartment,"", placeholder: "Номер квартиры", class: "form-control" %>
+              </datalist> -->
+              <%= text_field_tag :house,"", placeholder: "Номер дома", class: "form-control", style: "margin-bottom: 10px;" %>
+              <%= text_field_tag :apartment,"", placeholder: "Номер квартиры", class: "form-control", style: "margin-bottom: 10px;" %>
           </div>
         </div>
 
@@ -81,22 +81,33 @@
           <%= form.text_area :discription, placeholder: "Примичания", class: "form-control" %>
         </div>
 
-        <%= form.submit "Оформить заказ", class: "btn btn-primary btn-block" %>
+        <%= form.submit "Оформить заказ", class: "btn btn-primary btn-block", style: "margin-bottom: 10px; color: yellow;" %>
       <% end %>
     </div>
     <div class="col-8">
+      <h2>Корзина</h2>
       <table class="table table-hover">
         <thead>
+          <tr>
+            <th colspan="2" class="text-center">Наименование</th>
+            <th class="text-center">Кол-во</th>
+            <th class="text-center">Цена</th>
+            <th class="text-center">Сумма</th>
+          </tr>
         </thead>
         <tbody>
           <% @cart.cart_products.each do |cart_product| %>
             <tr>
-              <td><%= link_to image_tag(cart_product.product.attachments.first.thumb.url), cart_product.product %></td>
+              <td>
+                <% cart_product.product.product_photos.main.each do |photo| %>
+                  <%= link_to image_tag(photo.image.url, width: '80px'), cart_product.product %>
+                <% end %>
+              </td>
               <td class="text-left">
                 <div><%= link_to cart_product.product.name, cart_product.product %></div>
                 <div style="font-size: 0.5rem"><%= cart_product.product.summary %></div>
               </td>
-              <td>
+              <td class="text-center">
                 <%= cart_product.product_count %>
               </td>
               <td><%= cart_product.product.price %> грн.</td>
@@ -104,8 +115,8 @@
             </tr>
           <% end %>
             <tr>
-              <td colspan="4"></td>
-              <td colspan="1" id="total_cart_sum"><%= @cart.total_cart_sum %> грн.</td>
+              <td colspan="3" class="text-right">Итого:</td>
+              <td colspan="2" id="total_cart_sum" class="text-center"><%= @cart.total_cart_sum %> грн.</td>
             </tr>
         </tbody>
       </table>
@@ -134,6 +145,8 @@
 
   $('#order_delivery').on('change', function(){
     if($(this).val() == 'Доставка Новой Почтой'){
+      if($('#order_payment').val() == 'Наличными'){
+        $('#order_payment').val('Наложенный платеж')}
       $('.delivery').css('display', 'block');
     }else{
       $('.delivery').css('display', 'none');

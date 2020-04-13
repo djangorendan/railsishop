@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_07_205532) do
+ActiveRecord::Schema.define(version: 2020_04_12_124648) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 2020_03_07_205532) do
     t.string "slug"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "discription"
     t.index ["ancestry"], name: "index_categories_on_ancestry"
     t.index ["slug"], name: "index_categories_on_slug", unique: true
   end
@@ -95,6 +96,15 @@ ActiveRecord::Schema.define(version: 2020_03_07_205532) do
     t.index ["user_id"], name: "index_product_comments_on_user_id"
   end
 
+  create_table "product_photos", force: :cascade do |t|
+    t.string "image"
+    t.boolean "main"
+    t.bigint "product_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_product_photos_on_product_id"
+  end
+
   create_table "product_properties", force: :cascade do |t|
     t.bigint "product_id"
     t.bigint "property_id"
@@ -118,7 +128,6 @@ ActiveRecord::Schema.define(version: 2020_03_07_205532) do
     t.bigint "category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.json "attachments"
     t.index ["category_id"], name: "index_products_on_category_id"
     t.index ["index"], name: "index_products_on_index", unique: true
     t.index ["slug"], name: "index_products_on_slug", unique: true
@@ -132,6 +141,7 @@ ActiveRecord::Schema.define(version: 2020_03_07_205532) do
     t.boolean "display_product"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "discription"
     t.index ["ancestry"], name: "index_properties_on_ancestry"
   end
 
@@ -161,6 +171,7 @@ ActiveRecord::Schema.define(version: 2020_03_07_205532) do
   add_foreign_key "orders", "users"
   add_foreign_key "product_comments", "products"
   add_foreign_key "product_comments", "users"
+  add_foreign_key "product_photos", "products"
   add_foreign_key "product_properties", "products"
   add_foreign_key "product_properties", "properties"
   add_foreign_key "products", "categories"
