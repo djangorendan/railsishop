@@ -1,7 +1,9 @@
 class Admin::ProductsController < ApplicationController
   layout "admin"
 
+  before_action :authenticate_admin!
   before_action :set_product, only: [:edit, :update, :destroy, :create_summary]
+
   after_action :create_product_properties, only: :create
   after_action :create_summary, only: :update
 

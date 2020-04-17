@@ -1,5 +1,7 @@
 class Admin::ProductPhotosController < ApplicationController
   layout "admin"
+
+  before_action :authenticate_admin!
   before_action :set_product_photo, only: [:show, :edit, :update, :destroy]
 
   # GET /product_photos

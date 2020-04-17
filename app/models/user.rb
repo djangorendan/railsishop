@@ -4,8 +4,6 @@ class User < ApplicationRecord
   has_many :orders, dependent: :nullify
   has_many :product_comments, dependent: :destroy
 
-  # validates :first_name, :last_name, :email, presence: true
-
   def full_name
     first_name+' '+last_name
   end
@@ -31,9 +29,12 @@ class User < ApplicationRecord
     result
   end
 
+  validates :email, :first_name, :last_name, :phone, presence: true
+  validates :phone, numericality: true
+
   devise :database_authenticatable,
          :registerable,
          :recoverable,
          :rememberable
-
+         
 end

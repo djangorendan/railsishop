@@ -1,5 +1,7 @@
 class Admin::PropertiesController < ApplicationController
   layout "admin"
+
+  before_action :authenticate_admin!
   before_action :set_property, only: [:show, :edit, :update, :destroy]
 
   # GET /products

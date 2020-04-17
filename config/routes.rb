@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :admins, controllers: { sessions: 'admins/sessions' }
   resources :orders, except: [:show, :destroy] do
     get :cancel
   end

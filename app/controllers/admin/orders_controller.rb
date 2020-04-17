@@ -1,5 +1,7 @@
 class Admin::OrdersController < ApplicationController
   layout "admin"
+
+  before_action :authenticate_admin!
   before_action :set_order, only: [:show, :edit, :update, :destroy]
 
   after_action :update_product_quantity, only: [:create]
