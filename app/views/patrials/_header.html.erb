@@ -46,7 +46,7 @@
   <div class="row justify-content-between">
     <div class="col-md-auto col-sm-12 text-center">
       <a href="/">
-        <%# <%= image_tag('logo.jpeg', alt: 'logo', style: 'height: 65px;') %>
+        <%= image_tag('logo.jpeg', alt: 'logo', style: 'height: 65px;') %>
       </a>
     </div>
     <div class="col-md-auto">
@@ -105,10 +105,8 @@
           Категории товаров
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <% if categories? %>
-            <% categories.each do |category| %>
-              <%= link_to category.name, category_path(category), class: "dropdown-item", style: "color: #007bff;" %>
-            <% end %>
+          <% categories.each do |category| %>
+            <%= link_to category.name, category_path(category), class: "dropdown-item", style: "color: #007bff;" %>
           <% end %>
         </div>
       </li>
