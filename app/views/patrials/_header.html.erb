@@ -45,7 +45,9 @@
 <div class="container-fluid">
   <div class="row justify-content-between">
     <div class="col-md-auto col-sm-12 text-center">
-      
+      <a href="/">
+        <%# <%= image_tag('logo.jpeg', alt: 'logo', style: 'height: 65px;') %>
+      </a>
     </div>
     <div class="col-md-auto">
       <address class="" style="margin-bottom: -1rem;">
@@ -103,9 +105,11 @@
           Категории товаров
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <% if categories? %>
             <% categories.each do |category| %>
               <%= link_to category.name, category_path(category), class: "dropdown-item", style: "color: #007bff;" %>
             <% end %>
+          <% end %>
         </div>
       </li>
       <li class="nav-item">
