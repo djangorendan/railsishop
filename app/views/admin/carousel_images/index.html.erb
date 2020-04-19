@@ -1,0 +1,28 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Carousel Images</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Image</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @carousel_images.each do |carousel_image| %>
+      <tr>
+        <td><%= carousel_image.name %></td>
+        <td><%= carousel_image.image %></td>
+        <td><%= link_to 'Edit', edit_admin_carousel_image_path(carousel_image) %></td>
+        <td><%= link_to 'Destroy', admin_carousel_image_path(carousel_image), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Carousel Image', new_admin_carousel_image_path %>

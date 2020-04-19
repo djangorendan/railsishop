@@ -3,6 +3,14 @@ module ApplicationHelper
     Category.all
   end
 
+  def app_images
+    AppImage.all
+  end
+
+  def carousel_images
+    CarouselImage.all
+  end
+
   def current_cart
     cart_id = session[:current_cart_id]
     Cart.find(session[:current_cart_id]) if cart_id

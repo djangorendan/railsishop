@@ -29,6 +29,8 @@ Rails.application.routes.draw do
       get :cancel
     end
     resources :users
+    resources :carousel_images
+    resources :app_images
   end
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

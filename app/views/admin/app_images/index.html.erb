@@ -1,0 +1,28 @@
+<p id="notice"><%= notice %></p>
+
+<h1>App Images</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @app_images.each do |app_image| %>
+      <tr>
+        <td><%= app_image.name %></td>
+        <% if app_image.image? %>
+          <td><%= image_tag(app_image.image.url) %></td>
+        <% end %>
+        <td><%= link_to 'Edit', edit_admin_app_image_path(app_image) %></td>
+        <td><%= link_to 'Destroy', admin_app_image_path(app_image), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New App Image', new_admin_app_image_path %>
