@@ -29,7 +29,7 @@
         <%= form.label :image, image_tag(@category.image.url, size: "180x200", id: "img"), class: "photo_label" %>
         <%= form.file_field :image, class: "d-none" %>
       <% else %>
-        <%= form.label :image, image_tag("favicon.jpeg", size: "180x200", id: "img"),class: "photo_label" %>
+        <%= form.label :image, image_tag(app_images.favicon.image.url, size: "180x200", id: "img"),class: "photo_label" %>
         <%= form.file_field :image, class: "d-none" %>
       <% end %>
     </div>
