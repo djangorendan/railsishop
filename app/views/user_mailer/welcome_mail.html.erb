@@ -4,15 +4,19 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h1>Welcome to example.com, <%= @user.first_name %></h1>
+    <h1>
+      Добро пожаловать на Angar.kh.ua, <%= @user.first_name %>
+    </h1>
     <p>
-      You have successfully signed up to example.com,
-      your username is: <%= @user.email %>.<br>
-      your password is: <%= @password %>.<br>
+      Вы успешно зарегестрировались на нашем сайте Angar.kh.ua
+      Ваш логин: <%= @user.email %>.<br>
+      Ваш пароль: <%= @password %>.<br>
     </p>
     <p>
-      To login to the site, just follow this link: <%= @url %>.
+      Для перехода на сайт, пройдите по этой ссылке: <%= @url %>.
     </p>
-    <p>Thanks for joining and have a great day!</p>
+    <p>
+      Спасибо что присоидинились к нам и хорошего дня!
+    </p>
   </body>
 </html>

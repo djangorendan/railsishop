@@ -1,7 +1,7 @@
 <% if @products.present?%>
   $('#products_container').html("<%= escape_javascript render(:partial => 'patrials/products') %>");
 <% else %>
-  $('#products_container').html('Пусто');
+  $('#products_container').html('Товаров по Вашим настройкам не найдено');
 <% end%>
 
 $('#filter_form_div').html("<%= escape_javascript render(:partial => 'patrials/filter_form') %>");

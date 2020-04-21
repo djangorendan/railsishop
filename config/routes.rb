@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount Ckeditor::Engine => '/ckeditor'
   devise_for :admins, controllers: { sessions: 'admins/sessions' }
   resources :orders, except: [:show, :destroy] do
     get :cancel
@@ -42,4 +43,5 @@ Rails.application.routes.draw do
   get '/about_us', to: 'etc#about_us'
   get '/delivery', to: 'etc#delivery'
   get '/payments', to: 'etc#payments'
+  get '/contacts', to: 'etc#contacts'
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_18_122910) do
+ActiveRecord::Schema.define(version: 2020_04_21_112450) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,6 +78,16 @@ ActiveRecord::Schema.define(version: 2020_04_18_122910) do
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_category_properties_on_category_id"
     t.index ["property_id"], name: "index_category_properties_on_property_id"
+  end
+
+  create_table "ckeditor_assets", force: :cascade do |t|
+    t.string "data_file_name", null: false
+    t.string "data_content_type"
+    t.integer "data_file_size"
+    t.string "type", limit: 30
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["type"], name: "index_ckeditor_assets_on_type"
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|

@@ -85,6 +85,7 @@ class OrdersController < ApplicationController
       @order.update(status: 'Отменен', discription: params[:reason])
       redirect_to orders_path, notice: 'Заказ №' + @order.id.to_s + ' успешно отменен.'
       OrderMailer.with(order: @order).cancel_order.deliver_now
+      OrderMailer.with(order: @order).cancel_order_admin.deliver_now
   end
 
   private

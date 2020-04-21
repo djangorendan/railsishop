@@ -17,6 +17,14 @@
     border-color: yellow;
   }
 
+  .dropdown-item {
+    color: #007bff;
+  }
+
+  .dropdown-item:hover {
+    color: #007bff;
+  }
+
   .btn-outline-warning.custom-button:hover {
     color: #007bff;
     background-color: yellow;
@@ -110,14 +118,19 @@
           <% end %>
         </div>
       </li>
-      <li class="nav-item">
-        <a class="nav-link nav-custom" href="/about_us">О нас</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link nav-custom" href="/payments">Способы оплаты</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link nav-custom" href="/delivery">Способы доставки</a>
+
+      <!--  -->
+
+      <li class="nav-item dropdown">
+        <a class="nav-link nav-custom dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          О нас
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/about_us">О нас</a>
+          <a class="dropdown-item" href="/about_us">Способы доставки</a>
+          <a class="dropdown-item" href="/about_us">Способы оплаты</a>
+          <a class="dropdown-item" href="/about_us">Контакты</a>
+        </div>
       </li>
     </ul>
   </div>
