@@ -8,12 +8,12 @@ class Property < ApplicationRecord
 
   scope :manufacturer, -> { find_by(name: "Производитель") }
   scope :product_type, -> { find_by(name: "Тип") }
-  scope :model_processor, -> { find_by(name: "Модель процессора") }
+  scope :processor, -> { find_by(name: "Процессор") }
   scope :ram_size, -> { find_by(name: "Объем оперативной памяти") }
   scope :ram_type, -> { find_by(name: "Тип оперативной памяти") }
-  scope :rom_size, -> { find_by(name: "Объем дискового накопителя") }
-  scope :rom_type, -> { find_by(name: "Тип дискового накопителя") }
-  scope :video_chiset, -> { find_by(name: "Графический чипсет") }
+  scope :hdd_size, -> { find_by(name: "Объем HDD") }
+  scope :ssd_size, -> { find_by(name: "Объем SSD") }
+  scope :video_chiset, -> { find_by(name: "Графический контроллер") }
 
   has_ancestry
 end

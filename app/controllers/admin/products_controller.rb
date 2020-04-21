@@ -43,7 +43,7 @@ class Admin::ProductsController < ApplicationController
   def update
     respond_to do |format|
       if @product.update(product_params)
-        format.html { redirect_to admin_products_path(@product), notice: 'Product was successfully updated.' }
+        format.html { redirect_to edit_admin_product_path(@product), notice: 'Product was successfully updated.' }
         format.json { render :show, status: :ok, location: @product }
       else
         format.html { render :edit }
@@ -53,14 +53,22 @@ class Admin::ProductsController < ApplicationController
   end
 
   def create_summary
-    model_processor = @product.properties.model_processor.product_properties.first.value
+    model_processor = @product.properties.processor.product_properties.first.value
     ram_size = @product.properties.ram_size.product_properties.first.value
     ram_type = @product.properties.ram_type.product_properties.first.value
-    rom_size = @product.properties.rom_size.product_properties.first.value
-    rom_type = @product.properties.rom_type.product_properties.first.value
+    hdd_size = @product.properties.rom_size.product_properties.first.value
+    ssd_size = @product.properties.rom_type.product_properties.first.value
     video_chiset = @product.properties.video_chiset.product_properties.first.value
 
-    @product.update(summary: model_processor + '/' + ram_size + ' ' + ram_type + '/' + rom_type + ' ' + rom_size + '/' + video_chiset)
+    if hdd_size?
+      rom = 'HDD' + ' ' + hdd_size
+    elsif hdd_size? and ssd_size?
+      rom = 'SSD' + ' ' + ssd_size + ' ' + 'HDD' + ' ' + hdd_size
+    elsif ssd_size?
+      rom = 'SSD' + ' ' + ssd_size
+    end
+
+    @product.update(summary: model_processor + '/' + ram_size + ' ' + ram_type + '/' + rom + '/' + video_chiset)
   end
 
   # DELETE /products/1
