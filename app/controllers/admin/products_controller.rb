@@ -53,22 +53,22 @@ class Admin::ProductsController < ApplicationController
   end
 
   def create_summary
-    model_processor = @product.properties.processor.product_properties.first.value
-    ram_size = @product.properties.ram_size.product_properties.first.value
-    ram_type = @product.properties.ram_type.product_properties.first.value
-    hdd_size = @product.properties.rom_size.product_properties.first.value
-    ssd_size = @product.properties.rom_type.product_properties.first.value
-    video_chiset = @product.properties.video_chiset.product_properties.first.value
+    processor = @product.product_properties.processor.value.to_s
+    ram_size = @product.product_properties.ram_size.value.to_s
+    ram_type = @product.product_properties.ram_type.value.to_s
+    hdd_size = @product.product_properties.hdd_size.value.to_s
+    ssd_size = @product.product_properties.ssd_size.value.to_s
+    video_chiset = @product.product_properties.video_chiset.value.to_s
 
-    if hdd_size?
+    if hdd_size != ""
       rom = 'HDD' + ' ' + hdd_size
-    elsif hdd_size? and ssd_size?
+    elsif hdd_size and ssd_size != ""
       rom = 'SSD' + ' ' + ssd_size + ' ' + 'HDD' + ' ' + hdd_size
-    elsif ssd_size?
+    elsif ssd_size != ""
       rom = 'SSD' + ' ' + ssd_size
     end
 
-    @product.update(summary: model_processor + '/' + ram_size + ' ' + ram_type + '/' + rom + '/' + video_chiset)
+    @product.update(summary: processor + '/' + ram_size + ' ' + ram_type + '/' + rom.to_s + '/' + video_chiset)
   end
 
   # DELETE /products/1

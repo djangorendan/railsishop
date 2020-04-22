@@ -6,8 +6,8 @@ class Property < ApplicationRecord
 
   scope :filter_displayed, -> { where.not(display_filter: false) }
 
-  scope :manufacturer, -> { find_by(name: "Производитель") }
   scope :product_type, -> { find_by(name: "Тип") }
+
   scope :processor, -> { find_by(name: "Процессор") }
   scope :ram_size, -> { find_by(name: "Объем оперативной памяти") }
   scope :ram_type, -> { find_by(name: "Тип оперативной памяти") }
