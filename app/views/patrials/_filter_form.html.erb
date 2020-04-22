@@ -3,28 +3,33 @@
     font-size: 0.75rem;
   }
 
+  .header {
+    font-size: 1rem;
+    text-align: center;
+    color: yellow;
+    background-color: #007bff;
+  }
+
 </style>
 
-<div class="card">
-  <h5 class="card-header">Фильтры</h5>
-  <div class="card-body card-col">
+<button class="btn btn-primary w-100" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+  <h5 class="header">Фильтры</h5>
+</button>
+<div class="collapse" id="collapseExample">
+  <div class="card-body">
     <%= form_for category_path, method: 'GET', remote: true, html: {id: 'patrials/filter_form'} do |f| %>
       <div class="row" style="margin-bottom: 10px;">
         <%= f.hidden_field :product_properties, id: 'product_properties_field' %>
         <%= f.hidden_field :order_by, id: 'order_by_field' %>
         <%= f.hidden_field :order_to, id: 'order_to_field' %>
-        <div class="col-12" style="padding-left: 1.25rem">
+        <div class="col-12">
           Цена:
         </div>
-        <div class="col-6" style="padding: 0 0.25rem 0 1.25rem;">
-          <%= f.number_field :price_down, value: @price_down, class: 'form-control price-form-control', placeholder: "От:" %>
-        </div>
-        <div class="col-6" style="padding: 0 1.25rem 0 0.25rem;">
-          <%= f.number_field :price_up, value: @price_up, class: 'form-control price-form-control', placeholder: "До:" %>
-        </div>
+        <%= f.number_field :price_down, value: @price_down, class: 'form-control price-form-control col', placeholder: "От:", style: "margin-right: 5px;" %>
+        <%= f.number_field :price_up, value: @price_up, class: 'form-control price-form-control col', placeholder: "До:", style: "margin-left: 5px;" %>
       </div>
 
-      <ul style="padding-inline-start: 0.25rem; list-style-type: none;">
+      <ul style="padding-inline-start: 0rem; list-style-type: none;">
         <% @category.properties.each do |property| %>
             <% property.children.filter_displayed.each do |property_child| %>
               <li>

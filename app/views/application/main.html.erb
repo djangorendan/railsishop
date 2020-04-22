@@ -45,7 +45,9 @@
   <% categories.order(:id).each do |category| %>
     <div class="col-3">
       <div class="card text-center">
-        <%= link_to image_tag(category.image.url, alt: category.name, class: "img"), category %>
+        <% if category.image? %>
+          <%= link_to image_tag(category.image.url, alt: category.name, class: "img"), category %>
+        <% end %>
       </div>
     </div>
   <% end %>

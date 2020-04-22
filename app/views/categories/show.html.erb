@@ -4,6 +4,10 @@
 
 <h1><%= @category.name %></h1>
 
+<div class="d-xl-none d-lg-block"  style="margin-bottom: 10px;">
+  <%= render "patrials/filter_form" %>
+</div>
+
 <select id="product_filter_order" class="form-control" style="margin-bottom: 10px;">
   <option value="views asc">  по популярности </option>
   <option value="price asc">  от дешевых к дорогим </option>

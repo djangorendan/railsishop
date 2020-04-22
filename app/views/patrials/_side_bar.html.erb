@@ -23,11 +23,15 @@
     padding-left: 0px;
     padding-right: 0px;
   }
+
+  #filter_form {
+    margin-bottom: 10px;
+  }
 </style>
 
 <% if @category %>
   <div id="filter_form">
-    <%=  render "patrials/filter_form" %>
+    <%= render "patrials/filter_form" %>
   </div>
 <% end %>
 

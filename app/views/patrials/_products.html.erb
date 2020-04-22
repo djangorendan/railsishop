@@ -13,7 +13,7 @@
 
 <div class="row">
   <% @products.each do |product| %>
-    <div class="col-4">
+    <div class="col-lg-4 col-md-6">
       <div class="card text-center">
         <div class="text-on-img">
           <h4 class="card-title" style="margin: 0"><%= link_to product.name, product, style: "color: yellow;" %></h4>
