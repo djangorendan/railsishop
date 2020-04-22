@@ -3,6 +3,19 @@
     margin-top: 15px;
   }
 
+  .photo_panel {
+    position: absolute;
+    background-color: rgba(205, 214, 219, .3);
+    width: calc(100% - 30px);
+    display: none;
+  }
+  .photo_panel_left {
+    padding-left: 25px;
+  }
+
+  .photo_panel_right {
+    padding-right: 25px;
+  }
 </style>
 
 <%= form_for [:admin, product] do |form| %>
@@ -21,12 +34,46 @@
 <div class="row">
   <div class="col-3"> <!-- photos -->
     <% @product.product_photos.main.each do |photo| %>
-      <%= image_tag(photo.image.url, alt: 'Image', width: '100%') %>
+      <div class="row" style="margin-left: 0px;">
+        <div id="panel_<%= photo.id %>" class="photo_panel">
+          <div class="row">
+            <div class="col-6 photo_panel_left">
+              <%= link_to edit_admin_product_photo_path(photo, product_id: product.id) do %>
+                <i class="far fa-edit"></i>
+              <% end %>
+            </div>
+            <div class="col-6 text-right photo_panel_right">
+              <%= link_to admin_product_photo_path(photo), method: :delete, data: { confirm: 'Are you sure?' } do %>
+                <i class="far fa-trash-alt"></i>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <%= image_tag(photo.image.url, alt: 'Image', width: '100%', data: { id: photo.id}) %>
     <% end %>
     <div class="row">
       <% @product.product_photos.not_main.each do |photo| %>
         <div class="col-6 photos">
-          <%= image_tag(photo.image.url, alt: 'Image', width: '100%') %>
+          <div class="row" style="margin-left: 0px;">
+            <div id="panel_<%= photo.id %>" class="photo_panel">
+              <div class="row">
+                <div class="col-6 photo_panel_left">
+                  <%= link_to edit_admin_product_photo_path(photo, product_id: product.id) do %>
+                    <i class="far fa-edit"></i>
+                  <% end %>
+                </div>
+                <div class="col-6 text-right photo_panel_right">
+                  <%= link_to admin_product_photo_path(photo), method: :delete, data: { confirm: 'Are you sure?' } do %>
+                    <i class="far fa-trash-alt"></i>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <%= image_tag(photo.image.url, alt: 'Image', width: '100%', data: {id: photo.id}) %>
         </div>
       <% end %>
     </div>
@@ -104,3 +151,10 @@
 </div>
 
 <% end %>
+
+<script type="text/javascript">
+  $('img').hover(function(){
+    var id = $(this).attr('data-id');
+    $('#panel_'+id).toggle()
+  });
+</script>

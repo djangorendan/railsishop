@@ -45,17 +45,17 @@
       <div class="tab-pane fade show active aaa" id="discription" role="tabpanel" aria-labelledby="home-tab">
         <h2>Фото:</h2>
         <div class="row">
-          <div class="col">
+          <div class="col-5">
             <% @product.product_photos.not_main.each do |photo| %>
               <a data-toggle="modal" data-target="#photoModal" class="image_button" data-id="<%= photo.id %>">
                 <%= image_tag(photo.image.url, width: '100%', alt: @product.name, style: "padding-bottom: 8px;") %>
               </a>
             <% end %>
           </div>
-          <div class="col">
+          <div class="col-7">
             <% @product.product_photos.main.each do |photo| %>
               <a data-toggle="modal" data-target="#photoModal" class="image_button" data-id="<%= photo.id %>">
-                <%= image_tag(photo.image.url, alt: @product.name) %>
+                <%= image_tag(photo.image.url, width: '100%', alt: @product.name) %>
               </a>
             <% end %>
           </div>

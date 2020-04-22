@@ -45,7 +45,7 @@ class Admin::ProductPhotosController < ApplicationController
   def update
     respond_to do |format|
       if @product_photo.update(product_photo_params)
-        format.html { redirect_to @product_photo, notice: 'Product photo was successfully updated.' }
+        format.html { redirect_to edit_admin_product_path(@product_photo.product_id) }
         format.json { render :show, status: :ok, location: @product_photo }
       else
         format.html { render :edit }
@@ -59,7 +59,7 @@ class Admin::ProductPhotosController < ApplicationController
   def destroy
     @product_photo.destroy
     respond_to do |format|
-      format.html { redirect_to product_photos_url, notice: 'Product photo was successfully destroyed.' }
+      format.html { redirect_to edit_admin_product_path(@product_photo.product_id) }
       format.json { head :no_content }
     end
   end
