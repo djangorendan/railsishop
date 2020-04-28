@@ -3,7 +3,7 @@
     position: absolute;
     color: white;
     width: 100%;
-    top: 165px;
+    top: 145px;
   }
 
   .btn-outline-primary.button-detail:hover {
@@ -20,16 +20,22 @@
           <p class="card-text" style="font-size: 0.6rem; color: yellow;"><%= product.summary %></p>
         </div>
         <% product.product_photos.main.each do |photo| %>
-          <%= link_to image_tag(photo.image.url, width: '280px', height: '210px', alt: product.name, class: "product_img"), product %>
+          <%= link_to image_tag(photo.image.url, width: '280px', height: '190px', alt: product.name, class: "product_img"), product %>
         <% end %>
         <div class="card-body">
           <p class="card-text text-right" style="font-size: 1.5rem"><%= product.price %> грн.</p>
           <div class="row justify-content-between">
             <%= link_to "Подробнее", product, class: "btn btn-outline-primary button-detail col-5", style: "margin: 0 10px;" %>
-            <%= link_to "В корзину", product_to_cart_carts_path(product_id: product.id), remote: true, class: "btn btn-warning col-5", style: "margin: 0 10px; color: #007bff; background-color: yellow; border-color: yellow;" %>
+            <% if product.display? %>
+              <%= link_to "В корзину", product_to_cart_carts_path(product_id: product.id), remote: true, class: "btn btn-warning col-5", style: "margin: 0 10px; color: #007bff; background-color: yellow; border-color: yellow;" %>
+            <% else %>
+              <span class="btn btn-danger col-5 disabled" style="margin: 0 10px; color: #007bff;">Не имеется</span>
+            <% end %>
           </div>
         </div>
       </div>
     </div>
   <% end %>
 </div>
+
+<%= paginate @products, remote: true, pagination_class: "justify-content-center" %>

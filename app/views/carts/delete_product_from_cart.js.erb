@@ -2,6 +2,11 @@ document.getElementById('cart_product_<%= @cart_product.id %>').remove()
 document.getElementById('cart_link_count').innerText = "<%= @cart.total_product_count %>";
 document.getElementById('total_cart_sum').innerText = "<%= @cart.total_cart_sum %> грн.";
 
+if (<%= @cart.total_product_count %> == 0){
+  $("#cartModal").modal('hide');
+  document.getElementById("cart_link").classList.add('disabled');
+};
+
 notice();
 function notice(){
   var cart_notice = document.createElement("div");
@@ -14,11 +19,6 @@ function notice(){
     function(){
       cart_notice.remove();
     }, 2000
-  )
+  );
 
-}
-
-if (<%= @cart.total_product_count %> == 0){
-  $("#cartModal").modal('hide');
-  $("#cart_link").className = "btn btn-custom disabled";
-}
+};

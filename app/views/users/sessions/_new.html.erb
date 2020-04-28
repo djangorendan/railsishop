@@ -39,7 +39,20 @@
 
       }, error: function() {
         form.find("[type='submit']").attr('disabled', false);
-        console.log('errrrrrrrrrrrrrrrrrrrrrrrrrrror');
+        auth_error();
+        function auth_error(){
+          var auth_notice = document.createElement("div");
+          auth_notice.className = "alert alert-danger fixed-top notice text-center";
+          auth_notice.innerText = "Неверный логин или пароль";
+
+          document.body.appendChild(auth_notice);
+
+          setTimeout(
+            function(){
+              auth_notice.remove();
+            }, 2000
+          )
+        }
       }
     })
   });

@@ -26,7 +26,7 @@ class CartsController < ApplicationController
         @product_in_cart.update(total_product_sum: @total_product_sum)
         format.js
       else
-        format.js {render :qwe}
+        format.js {render :product_to_cart_error}
       end
     end
 

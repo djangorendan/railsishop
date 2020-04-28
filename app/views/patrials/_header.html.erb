@@ -50,7 +50,7 @@
 
 </style>
 
-<div class="container-fluid">
+<div id="header" class="container">
   <div class="row justify-content-between">
     <div class="col-md-auto text-center">
       <a href="/">
@@ -95,63 +95,67 @@
   </div>
 </div>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary" style="padding: 5px 0 5px 1rem; margin-bottom: 10px;">
-  <button class="navbar-toggler order-first" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+<nav id="navbar" class="navbar navbar-expand-lg navbar-dark bg-primary" style="padding: 5px 0 5px 1rem; margin-bottom: 10px;">
+  <div class="container">
+    <button class="navbar-toggler order-first" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link nav-custom" href="/">Главная</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link nav-custom" href="https://docs.google.com/spreadsheets/d/1MHJE8QwpMQtp5pESb031vKWT_pocnjgAB9Wv5z6bpRM/edit#gid=2124455559" target="_blank">Прайс</a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link nav-custom dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Категории товаров
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link nav-custom" href="/">Главная</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link nav-custom" href="https://docs.google.com/spreadsheets/d/1MHJE8QwpMQtp5pESb031vKWT_pocnjgAB9Wv5z6bpRM/edit#gid=2124455559" target="_blank">Прайс</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link nav-custom dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Категории товаров
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <% categories.each do |category| %>
+              <%= link_to category.name, category_path(category), class: "dropdown-item", style: "color: #007bff;" %>
+            <% end %>
+          </div>
+        </li>
+
+        <!--  -->
+
+        <li class="nav-item dropdown">
+          <a class="nav-link nav-custom dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            О нас
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/about_us">О нас</a>
+            <a class="dropdown-item" href="/about_us">Способы доставки</a>
+            <a class="dropdown-item" href="/about_us">Способы оплаты</a>
+            <a class="dropdown-item" href="/about_us">Контакты</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+
+    <div class="col-auto">
+      <%= form_tag results_path, method: :get, role: 'search', class: "form-inline my-2 my-lg-0" do %>
+        <%= text_field_tag :query, params[:query], class: "form-control", placeholder: "Поиск" %>
+        <button class="btn btn-outline-warning custom-button" type="submit"><i class="fas fa-search"></i></button>
+      <% end %>
+    </div>
+    <div class="col-auto header_buttons">
+      <% if session[:current_cart_id] && current_cart.total_product_count != 0 %>
+        <%= link_to cart_path(id: session[:current_cart_id]), remote: true, id: "cart_link", class: "btn btn-custom"  do %>
+          <i class="fas fa-shopping-cart"></i>
+          <span id="cart_link_count"><%= current_cart.total_product_count %><span>
+        <% end %>
+      <% else %>
+        <a id="cart_link" type="" class="btn btn-custom disabled" data-remote="true">
+          <i class="fas fa-shopping-cart"></i>
+          <span id="cart_link_count">0<span>
         </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <% categories.each do |category| %>
-            <%= link_to category.name, category_path(category), class: "dropdown-item", style: "color: #007bff;" %>
-          <% end %>
-        </div>
-      </li>
-
-      <!--  -->
-
-      <li class="nav-item dropdown">
-        <a class="nav-link nav-custom dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          О нас
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="/about_us">О нас</a>
-          <a class="dropdown-item" href="/about_us">Способы доставки</a>
-          <a class="dropdown-item" href="/about_us">Способы оплаты</a>
-          <a class="dropdown-item" href="/about_us">Контакты</a>
-        </div>
-      </li>
-    </ul>
-  </div>
-  <div class="col-auto">
-    <%= form_tag results_path, method: :get, role: 'search', class: "form-inline my-2 my-lg-0" do %>
-      <%= text_field_tag :query, params[:query], class: "form-control", placeholder: "Поиск" %>
-      <button class="btn btn-outline-warning custom-button" type="submit"><i class="fas fa-search"></i></button>
-    <% end %>
-  </div>
-  <div class="col-auto header_buttons">
-    <% if session[:current_cart_id] && current_cart.total_product_count != 0 %>
-      <%= link_to cart_path(id: session[:current_cart_id]), remote: true, id: "cart_link", class: "btn btn-custom"  do %>
-        <i class="fas fa-shopping-cart"></i>
-        <span id="cart_link_count"><%= current_cart.total_product_count %><span>
-      <%end%>
-    <% else %>
-      <a id="cart_link" type="" class="btn btn-custom disabled" data-toggle="modal" data-target="#cartModal">
-        <i class="fas fa-shopping-cart"></i>
-        <span id="cart_link_count">0<span>
-      </a>
-    <% end %>
+      <% end %>
+    </div>
   </div>
 </nav>
 

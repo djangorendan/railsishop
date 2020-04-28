@@ -14,9 +14,9 @@
 <h3>Результаты поиска по запросу <em><%= params[:query]%></em></h3>
 
 <div id="products_container">
-  <% if @products.nil? %>
-    <%= render "patrials/products" %>
-  <% else %>
+  <% if @products.empty? %>
     Поиск не дал результат
+  <% else %>
+    <%= render "patrials/products" %>
   <% end %>
 </div>
