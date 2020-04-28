@@ -4,14 +4,13 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: host }
 
   # SMTP settings for gmail
-  ActionMailer::Base.smtp_settings = {
-    :user_name => 'app168380346@heroku.com',
-    :password => 'guiudmcy8506',
-    # :domain => 'yourdomain.com',
-    :address => 'smtp.sendgrid.net',
-    :port => 465,
-    :authentication => :plain,
-    :enable_starttls_auto => true
+  config.action_mailer.smtp_settings = {
+    :address              => "smtp.gmail.com",
+    :port                 => 587,
+    :user_name            => 'ninjarendan@gmail.com',
+    :password             => '291819HellRiser',
+    :authentication       => "plain",
+    # :enable_starttls_auto => true
   }
   # Settings specified here will take precedence over those in config/application.rb.
 
