@@ -4,6 +4,10 @@ class OrdersController < ApplicationController
 
   after_action :update_product_quantity, only: [:create]
 
+  before_action :authenticate_user!, only: [
+    :index
+  ]
+
   # GET /orders
   # GET /orders.json
   def index

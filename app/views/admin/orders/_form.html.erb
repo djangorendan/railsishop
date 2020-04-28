@@ -90,7 +90,11 @@
         <tbody>
           <% order.cart.cart_products.each do |cart_product| %>
             <tr>
-              <td><%= link_to image_tag(cart_product.product.attachments.first.thumb.url), cart_product.product %></td>
+              <td>
+                <% cart_product.product.product_photos.main.each do |photo| %>
+                  <%= link_to image_tag(photo.image.url, width: '80px'), cart_product.product %>
+                <% end %>
+              </td>
               <td class="text-left">
                 <div><%= link_to cart_product.product.name, cart_product.product %></div>
                 <div style="font-size: 0.5rem"><%= cart_product.product.summary %></div>

@@ -50,7 +50,9 @@
                   <% order.cart.cart_products.each do |cart_product| %>
                     <div class="row">
                       <div class="col-auto" style="padding:0 0 10px 15px;">
-                        <%= link_to image_tag(cart_product.product.attachments.first.index_admin_thumb.url), edit_admin_product_path(cart_product.product) %>
+                        <% cart_product.product.product_photos.main.each do |photo| %>
+                          <%= link_to image_tag(photo.image.url, width: '80px'), edit_admin_product_path(cart_product.product) %>
+                        <% end %>
                       </div>
                       <div class="col" style="padding-left: 10px;">
                         <div><%= link_to cart_product.product.name, product_path(cart_product.product) %> - <span style="font-size: 0.9rem;"><%= cart_product.product_count %> шт.</span></div>
