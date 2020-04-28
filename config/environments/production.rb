@@ -3,10 +3,10 @@ Rails.application.configure do
   host = 'http://rendan.herokuapp.com' #replace with your own url
   config.action_mailer.default_url_options = { host: host }
 
-  # SMTP settings for gmail
+  # SMTP settings for sendgrid
   ActionMailer::Base.smtp_settings = {
-    :user_name => ENV ['SENDGRID_USERNAME'],
-    :password => ENV ['SENDGRID_PASSWORD'],
+    :user_name => ENV['SENDGRID_USERNAME'],
+    :password => ENV['SENDGRID_PASSWORD'],
     :domain => 'yourdomain.com',
     :address => 'smtp.sendgrid.net',
     :port => 587,
