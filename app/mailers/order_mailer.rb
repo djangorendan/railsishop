@@ -1,5 +1,5 @@
 class OrderMailer < ApplicationMailer
-  default from: 'ninjarendan@google.com'
+  # default from: 'ninjarendan@google.com'
 
   def new_order
     @order = params[:order]
