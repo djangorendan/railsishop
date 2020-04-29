@@ -3,14 +3,13 @@ Rails.application.configure do
   host = 'http://localhost:3000/' #replace with your own url
   config.action_mailer.default_url_options = { host: host }
 
-  # SMTP settings for gmail
-  config.action_mailer.smtp_settings = {
-    :address              => "smtp.gmail.com",
-    :port                 => 587,
-    :user_name            => 'ninjarendan@gmail.com',
-    :password             => '291819HellRiser',
-    :authentication       => "plain",
-    # :enable_starttls_auto => true
+  ActionMailer::Base.smtp_settings = {
+    :port           => ENV['MAILGUN_SMTP_PORT'],
+    :address        => ENV['MAILGUN_SMTP_SERVER'],
+    :user_name      => ENV['MAILGUN_SMTP_LOGIN'],
+    :password       => ENV['MAILGUN_SMTP_PASSWORD'],
+    :domain         => ENV['MAILGUN_DOMAIN'],
+    :authentication => :plain,
   }
 
   # Settings specified here will take precedence over those in config/application.rb.
