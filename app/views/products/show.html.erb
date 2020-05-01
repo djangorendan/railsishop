@@ -65,7 +65,7 @@
 
 <h1>
   <div>
-    <%= @product.properties.product_type.product_properties.first.value %>
+    <%= @product.properties.product_type.product_properties.first.value.to_s %>
     <%= @product.name %>
   </div>
   <div style="font-size: 15px"><%= @product.summary %></div>
@@ -98,7 +98,7 @@
           <div class="col-9">
             <% @product.product_photos.main.each do |photo| %>
               <a data-toggle="modal" data-target="#photoModal" class="image_button" data-id="<%= photo.id %>">
-                <%= image_tag(photo.image.url, width: '100%', alt: @product.name) %>
+                <%= image_tag(photo.image.url, width: '100%', alt: @product.name, height: "297px") %>
               </a>
             <% end %>
           </div>
@@ -147,7 +147,7 @@
         <% end %>
         <%= form_tag(product_create_product_comment_path(product_id: @product.id), method: :get) do %>
           <%= hidden_field_tag(:user_id, value = current_user.id) if current_user %>
-          <%= text_area_tag :comment, nil, class: "form-control" %>
+          <%= text_area_tag :comment, nil, rows: 8, class: "form-control" %>
           <div class="text-right">
             <%= submit_tag "Оставить комментарий", class: "btn btn-primary", style: "margin-top: 10px; color: yellow;" %>
           </div>
@@ -161,7 +161,7 @@
     <% if @product.display %>
       <%= form_tag product_to_cart_carts_path, method: 'get', class: 'row', style: 'margin: 0', remote: true do %>
         <%= hidden_field_tag(:product_id, value = @product.id) %>
-        <%= number_field_tag(:product_count, '1',min: 1, max: @product.quantity, class: "form-control col-3", style: "margin-right: 10px;") %>
+        <%= number_field_tag(:product_count, '1',min: 1, max: @product.quantity, id: "product_quantity", class: "form-control col-3", style: "margin-right: 10px;") %>
         <%= submit_tag("Добавить в корзину", class: "btn btn-primary col-auto", style: "color: yellow") %>
       <% end %>
     <% else %>
@@ -188,5 +188,14 @@
   $('#photoModal').on('hidden.bs.modal', function () {
     $('.carousel-item').removeClass('active');
     $('.photo_indecator').removeClass('active');
+  });
+
+  $('#product_quantity').on('change input', function() {
+    var product_count = parseInt($(this).val());
+    var max_product_count = parseInt($(this).attr('max'));
+    if (product_count > max_product_count) {
+      $(this).val(max_product_count);
+      product_count = max_product_count;
+    };
   });
 </script>

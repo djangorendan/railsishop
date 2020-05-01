@@ -99,6 +99,8 @@ GEM
     excon (0.73.0)
     execjs (2.7.0)
     ffi (1.11.1)
+    figaro (1.1.1)
+      thor (~> 0.14)
     fog-aws (3.6.2)
       fog-core (~> 2.1)
       fog-json (~> 1.1)
@@ -271,6 +273,7 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
   devise
   devise-russian (~> 2.0, >= 2.0.1.1)
+  figaro
   fog-aws
   friendly_id
   jbuilder (~> 2.5)

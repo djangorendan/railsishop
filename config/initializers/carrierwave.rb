@@ -2,9 +2,9 @@ CarrierWave.configure do |config|
   config.fog_provider = 'fog/aws'
   config.fog_credentials = {
       provider:              'AWS',
-      aws_access_key_id:     'AKIARWKEX2QQW7ECHIME',
-      aws_secret_access_key: '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',
-      region:                'eu-central-1',
+      aws_access_key_id:     ENV['AWS_ACCESS_KEY_ID'],
+      aws_secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'],
+      region:                ENV['AWS_REGION'],
   }
-  config.fog_directory  = 'rendan'
+  config.fog_directory  = ENV['AWS_DIRECTORY']
 end

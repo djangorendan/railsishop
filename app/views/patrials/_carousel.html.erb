@@ -3,7 +3,7 @@
     <div class="carousel-item active">
       <%= image_tag(carousel_images.first.image.url, width: "100%", height: "245px") %>
     </div>
-    <% carousel_images.each do |carousel_image| %>
+    <% carousel_images.drop(1).each do |carousel_image| %>
       <% if carousel_image.image? %>
         <div class="carousel-item">
           <%= image_tag(carousel_image.image.url, width: "100%", height: "245px") %>

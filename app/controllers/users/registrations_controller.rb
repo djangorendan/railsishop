@@ -11,6 +11,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def set_password
     password = Devise.friendly_token(8)
     password_confirmation = password
+    @user.update(password: password)
     UserMailer.with(user: @user, password: password).welcome_mail.deliver_now
   end
 

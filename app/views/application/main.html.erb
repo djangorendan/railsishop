@@ -13,7 +13,9 @@
   <title>Angar.kh.ua</title>
 <% end %>
 
-<%= render "patrials/carousel" %>
+<% if carousel_images %>
+  <%= render "patrials/carousel" %>
+<% end %>
 
 <div id="categories" class="">
   <h2>Категории:</h2>
@@ -29,7 +31,6 @@
     <% end %>
   </div>
 </div>
-
 
 <h1 style="font-size: 1.78rem;">Angar.kh.ua - Компьютерная техника для Вас в наличии и под заказ!!!</h1>
 <p>text</p>
