@@ -23,7 +23,7 @@
 
           <div id="collapse_<%= property.id %>" class="collapse" aria-labelledby="heading_<%= property.id %>" data-parent="#accordionExample">
             <div class="card-body">
-                <% property.children.each do |child| %>
+                <% property.children.order(:position).each do |child| %>
                   <div class="row justify-content-between">
                     <div class="col-auto" style="margin-left: 60px;">
                       <%= link_to child.name, edit_admin_property_path(child) %>
