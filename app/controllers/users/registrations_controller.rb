@@ -6,14 +6,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # respond_to :html, :json
 
-  after_action :set_password, only: [:create]
+  # after_action :set_password, only: [:create]
 
-  def set_password
-    password = Devise.friendly_token(8)
-    password_confirmation = password
-    @user.update(password: password)
-    UserMailer.with(user: @user, password: password).welcome_mail.deliver_now
-  end
+  # def set_password
+  #   password = Devise.friendly_token(8)
+  #   password_confirmation = password
+  #   @user.update(password: password)
+  #   UserMailer.with(user: @user, password: password).welcome_mail.deliver_now
+  # end
 
   # GET /resource/sign_up
   # def new
@@ -22,7 +22,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create
-    super
+    super do |user|
+      password = Devise.friendly_token(8)
+      password_confirmation = password
+      user.update(password: password)
+      if user.save
+        UserMailer.with(user: @user, password: password).welcome_mail.deliver_now
+      end
+    end
   end
 
   # GET /resource/edit

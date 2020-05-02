@@ -8,7 +8,7 @@
           <div class="card-header" id="heading_<%= property.id %>">
             <div class="row justify-content-between">
               <div class="col-auto">
-                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse_<%= property.id %>" aria-expanded="true" aria-controls="collapseOne">
+                <button id="collapse_<%= property.id %>_button" class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse_<%= property.id %>" aria-expanded="true" aria-controls="collapseOne">
                   <i class="fas fa-caret-down"></i>
                 </button>
                 <%= link_to property.name, edit_admin_property_path(property) %>

@@ -2,6 +2,8 @@
   <title>Авторизация | Angar.kh.ua</title>
 <% end %>
 
+<h2>Авторизация</h2>
+
 <%= form_for(resource, as: resource_name, url: session_path(resource_name), html:{id: 'sign_in_user'}) do |f| %>
 
   <div class="auth_field">
@@ -21,7 +23,6 @@
 
   <div class="actions d-flex justify-content-between" style="padding-top: -10px;">
     <%= f.submit "Авторизироваться", class: "btn btn-primary", style: "color: yellow; width: 33%;" %>
-    <%= link_to "Регистрация", new_registration_path(resource_name), class: "btn btn-primary", style: "color:yellow; width: 32%;" %>
-    <%= link_to "Востановление пароля", new_password_path(resource_name), class: "btn btn-primary", style: "color:yellow; width: 33%;" %>
+    <%= render "users/shared/links" %>
   </div>
 <% end %>

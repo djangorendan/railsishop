@@ -106,14 +106,15 @@
       </div>
       <div class="tab-pane fade" id="specifications" role="tabpanel" aria-labelledby="profile-tab">
         <h2>Технические характеристики:</h2>
-        <ul class="specs">
-          <% @product.product_properties.order(:id).each do |pp| %>
-            <% if pp.property.root? %>
-              <li><%= pp.property.name %>:</li>
-            <% else %>
-              <ul class="specs">
-                <% if pp.value? %>
-                  <li><%= pp.property.name %>: <%= pp.value %></li>
+        <ul>
+          <% @product.properties.each do |property| %>
+            <% if property.root? %>
+              <li><%= property.name %>:</li>
+              <ul>
+                <% property.children.order(:position).each do |child| %>
+                  <% if child.product_properties.find_by(product: @product).value? %>
+                    <li><%= child.name %>: <%= child.product_properties.find_by(product: @product).value %></li>
+                  <% end %>
                 <% end %>
               </ul>
             <% end %>

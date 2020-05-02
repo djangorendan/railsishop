@@ -1,16 +1,18 @@
-<h2>Forgot your password?</h2>
+<% content_for :head do %>
+  <title>Забыл пароль? | Angar.kh.ua</title>
+<% end %>
+
+<h2>Забыл пароль?</h2>
 
 <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  <div class="field" style="margin-bottom: 10px;">
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder: "Адрес электронной почты" %>
   </div>
 
   <div class="actions">
-    <%= f.submit "Send me reset password instructions" %>
+    <%= f.submit "Восстановить пароль", class: "btn btn-primary", style: "width: 33%; color: yellow;" %>
+    <%= render "users/shared/links" %>
   </div>
 <% end %>
-
-<%= render "users/shared/links" %>
