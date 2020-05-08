@@ -1,6 +1,8 @@
 class Admin::OrdersController < ApplicationController
   layout "admin"
 
+  has_scope :state
+
   before_action :authenticate_admin!
   before_action :set_order, only: [:show, :edit, :update, :destroy]
 
@@ -9,7 +11,7 @@ class Admin::OrdersController < ApplicationController
   # GET /orders
   # GET /orders.json
   def index
-    @orders = Order.order(id: :desc).all
+    @orders = apply_scopes(Order).order(id: :desc).all
   end
 
   # GET /orders/1

@@ -16,15 +16,6 @@ class User < ApplicationRecord
 
    validates :email, :first_name, :last_name, :phone, presence: true
    validates :phone, numericality: true
-   validates :phone, uniqueness: true
-
-   # attr_accessor :skip_password_validation  # virtual attribute to skip password validation while saving
-   #
-   #   protected
-   #
-   #   def password_required?
-   #     return false if skip_password_validation
-   #     super
-   #   end
+   # validates :phone, uniqueness: true
 
 end

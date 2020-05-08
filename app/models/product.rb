@@ -19,8 +19,10 @@ class Product < ApplicationRecord
 
   paginates_per 9
 
-  scope :displayed, -> { where.not(display: false) }
-  
+  scope :displayed, -> { where(display: true) }
+  scope :not_displayed, -> { where.not(display: true) }
+  scope :by_category, -> category { where(category: category) }
+
   scope :filter_by_category, -> (params) {
     return unless params
     where("

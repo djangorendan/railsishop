@@ -74,3 +74,4 @@ gem 'devise-russian', '~> 2.0', '>= 2.0.1.1'
 gem 'fog-aws'
 gem 'ckeditor', github: 'galetahub/ckeditor'
 gem "figaro"
+gem 'has_scope'

@@ -39,7 +39,6 @@ class OrdersController < ApplicationController
       @order.update(departament: departament)
     end
     OrderMailer.with(order: @order).new_order.deliver_now
-    OrderMailer.with(order: @order).new_order_admin.deliver_now
 
     respond_to do |format|
       if @order.save
@@ -86,10 +85,9 @@ class OrdersController < ApplicationController
           product.save
         end
       end
-      @order.update(status: 'Отменен', discription: params[:reason])
-      redirect_to orders_path, notice: 'Заказ №' + @order.id.to_s + ' успешно отменен.'
-      OrderMailer.with(order: @order).cancel_order.deliver_now
-      OrderMailer.with(order: @order).cancel_order_admin.deliver_now
+    @order.update(status: 'Отменен', discription: params[:reason])
+    redirect_to orders_path, notice: 'Заказ №' + @order.id.to_s + ' успешно отменен.'
+    OrderMailer.with(order: @order).cancel_order.deliver_now
   end
 
   private

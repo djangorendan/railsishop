@@ -9,18 +9,23 @@
   .btn-outline-primary.button-detail:hover {
     color: yellow;
   }
+
+  .product_img {
+    margin-top: 1%;
+    width: 97%;
+  }
 </style>
 
 <div class="row">
   <% @products.each do |product| %>
-    <div class="col-lg-4 col-md-6">
+    <div class="col-lg-4 col-md-6 col-12">
       <div class="card text-center">
         <div class="text-on-img">
           <h4 class="card-title" style="margin: 0"><%= link_to product.name, product, style: "color: yellow;" %></h4>
           <p class="card-text" style="font-size: 0.6rem; color: yellow;"><%= product.summary %></p>
         </div>
         <% product.product_photos.main.each do |photo| %>
-          <%= link_to image_tag(photo.image.url, width: '280px', height: '190px', alt: product.name, class: "product_img"), product %>
+          <%= link_to image_tag(photo.image.url, alt: product.name, class: "img_fluid product_img"), product, class: "img_wrapper" %>
         <% end %>
         <div class="card-body">
           <p class="card-text text-right" style="font-size: 1.5rem"><%= product.price %> грн.</p>

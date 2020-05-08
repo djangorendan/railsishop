@@ -107,17 +107,15 @@
       <div class="tab-pane fade" id="specifications" role="tabpanel" aria-labelledby="profile-tab">
         <h2>Технические характеристики:</h2>
         <ul>
-          <% @product.properties.each do |property| %>
-            <% if property.root? %>
-              <li><%= property.name %>:</li>
-              <ul>
-                <% property.children.order(:position).each do |child| %>
-                  <% if child.product_properties.find_by(product: @product).value? %>
-                    <li><%= child.name %>: <%= child.product_properties.find_by(product: @product).value %></li>
-                  <% end %>
+          <% @product.properties.roots.each do |property| %>
+            <li><%= property.name %>:</li>
+            <ul>
+              <% property.children.order(:position).each do |child| %>
+                <% if child.product_properties.find_by(product: @product).value? %>
+                  <li><%= child.name %>: <%= child.product_properties.find_by(product: @product).value %></li>
                 <% end %>
-              </ul>
-            <% end %>
+              <% end %>
+            </ul>
           <% end %>
         </ul>
       </div>
@@ -163,7 +161,7 @@
       <%= form_tag product_to_cart_carts_path, method: 'get', class: 'row', style: 'margin: 0', remote: true do %>
         <%= hidden_field_tag(:product_id, value = @product.id) %>
         <%= number_field_tag(:product_count, '1',min: 1, max: @product.quantity, id: "product_quantity", class: "form-control col-3", style: "margin-right: 10px;") %>
-        <%= submit_tag("Добавить в корзину", class: "btn btn-primary col-auto", style: "color: yellow") %>
+        <%= submit_tag("В корзину", class: "btn btn-primary col-auto", style: "color: yellow") %>
       <% end %>
     <% else %>
       <h4 style="color: red;">Нет в наличии</h4>
@@ -175,6 +173,8 @@
   <div style="padding-left: 15px">
     <%= @product.discription.html_safe %>
   </div>
+  <h2>Подобные товары:</h2>
+  <%= render "patrials/products" %>
 </div>
 
 <!-- PhotoModal -->

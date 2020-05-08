@@ -1,16 +1,19 @@
 Rails.application.routes.draw do
   mount Ckeditor::Engine => '/ckeditor'
+
   devise_for :admins, controllers: { sessions: 'admins/sessions' }
+  devise_for :users, controllers: { registrations: 'users/registrations'}
+
   resources :orders, except: [:show, :destroy] do
     get :cancel
   end
-  devise_for :users, controllers: { registrations: 'users/registrations'}
 
   resources :products, only: :show do
     get :create_product_comment
     get :like_comment
     get :dislike_comment
   end
+
   resources :categories, only: :show
 
   resources :carts do
@@ -36,6 +39,7 @@ Rails.application.routes.draw do
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'application#main'
+  
   get 'results', to: 'results#index', as: 'results'
 
   get '/admin' => 'admin/orders#index'

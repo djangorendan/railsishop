@@ -125,24 +125,25 @@
 
     <div class="row">
       <h2>Характеристики:</h2>
-        <% @product.product_properties.order(:id).each do |pp| %>
-          <% if pp.property.root? %>
-            <button class="btn btn-primary btn-block" type="button" data-toggle="collapse"
-              data-target="#collapse_<%= pp.property.id %>" aria-expanded="false"
-              aria-controls="collapseExample" style="margin-bottom: 15px;">
-              <%= pp.property.name %>
-            </button>
-          <% else %>
-          <div class="col-12">
-            <div class="collapse" id="collapse_<%= pp.property.root.id %>" style="margin: 0 15px 0 0;">
-              <%= form.fields_for :product_properties, pp do |pp_form| %>
-                <div class="row form-group">
-                  <span class="col-3 col-form-label"><%= pp.property.name %>:</span>
-                  <%= pp_form.text_field :value, class: "col-9 form-control" %>
+        <% @product.properties.roots.each do |property| %>
+          <button class="btn btn-primary btn-block" type="button" data-toggle="collapse"
+            data-target="#collapse_<%= property.id %>" aria-expanded="false"
+            aria-controls="collapseExample" style="margin-bottom: 15px;">
+            <%= property.name %>
+          </button>
+          <% property.children.order(:position).each do |child| %>
+            <% child.product_properties.where(product: @product).each do |pp| %>
+              <div class="col-12">
+                <div class="collapse" id="collapse_<%= pp.property.root.id %>" style="margin: 0 15px 0 0;">
+                  <%= form.fields_for :product_properties, pp do |pp_form| %>
+                    <div class="row form-group">
+                      <span class="col-3 col-form-label"><%= pp.property.name %>:</span>
+                      <%= pp_form.text_field :value, class: "col-9 form-control" %>
+                    </div>
+                  <% end %>
                 </div>
-              <% end %>
-            </div>
-          </div>
+              </div>
+            <% end %>
           <% end %>
         <% end %>
     </div>

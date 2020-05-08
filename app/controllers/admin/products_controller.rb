@@ -7,10 +7,15 @@ class Admin::ProductsController < ApplicationController
   after_action :create_product_properties, only: :create
   after_action :create_summary, only: :update
 
+  has_scope :displayed, type: :boolean
+  has_scope :not_displyed, type: :boolean
+  has_scope :by_category
+
   # GET /products
   # GET /products.json
   def index
-    @products = Product.all
+    @products = apply_scopes(Product).all
+    @categories = Category.all
   end
 
   # GET /products/new

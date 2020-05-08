@@ -7,12 +7,16 @@ class ProductProperty < ApplicationRecord
       "COUNT(products.id) AS products_count, property_id"
     ).joins(
       "LEFT JOIN products ON products.id = product_properties.product_id"
-    ).grouped
+    ).grouped.have_values
   }
 
   scope :grouped, -> () {
-    select(:value).group(:value, :property_id)
+    select(:value, :property_id).group(:value, :property_id)
   }
+
+  scope :property_children, -> { includes(:property).where.not(properties: {ancestry: nil}) }
+
+  scope :have_values, -> { where.not(value: "") }
 
   scope :processor, -> {find_by(property: Property.processor)}
   scope :ram_size, -> {find_by(property: Property.ram_size)}

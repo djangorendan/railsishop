@@ -15,7 +15,7 @@
                 <div class="col-6 text-right" id="change_stasus_form_<%= order.id %>">
                   <%= form_for [:admin, order] do |form| %>
                     <%= form.select :status, options_for_select(
-                      ["Новый", "Принят", "Оплачен", "Выполнен", "Отменен"], selected: order.status
+                      ["Новый", "Принят", "Оплачен", "Отправлен", "Выполнен", "Отменен"], selected: order.status
                     ),{},{class: "form-control-sm", style: "font-size: 0.7rem", id: "change_stasus_input_"+order.id.to_s} %>
                     <%= form.submit "", style: "display: none" %>
                   <% end %>
@@ -105,6 +105,15 @@
     <% end %>
   </div>
   <div class="col-3">
-    Статистика:
+    Сортировка:
+    <ul>
+      <li>По статусу:</li>
+      <ul>
+        <li><%= link_to "Все", admin_orders_path %></li>
+        <% %w[Новый Принят Оплачен Отправлен Выполнен Отменен].each do |state| %>
+          <li><%= link_to state, admin_orders_path(state: state) %></li>
+        <% end %>
+      </ul>
+    </ul>
   </div>
 </div>

@@ -1,4 +1,9 @@
 <style media="screen">
+  #header {
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+
   a.nav-link.nav-custom,a.nav-link.nav-custom :hover {
     color: yellow !important;
   }
@@ -47,6 +52,8 @@
     margin-right: auto;
     z-index: 9999999999;
   }
+
+("style", "background-color: yellow; color: #007bff !important; cursor: pointer");
 
 </style>
 
@@ -145,12 +152,20 @@
     </div>
     <div class="col-auto header_buttons">
       <% if session[:current_cart_id] && current_cart.total_product_count != 0 %>
-        <%= link_to cart_path(id: session[:current_cart_id]), remote: true, id: "cart_link", class: "btn btn-custom"  do %>
+        <%= link_to cart_path(id: session[:current_cart_id]), remote: true, class: "btn btn-custom d-md-none d-lg-block"  do %>
+          <i class="fas fa-shopping-cart"></i>
+          <span id="cart_link_count"><%= current_cart.total_product_count %><span>
+        <% end %>
+        <%= link_to cart_path(id: session[:current_cart_id]), class: "btn btn-custom d-md-block d-lg-none"  do %>
           <i class="fas fa-shopping-cart"></i>
           <span id="cart_link_count"><%= current_cart.total_product_count %><span>
         <% end %>
       <% else %>
-        <a id="cart_link" type="" class="btn btn-custom disabled" data-remote="true">
+        <a type="" class="btn btn-custom disabled d-md-none d-lg-block" data-remote="true">
+          <i class="fas fa-shopping-cart"></i>
+          <span id="cart_link_count">0<span>
+        </a>
+        <a type="" class="btn btn-custom disabled d-md-block d-lg-none">
           <i class="fas fa-shopping-cart"></i>
           <span id="cart_link_count">0<span>
         </a>
@@ -201,3 +216,15 @@
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+  function windowSize(){
+    if ($(window).width() < '768' ){
+      $('.d-md-block').attr("id", "cart_id");
+    } else {
+      $('.d-lg-block').attr("id", "cart_id");
+    };
+  };
+
+  $(window).on('load resize', windowSize);
+</script>

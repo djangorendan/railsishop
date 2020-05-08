@@ -14,6 +14,9 @@ class ProductsController < ApplicationController
   def show
     @product = Product.friendly.find(params[:id])
     @product.increment!(:views)
+    @products = Product.displayed.where(category: @product.category)
+      .where("price >= ?", @product.price-1000).where("price <= ?", @product.price+1000)
+      .where.not(id: @product.id).page params[:page]
   end
 
   def create_product_comment
