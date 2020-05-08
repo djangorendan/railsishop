@@ -152,20 +152,12 @@
     </div>
     <div class="col-auto header_buttons">
       <% if session[:current_cart_id] && current_cart.total_product_count != 0 %>
-        <%= link_to cart_path(id: session[:current_cart_id]), remote: true, class: "btn btn-custom d-md-none d-lg-block"  do %>
-          <i class="fas fa-shopping-cart"></i>
-          <span id="cart_link_count"><%= current_cart.total_product_count %><span>
-        <% end %>
-        <%= link_to cart_path(id: session[:current_cart_id]), class: "btn btn-custom d-md-block d-lg-none"  do %>
+        <%= link_to cart_path(id: session[:current_cart_id]), remote: true, id: "cart_link", class: "btn btn-custom"  do %>
           <i class="fas fa-shopping-cart"></i>
           <span id="cart_link_count"><%= current_cart.total_product_count %><span>
         <% end %>
       <% else %>
-        <a type="" class="btn btn-custom disabled d-md-none d-lg-block" data-remote="true">
-          <i class="fas fa-shopping-cart"></i>
-          <span id="cart_link_count">0<span>
-        </a>
-        <a type="" class="btn btn-custom disabled d-md-block d-lg-none">
+        <a id="cart_link" type="" class="btn btn-custom disabled" data-remote="true">
           <i class="fas fa-shopping-cart"></i>
           <span id="cart_link_count">0<span>
         </a>
@@ -219,12 +211,12 @@
 
 <script type="text/javascript">
   function windowSize(){
-    if ($(window).width() < '992' ){
-      $('.d-md-block').attr("id", "cart_id");
+    if ($(window).width() <= '992'){
+      $('#cart_link').attr('data-remote', 'false');
     } else {
-      $('.d-lg-block').attr("id", "cart_id");
-    };
-  };
+      $('#cart_link').attr('data-remote', 'true');
+    }
+  }
 
-  $(window).on('load resize', windowSize);
+  $(window).on('load resize',windowSize);
 </script>
