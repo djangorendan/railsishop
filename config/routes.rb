@@ -20,7 +20,6 @@ Rails.application.routes.draw do
     collection do
       get :product_to_cart
       get :delete_product_from_cart
-      get :delete_all_products_from_cart
     end
   end
 
@@ -39,7 +38,7 @@ Rails.application.routes.draw do
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'application#main'
-  
+
   get 'results', to: 'results#index', as: 'results'
 
   get '/admin' => 'admin/orders#index'

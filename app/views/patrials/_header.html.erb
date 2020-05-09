@@ -53,7 +53,17 @@
     z-index: 9999999999;
   }
 
-("style", "background-color: yellow; color: #007bff !important; cursor: pointer");
+  .btn.btn-primary {
+    color: yellow;
+  }
+
+  .btn.btn-outline-primary:hover {
+    color: yellow;
+  }
+
+  .table th {
+    border-top: 0px;
+  }
 
 </style>
 
@@ -202,8 +212,10 @@
 
       </div>
       <div class="modal-footer">
-        <%= link_to "Оформить заказ", new_order_path(), class: "btn btn-primary", style: "color: yellow;" %>
-        <%= link_to "Очистить корзину", delete_all_products_from_cart_carts_path, class: "btn btn-primary", style: "color: yellow;" %>
+        <button type="button" class="btn btn-outline-primary" data-dismiss="modal" aria-label="Close">
+          Продолжить покупки
+        </button>
+        <%= link_to "Оформить заказ", new_order_path(), class: "btn btn-custom" %>
       </div>
     </div>
   </div>

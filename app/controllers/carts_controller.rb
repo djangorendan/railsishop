@@ -40,13 +40,6 @@ class CartsController < ApplicationController
     end
   end
 
-  def delete_all_products_from_cart
-    @cart.cart_products.delete_all
-    respond_to do |format|
-      format.html { redirect_to root_path }
-    end
-  end
-
   private
     def can_add_product_into_cart?
       params[:product_count] && @add_product_count <= @product.quantity ||
