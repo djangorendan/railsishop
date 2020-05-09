@@ -2,12 +2,12 @@ class ProductProperty < ApplicationRecord
   belongs_to :product
   belongs_to :property
 
-  scope :grouped_with_product_count, -> () {
+  scope :grouped_with_product_count, -> (category_id) {
     select(
       "COUNT(products.id) AS products_count, property_id"
     ).joins(
       "LEFT JOIN products ON products.id = product_properties.product_id"
-    ).grouped.have_values
+    ).grouped.have_values.where('products.display = true AND products.category_id = ?', category_id)
   }
 
   scope :grouped, -> () {

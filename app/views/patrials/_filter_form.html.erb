@@ -38,7 +38,7 @@
               </a>
             </li>
             <ul style="padding-inline-start: 0.5rem; list-style-type: none; font-size: 0.8rem;">
-              <% property_child.product_properties.grouped_with_product_count.each do |product_property| %>
+              <% property_child.product_properties.grouped_with_product_count(@category.id).each do |product_property| %>
               <%# .includes(:product).where(products: {category: @category, display: true}) %>
                 <div class="collapse multi-collapse" id="property_<%= property_child.id %>">
                   <li>

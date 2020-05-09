@@ -21,8 +21,9 @@ class OrdersController < ApplicationController
 
   # GET /orders/new
   def new
-    @cart = Cart.find(session[:current_cart_id])
+    @cart = Cart.find_by(id: session[:current_cart_id])
     @order = Order.new
+    redirect_to root_path unless @cart
   end
 
   # GET /orders/1/edit
