@@ -68,15 +68,6 @@
 </div>
 
 <script type="text/javascript">
-  $(document).ready(function(){
-    $('#photoModal').on('show.bs.modal', function () {
-      $('img.product_img_modal').each(function(){
-        var width = $(this).height();
-        console.log(width);
-      });
-    });
-  });
-
   function windowSize(){
     if ($(window).width() <= '1200'){
       $('.product_photo_modal').css("max-width", "96%");

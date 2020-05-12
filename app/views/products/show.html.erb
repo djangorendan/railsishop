@@ -53,6 +53,28 @@
     transition: opacity .6s ease;
   }
 
+  .text-on-img {
+    position: absolute;
+    width: 96%;
+    top: 145px;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+    color: yellow;
+  }
+
+  .product_img {
+    max-width: 97%;
+    height: 200px;
+    object-fit: contain;
+  }
+
+  .btn-outline-primary.button-detail:hover {
+    color: yellow;
+  }
+
 </style>
 
 <nav aria-label="breadcrumb">
@@ -98,7 +120,7 @@
           <div class="col-9">
             <% @product.product_photos.main.each do |photo| %>
               <a data-toggle="modal" data-target="#photoModal" class="image_button" data-id="<%= photo.id %>">
-                <%= image_tag(photo.image.url, width: '100%', alt: @product.name, height: "297px") %>
+                <%= image_tag(photo.image.url, width: '100%', alt: @product.name) %>
               </a>
             <% end %>
           </div>
@@ -174,7 +196,34 @@
     <%= @product.discription.html_safe %>
   </div>
   <h2>Подобные товары:</h2>
-  <%= render "patrials/products" %>
+  <div class="owl-carousel owl-theme">
+    <% @products.each do |product| %>
+      <div class="item">
+        <div class="card text-center">
+          <div class="text-on-img text-center">
+            <h5 class="card-title" style="margin: 0;"><%= link_to product.name, product, style: "color: yellow;" %></h5>
+            <div class="product-summary">
+              <p class="card-text" style="color: yellow !important;"><%= product.summary %></p>
+            </div>
+          </div>
+          <% product.product_photos.main.each do |photo| %>
+            <%= link_to image_tag(photo.image.url, alt: product.name, class: "product_img"), product, class: "img_wrapper" %>
+          <% end %>
+          <div class="card-body">
+            <p class="card-text text-right" style="font-size: 1.5rem"><%= product.price %> грн.</p>
+            <div class="row justify-content-between">
+              <%= link_to "Подробнее", product, class: "btn btn-outline-primary button-detail col-5", style: "margin: 0 10px;" %>
+              <% if product.display? %>
+                <%= link_to "В корзину", product_to_cart_carts_path(product_id: product.id), remote: true, class: "btn btn-warning col-5", style: "margin: 0 10px; color: #007bff; background-color: yellow; border-color: yellow;" %>
+              <% else %>
+                <span class="btn btn-danger col-5 disabled" style="margin: 0 10px; color: #007bff;">Не имеется</span>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </div>
 
 <!-- PhotoModal -->
@@ -198,5 +247,12 @@
       $(this).val(max_product_count);
       product_count = max_product_count;
     };
+  });
+
+  $('.owl-carousel').owlCarousel({
+    loop: true,
+    nav: true,
+    margin: 10,
+    dots: false,
   });
 </script>

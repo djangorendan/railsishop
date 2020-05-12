@@ -4,6 +4,9 @@
     <% if content_for?(:head) %>
       <%= yield(:head) %>
     <% end %>
+
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -27,6 +30,12 @@
 
     <!-- bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- owl_carousel -->
+    <%= stylesheet_link_tag    'owl_carousel/assets/owl.carousel.css' %>
+    <%= stylesheet_link_tag    'owl_carousel/assets/owl.theme.default.css' %>
+
+    <%= javascript_include_tag 'owl_carousel/owl.carousel.js' %>
 
     <%= javascript_include_tag 'bigtext' %>
 

@@ -15,3 +15,8 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 Rails.application.config.assets.precompile += %w[ckeditor/config.js]
 
 Rails.application.config.assets.precompile += %w( bigtext.js )
+
+Rails.application.config.assets.precompile += %w( owl_carousel/owl.carousel.js )
+
+Rails.application.config.assets.precompile += %w( owl_carousel/assets/owl.carousel.css )
+Rails.application.config.assets.precompile += %w( owl_carousel/assets/owl.theme.css )
