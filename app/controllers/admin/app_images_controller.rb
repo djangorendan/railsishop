@@ -1,6 +1,7 @@
 class Admin::AppImagesController < ApplicationController
   layout "admin"
 
+  before_action :authenticate_admin!
   before_action :set_app_image, only: [:show, :edit, :update, :destroy]
 
   # GET /app_images

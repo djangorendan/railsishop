@@ -28,6 +28,8 @@
     <!-- bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
+    <%= javascript_include_tag 'bigtext' %>
+
     <%= javascript_include_tag Ckeditor.cdn_url %>
 
     <style media="screen">
@@ -41,12 +43,12 @@
 
   <body>
     <%= render "patrials/header" %>
-    <div class="container">
+    <div class="wrapper container">
       <div class="row">
         <div class="d-none d-xl-block col-xl-2">
           <%= render "patrials/side_bar" %>
         </div>
-        <div class="col-12 col-xl-10">
+        <div class="col-12 col-lg-12 col-xl-10">
           <%= yield %>
         </div>
       </div>
@@ -55,4 +57,16 @@
     <%= render "patrials/footer" %>
 
   </body>
+
+  <script type="text/javascript">
+    function windowSize(){
+      if ($(window).width() <= '992'){
+        $('.wrapper').removeClass("container").addClass("container-fluid");
+      } else {
+        $('.wrapper').removeClass("container-fluid").addClass("container");
+      };
+    };
+
+    $(window).on('load resize',windowSize);
+  </script>
 </html>

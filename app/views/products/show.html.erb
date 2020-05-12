@@ -65,7 +65,7 @@
 
 <h1>
   <div>
-    <%= @product.properties.product_type.product_properties.first.value.to_s %>
+    <%= @product.product_properties.product_type.value.to_s %>
     <%= @product.name %>
   </div>
   <div style="font-size: 15px"><%= @product.summary %></div>

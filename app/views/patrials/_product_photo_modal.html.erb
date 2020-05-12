@@ -1,24 +1,41 @@
 <style media="screen">
-  .modal-content,
-  .modal-dialog {
-    max-height: calc(378px + 6rem + 1px);
+
+  .product_photo_modal .modal-dialog,
+  .product_photo_modal .modal-content {
+    background-color: #f8f9fa;
+    max-width: 1200px;
+    margin: 1.75rem auto;
+    max-height: calc(100vh - 1.75rem * 2);
+  }
+
+  .product_img_modal {
+    width: 100%;
+    object-fit: contain;
+  }
+
+  .img_wrapper {
+    max-height: calc(100vh - 1.75rem * 2 - 2rem - 63px);
+  }
+
+  .img_wrapper_2 {
+    max-height: calc(100vh - 1.75rem * 2 - 4rem - 63px);
   }
 
 </style>
 
 <div class="modal fade" id="photoModal" tabindex="-1" role="dialog" aria-labelledby="photoModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
+  <div class="product_photo_modal modal-dialog" role="document">
+    <div class="product_photo_modal modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="photoModalLabel"><%= @product.name %></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="false">
-          <div class="row">
-            <div class="col-3" style="overflow-y: auto; height: 378px;">
+      <div class="modal-body img_wrapper">
+        <div id="carouselExampleIndicators" class="carousel slide img_wrapper_2" data-ride="carousel" data-interval="false">
+          <div class="row img_wrapper">
+            <div class="d-md-none d-lg-block col-lg-2 img_wrapper_2" style="">
               <ul class="carousel-indicators">
                 <% @product.product_photos.each_with_index do |photo, index| %>
                   <li id="photo_indecator_<%= photo.id %>" class="photo_indecator" data-target="#carouselExampleIndicators" data-slide-to="<%= index %>">
@@ -27,11 +44,20 @@
                 <% end %>
               </ul>
             </div>
-            <div class="col-9">
-              <div class="carousel-inner">
+            <div class="d-md-block d-lg-none col-lg-12" style="">
+              <ul class="carousel-indicators">
+                <% @product.product_photos.each_with_index do |photo, index| %>
+                  <li id="photo_indecator_<%= photo.id %>" class="photo_indecator" data-target="#carouselExampleIndicators" data-slide-to="<%= index %>">
+                    <%= image_tag(photo.image.url, width: '33%', height: '112px') %>
+                  </li>
+                <% end %>
+              </ul>
+            </div>
+            <div class="col-lg-10 col-12 img_wrapper_2">
+              <div class="carousel-inner img_wrapper_2">
                 <% @product.product_photos.each do |photo| %>
-                  <div class="carousel-item" id="photo_<%= photo.id %>">
-                    <%= image_tag(photo.image.url, width: '100%', height: '378px') %>
+                  <div class="carousel-item img_wrapper_2" id="photo_<%= photo.id %>">
+                    <%= image_tag(photo.image.url, class: "product_img_modal img_wrapper_2") %>
                   </div>
                 <% end %>
               </div>
@@ -50,3 +76,24 @@
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#photoModal').on('show.bs.modal', function () {
+      $('img.product_img_modal').each(function(){
+        var width = $(this).height();
+        console.log(width);
+      });
+    });
+  });
+
+  function windowSize(){
+    if ($(window).width() <= '1200'){
+      $('.product_photo_modal').css("max-width", "96%");
+    } else {
+      $('.product_photo_modal').css("max-width", "1200px");
+    };
+  };
+
+  $(window).on('load resize',windowSize);
+</script>

@@ -14,9 +14,9 @@ class ProductProperty < ApplicationRecord
     select(:value, :property_id).group(:value, :property_id)
   }
 
-  scope :property_children, -> { includes(:property).where.not(properties: {ancestry: nil}) }
-
   scope :have_values, -> { where.not(value: "") }
+
+  scope :product_type, -> { find_by(property: Property.product_type) }
 
   scope :processor, -> {find_by(property: Property.processor)}
   scope :ram_size, -> {find_by(property: Property.ram_size)}

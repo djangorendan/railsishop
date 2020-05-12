@@ -1,9 +1,13 @@
 <style media="screen">
   .text-on-img {
     position: absolute;
-    color: white;
-    width: 100%;
+    width: 90%;
     top: 145px;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
   }
 
   .btn-outline-primary.button-detail:hover {
@@ -13,6 +17,8 @@
   .product_img {
     margin-top: 1%;
     width: 97%;
+    height: 200px;
+    object-fit: contain;
   }
 </style>
 
@@ -20,12 +26,12 @@
   <% @products.each do |product| %>
     <div class="col-lg-4 col-md-6 col-12">
       <div class="card text-center">
-        <div class="text-on-img">
-          <h4 class="card-title" style="margin: 0"><%= link_to product.name, product, style: "color: yellow;" %></h4>
-          <p class="card-text" style="font-size: 0.6rem; color: yellow;"><%= product.summary %></p>
+        <div class="text-on-img text-center">
+          <h5 class="card-title"><%= link_to product.name, product, style: "color: yellow;" %></h5>
+          <p class="card-text" style="color: yellow;"><%= product.summary %></p>
         </div>
         <% product.product_photos.main.each do |photo| %>
-          <%= link_to image_tag(photo.image.url, alt: product.name, class: "img_fluid product_img"), product, class: "img_wrapper" %>
+          <%= link_to image_tag(photo.image.url, alt: product.name, class: "product_img"), product, class: "img_wrapper" %>
         <% end %>
         <div class="card-body">
           <p class="card-text text-right" style="font-size: 1.5rem"><%= product.price %> грн.</p>
@@ -44,3 +50,7 @@
 </div>
 
 <%= paginate @products, remote: true, pagination_class: "justify-content-center" %>
+
+<script type="text/javascript">
+  $('.text-on-img').bigtext();
+</script>

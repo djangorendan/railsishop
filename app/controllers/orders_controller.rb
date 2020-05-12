@@ -23,7 +23,7 @@ class OrdersController < ApplicationController
   def new
     @cart = Cart.find_by(id: session[:current_cart_id])
     @order = Order.new
-    redirect_to root_path unless @cart
+    redirect_to root_path unless @cart && @cart.total_product_count != 0
   end
 
   # GET /orders/1/edit

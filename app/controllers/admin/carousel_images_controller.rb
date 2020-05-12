@@ -1,6 +1,7 @@
 class Admin::CarouselImagesController < ApplicationController
   layout "admin"
 
+  before_action :authenticate_admin!
   before_action :set_carousel_image, only: [:show, :edit, :update, :destroy]
 
   # GET /carousel_images
