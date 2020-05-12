@@ -5,8 +5,6 @@
       <%= yield(:head) %>
     <% end %>
 
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -33,10 +31,10 @@
 
     <!-- owl_carousel -->
     <%= stylesheet_link_tag    'owl_carousel/assets/owl.carousel.css' %>
-    <%= stylesheet_link_tag    'owl_carousel/assets/owl.theme.default.css' %>
 
     <%= javascript_include_tag 'owl_carousel/owl.carousel.js' %>
 
+    <!-- bigtext -->
     <%= javascript_include_tag 'bigtext' %>
 
     <%= javascript_include_tag Ckeditor.cdn_url %>
