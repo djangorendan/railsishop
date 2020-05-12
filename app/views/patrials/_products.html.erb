@@ -8,6 +8,7 @@
     left: 0;
     right: 0;
     text-align: center;
+    color: yellow;
   }
 
   .btn-outline-primary.button-detail:hover {
@@ -20,6 +21,7 @@
     height: 200px;
     object-fit: contain;
   }
+
 </style>
 
 <div class="row">
@@ -28,7 +30,7 @@
       <div class="card text-center">
         <div class="text-on-img text-center">
           <h5 class="card-title"><%= link_to product.name, product, style: "color: yellow;" %></h5>
-          <p class="card-text" style="color: yellow;"><%= product.summary %></p>
+          <p class="product-summary card-text" style="color: yellow !important;"><%= product.summary %></p>
         </div>
         <% product.product_photos.main.each do |photo| %>
           <%= link_to image_tag(photo.image.url, alt: product.name, class: "product_img"), product, class: "img_wrapper" %>
@@ -52,5 +54,5 @@
 <%= paginate @products, remote: true, pagination_class: "justify-content-center" %>
 
 <script type="text/javascript">
-  $('.text-on-img').bigtext({maxfontsize:60, minfontsize: 1});
+  $('.text-on-img').bigtext({maxfontsize:60, minfontsize: 7});
 </script>
