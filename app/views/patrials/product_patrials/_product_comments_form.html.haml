@@ -1,0 +1,5 @@
+= form_tag(product_create_product_comment_path(product_id: @product.id), method: :get) do
+  = hidden_field_tag(:user_id, value = current_user.id) if current_user
+  = text_area_tag :comment, nil, rows: 5, class: "form-control"
+  .text-right.submit-comment
+    = submit_tag "Оставить комментарий", class: "btn btn-primary"

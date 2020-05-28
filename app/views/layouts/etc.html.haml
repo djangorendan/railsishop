@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+%html
+  %head
+    - if content_for?(:head)
+      = yield(:head)
+
+    = render "patrials/includes"
+
+  %body
+    = render "patrials/application_patrials/header"
+    .wrapper.container
+      .row
+        .col-12
+          = yield
+
+    = render "patrials/application_patrials/footer"

@@ -1,0 +1,50 @@
+- content_for :head do
+  %title= "Оформление заказа | Angar.kh.ua"
+
+= stylesheet_link_tag 'order'
+= stylesheet_link_tag 'cart'
+
+%h1= "Оформление заказа"
+
+.row
+  .col-8
+    = render 'patrials/cart_patrials/cart'
+  .col-4
+    = form_for @order do |form|
+      -if @order.errors.any?
+        #error_explanation
+          %h2
+            = pluralize(@order.errors.count, "error")
+            prohibited this order from being saved:
+          %ul
+            - @order.errors.full_messages.each do |message|
+              %li= message
+
+      = form.telephone_field :phone, value: (current_user.phone if current_user), placeholder: 'Телефон', class: "form-control field", required: true
+      = form.email_field :email, value: (current_user.email if current_user), placeholder: 'Адрес электронной почты', class: "form-control field", required: true
+      = form.text_field :first_name, value: (current_user.first_name if current_user), placeholder: 'Имя', class: "form-control field", required: true
+      = form.text_field :last_name, value: (current_user.last_name if current_user), placeholder: 'Фамилия', class: "form-control field", required: true
+      = form.select :payment, raw("<option>Наличными</option> <option>На карту Приват Банка</option> <option>Наложенный платеж</option>"), {}, {class: "form-control field"}
+      = form.select :delivery, raw("<option>Самовывоз</option> <option>Доставка Новой Почтой</option>"), {}, {class: "form-control field field"}
+
+      .delivery
+        %input(type="radio" name="delivery" value="departament" id="departament" checked)
+        %label(for="departament")= "На отделение"
+        %input(type="radio" name="delivery" value="address" id="address")
+        %label(for="address")= "На адрес"
+
+        = form.text_field :city, value: (current_user.city if current_user), class: "form-control field", placeholder: "Город"
+
+        #departament_field
+          = form.text_field :departament, value: (current_user.departament if current_user), class: "form-control field", placeholder: "Отделение Новой Почты"
+
+        #address_field
+          = text_field_tag :address,"", placeholder: "Адрес", class: "form-control field"
+          = text_field_tag :house,"", placeholder: "Номер дома", class: "form-control field"
+          = text_field_tag :apartment,"", placeholder: "Номер квартиры", class: "form-control field"
+
+      = form.text_area :discription, placeholder: "Примичания", class: "form-control field"
+
+      = form.submit "Оформить заказ",class: "btn btn-primary btn-block"
+
+= javascript_include_tag 'order'

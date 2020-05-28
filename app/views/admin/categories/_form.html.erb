@@ -1,14 +1,4 @@
-<style media="screen">
-  .photo_label {
-    cursor: pointer;
-    border: 1px dashed black;
-  }
-
-  .w-100 {
-    text-align: right;
-  }
-
-</style>
+<%= stylesheet_link_tag 'admin/category.css' %>
 
 <%= form_for [:admin, @category] do |form| %>
   <% if category.errors.any? %>
@@ -26,10 +16,10 @@
   <div class="row">
     <div class="col-2 field">
       <% if @category.image? %>
-        <%= form.label :image, image_tag(@category.image.url, size: "180x200", id: "img"), class: "photo_label" %>
+        <%= form.label :image, image_tag(@category.image.url, size: "180x200", id: "img"), class: "category_image_label" %>
         <%= form.file_field :image, class: "d-none" %>
       <% else %>
-        <%= form.label :image, image_tag(app_images.favicon.image.url, size: "180x200", id: "img"),class: "photo_label" %>
+        <%= form.label :image, image_tag(app_images.favicon.image.url, size: "180x200", id: "img"),class: "category_image_label" %>
         <%= form.file_field :image, class: "d-none" %>
       <% end %>
     </div>
@@ -57,32 +47,16 @@
 
       <div class="row form-group">
         <%= form.label :property_ids, "Характеристики:", class: "col-2 col-form-label" %>
-        <%= form.collection_select :property_ids, Property.roots, :id, :name, {}, :multiple => true, class: "col-10 form-control", style: "height: 350px;" %>
+        <%= form.collection_select :property_ids, Property.roots, :id, :name, {}, :multiple => true, class: "col-10 form-control" %>
       </div>
     </div>
 
     <div class="col-2 actions">
-      <%= form.submit 'Сохранить категорию', class: "w-100 btn" %>
-      <%= link_to 'Назад', admin_categories_path, class: "w-100 btn" %>
+      <%= form.submit 'Сохранить категорию', class: "w-100 btn text-right" %>
+      <%= link_to 'Назад', admin_categories_path, class: "w-100 btn text-right" %>
+      <%= link_to 'Удалить', admin_category_path(@category), method: :delete, data: { confirm: 'Вы уверены, что хотите удалить категорию ' + category.name + '?' }, class: "w-100 btn text-right" %>
     </div>
   </div>
 <% end %>
 
-<script>
-  $('#category_image').change(function () {
-    var input = $(this)[0];
-    if (input.files && input.files[0]) {
-      if (input.files[0].type.match('image.*')) {
-        var reader = new FileReader();
-        reader.onload = function (e) {
-          $('#img').attr('src', e.target.result);
-        }
-        reader.readAsDataURL(input.files[0]);
-      } else {
-        console.log('ошибка, не изображение');
-      }
-    } else {
-      console.log('хьюстон у нас проблема');
-    }
-  });
-</script>
+<%= javascript_include_tag 'admin/category.js' %>

@@ -1,0 +1,20 @@
+= stylesheet_link_tag 'cart'
+
+- content_for :head do
+  %title
+    Корзина товаров | Angar.kh.ua
+
+%h1
+  Корзина товаров
+
+- unless current_cart.cart_products.empty?
+  .cart_wrapper
+    = render 'patrials/cart_patrials/cart'
+  = render 'patrials/cart_patrials/cart_buttons'
+- else
+  .empty_cart
+    Корзина товаров пуста :(
+  .cart_buttons.text-right
+    = link_to "На главную", root_path, class: "cart_button btn btn-outline-primary"
+
+= javascript_include_tag 'cart'

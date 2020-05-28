@@ -17,7 +17,7 @@ class Product < ApplicationRecord
   extend FriendlyId
   friendly_id :name, use: :slugged
 
-  paginates_per 9
+  paginates_per 12
 
   scope :displayed, -> { where(display: true) }
   scope :not_displayed, -> { where.not(display: true) }

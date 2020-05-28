@@ -1,6 +1,15 @@
+<style media="screen">
+  .page-item.active .page-link,
+  .page-item.active .page-link:hover,
+  .page-link:hover {
+    background-color: #007bff;
+    color: yellow;
+  }
+</style>
+
 <%= paginator.render do %>
   <nav>
-    <ul class="pagination">
+    <ul class="pagination justify-content-center">
       <%= first_page_tag unless current_page.first? %>
       <%= prev_page_tag unless current_page.first? %>
       <% each_page do |page| %>

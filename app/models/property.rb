@@ -1,4 +1,5 @@
 class Property < ApplicationRecord
+
   has_many :category_properties, dependent: :destroy
   has_many :categories, through: :category_properties
 
@@ -8,6 +9,8 @@ class Property < ApplicationRecord
 
   scope :product_type, -> { find_by(name: "Тип") }
 
+  scope :screen_size, -> {find_by(name: "Диагониль экрана")}
+  scope :screen_resolution, -> {find_by(name: "Разрешение экрана")}
   scope :processor, -> { find_by(name: "Процессор") }
   scope :ram_size, -> { find_by(name: "Объем оперативной памяти") }
   scope :ram_type, -> { find_by(name: "Тип оперативной памяти") }

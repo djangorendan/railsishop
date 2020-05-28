@@ -1,4 +1,9 @@
 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+  <ol class="carousel-indicators">
+    <% carousel_images.each_with_index do |carousel_image, index| %>
+      <li data-target="#carouselExampleIndicators" data-slide-to="<%= index %>" class="active"></li>
+    <% end %>
+  </ol>
   <div class="carousel-inner">
     <div class="carousel-item active">
       <%= image_tag(carousel_images.first.image.url, width: "100%", height: "245px") %>

@@ -1,0 +1,27 @@
+.product-cards.card
+  .card-body
+    .d-flex.justify-content-between
+      .col-auto.products-cols
+        - if @product.display
+          .alert.alert-success
+            Есть в наличии
+        - else
+          .alert.alert-danger
+            Нет в наличии
+      .col-auto.products-cols
+        #product-index.text-right
+          Индекс:
+          #{@product.id}
+    .d-flex.justify-content-between
+      .col-auto.align-self-center.products-cols
+        -# product-old-price
+      .col-auto.products-cols
+        %span#product-price
+          #{@product.price}
+          грн.
+      .col-auto.products-cols
+    - if @product.display
+      = form_tag product_to_cart_carts_path, method: 'get', class: 'd-flex', remote: true do
+        = hidden_field_tag(:product_id, value = @product.id)
+        = number_field_tag(:product_count, '1',min: 1, max: @product.quantity, id: "product_quantity", class: "form-control col-3")
+        = submit_tag("В корзину", class: "btn btn-primary")

@@ -1,0 +1,46 @@
+.row_prices_form {
+  padding: 0 1rem;
+}
+
+.prices_form_title {
+  padding: 0;
+}
+
+.prices_form_left {
+  -ms-flex: 0 0 50%;
+  flex: 0 0 50%;
+  max-width: calc(50% - .25rem);
+  margin-right: .25rem;
+}
+
+.prices_form_right {
+  -ms-flex: 0 0 50%;
+  flex: 0 0 50%;
+  max-width: calc(50% - .25rem);
+  margin-left: .25rem;
+}
+
+.property_child {
+  font-size: .9rem;
+
+}
+
+.property_child_value {
+  list-style-type: none;
+  margin: 0 0 0 .5rem;
+  padding: 0;
+}
+
+.filter_checkbox {
+  margin-top: .3rem;
+  position: absolute;
+}
+
+.form-check-label {
+  margin-left: 1rem;
+  font-size: .9rem;
+}
+
+span.form-check-span {
+  font-size: .9rem
+}

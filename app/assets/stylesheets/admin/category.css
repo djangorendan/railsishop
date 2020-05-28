@@ -1,0 +1,13 @@
+.category_image_label {
+  cursor: pointer;
+  border: 1px dashed black;
+}
+
+#category_property_ids {
+  height: 350px;
+}
+
+.img {
+  max-width: 97%;
+  height: 200px;
+}

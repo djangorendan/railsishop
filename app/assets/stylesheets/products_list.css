@@ -1,0 +1,43 @@
+.product_img {
+  margin-top: 1%;
+  max-width: 97%;
+  height: 180px;
+  object-fit: contain;
+}
+
+.products-list-card-text {
+  font-size: 1.5rem;
+}
+
+.card-title {
+  margin-bottom: 0;
+  height: 3rem;
+}
+
+.products-list-card-body,
+.row.products-list-buttons  {
+  margin: 0;
+}
+
+.col-6.products-list-buttons {
+  max-width: calc(50% - .25rem);
+}
+
+.btn.btn-danger {
+  color: yellow;
+}
+
+.btn.btn-danger.products-list-buttons {
+  font-size: .92rem;
+}
+
+/* similar_product */
+.similar_product_img {
+  margin: 0 auto;
+  margin-top: 1%;
+}
+
+.similar_products-list-card-body {
+  margin: 0;
+  padding: .5rem 1.25rem;
+}

@@ -92,32 +92,7 @@
         <%= form.submit "Обновить заказ", class: "btn btn-primary btn-block" %>
       <% end %>
     </div>
-    <div class="col-8">
-      <table class="table table-hover">
-        <thead>
-        </thead>
-        <tbody>
-          <% @order.cart.cart_products.each do |cart_product| %>
-            <tr>
-              <td><%= link_to image_tag(cart_product.product.attachments.first.thumb.url), cart_product.product %></td>
-              <td class="text-left">
-                <div><%= link_to cart_product.product.name, cart_product.product %></div>
-                <div style="font-size: 0.5rem"><%= cart_product.product.summary %></div>
-              </td>
-              <td>
-                <%= cart_product.product_count %>
-              </td>
-              <td><%= cart_product.product.price %> грн.</td>
-              <td id="product_<%= cart_product.product.id %>_sum"><%= cart_product.total_product_sum %> грн.</td>
-            </tr>
-          <% end %>
-            <tr>
-              <td colspan="4"></td>
-              <td colspan="1" id="total_cart_sum"><%= @order.cart.total_cart_sum %> грн.</td>
-            </tr>
-        </tbody>
-      </table>
-    </div>
+    
   </div>
 
 <script type="text/javascript">

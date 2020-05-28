@@ -2,6 +2,8 @@ class ProductsController < ApplicationController
   # GET /products/1
   # GET /products/1.json
 
+  layout "etc"
+
   before_action :authenticate_user!, only: [
     :create_product_comment
   ]
@@ -17,6 +19,8 @@ class ProductsController < ApplicationController
     @products = Product.displayed.where(category: @product.category)
       .where("price >= ?", @product.price-1000).where("price <= ?", @product.price+1000)
       .where.not(id: @product.id).page params[:page]
+    @late_delivery_time = Time.zone.parse "16:00"
+    @close_time = Time.zone.parse "21:00"
   end
 
   def create_product_comment

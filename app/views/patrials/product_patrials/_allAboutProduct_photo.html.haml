@@ -1,0 +1,19 @@
+#carouselAllAboutProductPhotoIndicators.carousel.slide(data-ride="carousel" data-interval="false")
+  .row
+    .col-lg-3.col-4(style="padding-right: 0;")
+      %ol#allAboutProductPhotoIndicators.carousel-indicators
+        - @product.product_photos.main.each_with_index do |mini_main_product_photo, index|
+          %li.active(data-target="#carouselAllAboutProductPhotoIndicators" data-slide-to="#{index}")
+            = image_tag(mini_main_product_photo.image.url, class: "mini_allAboutProductPhoto")
+        - @product.product_photos.not_main.each_with_index do |mini_not_main_product_photo, index|
+          - index_plus_one = index + 1
+          %li(id="mini_product_photo_#{mini_not_main_product_photo.id}" data-target="#carouselAllAboutProductPhotoIndicators" data-slide-to="#{index_plus_one}")
+            = image_tag(mini_not_main_product_photo.image.url, class: "mini_allAboutProductPhoto")
+    .col-lg-9.col-8.text-center.align-self-center(style="padding-left: 0;")
+      #allAboutProductPhotoWrapper.carousel-inner
+        - @product.product_photos.main.each do |main_product_photo|
+          .carousel-item.active
+            = image_tag(main_product_photo.image.url, class: "allAboutProductPhoto product_photo_modal_button", data: {id: "#{main_product_photo.id}", toggle: "modal", target: "#photoModal"})
+        - @product.product_photos.not_main.each do |not_main_product_photo|
+          .carousel-item
+            = image_tag(not_main_product_photo.image.url, class: "allAboutProductPhoto product_photo_modal_button", data: {id: "#{not_main_product_photo.id}", toggle: "modal", target: "#photoModal"})

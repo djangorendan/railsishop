@@ -1,0 +1,33 @@
+#filter_form {
+  margin-bottom: .7rem;
+}
+
+.phone_logo {
+  height: 1rem;
+  width: 1rem;
+  vertical-align: top;
+}
+
+.card {
+  margin-bottom: .7rem;
+}
+
+.card-header {
+  color: yellow;
+  background-color: #007bff;
+}
+
+.card-body {
+  margin: 0 auto;
+  padding: .5rem;
+}
+
+.card-text {
+  margin-bottom: .3rem;
+}
+
+.card-col {
+  font-size: .9rem;
+  margin: 0 0.2rem;
+  padding: 0;
+}

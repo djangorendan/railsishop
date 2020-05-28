@@ -1,0 +1,20 @@
+= stylesheet_link_tag 'products_list'
+
+.row
+  - @products.each do |product|
+    .col-xl-4.col-md-6.col-sm-12
+      .card.text-center
+        - product.product_photos.main.each do |photo|
+          = link_to image_tag(photo.image.url, alt: product.name, class: "product_img"), product
+        .products-list-card-body.card-body
+          %h5.card-title.text-left
+            = link_to product.name, product
+          %p.products-list-card-text.card-text.text-right
+            = product.price
+            грн.
+          .row.products-list-buttons.justify-content-between
+            = link_to "Подробнее", product, class: "btn btn-outline-primary col-6 products-list-buttons"
+            - if product.display?
+              = link_to "В корзину", product_to_cart_carts_path(product_id: product.id), remote: true, class: "btn btn-yellow col-6 products-list-buttons"
+            - else
+              %span.btn.btn-danger.col-6.products-list-buttons.disabled= 'Отсутствует'

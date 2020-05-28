@@ -1,0 +1,11 @@
+.delivery {
+  display: none;
+}
+
+#address_field {
+  display: none;
+}
+
+.field {
+  margin-bottom: .5rem;
+}

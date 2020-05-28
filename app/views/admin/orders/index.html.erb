@@ -98,8 +98,8 @@
           $('#orderCancelModal_<%= order.id %>').modal('show')
         }else{
           $('#change_stasus_form_<%= order.id %>').find('[type=submit]').trigger('click');
-        }
-      })
+        };
+      });
     </script>
 
     <% end %>

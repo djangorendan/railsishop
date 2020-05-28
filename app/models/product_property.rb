@@ -18,6 +18,8 @@ class ProductProperty < ApplicationRecord
 
   scope :product_type, -> { find_by(property: Property.product_type) }
 
+  scope :screen_size -> {find_by(property: Property.screen_size)}
+  scope :screen_resolution -> {find_by(property: Property.screen_resolution)}
   scope :processor, -> {find_by(property: Property.processor)}
   scope :ram_size, -> {find_by(property: Property.ram_size)}
   scope :ram_type, -> { find_by(property: Property.ram_type) }

@@ -1,0 +1,50 @@
+= content_for :head do
+  %title
+    = @product.name
+    | Angar.kh.ua
+
+= stylesheet_link_tag 'product.css'
+
+%nav(aria-label="breadcrumb")
+  %ol.breadcrumb
+    %li.breadcrumb-item
+      = link_to "Главная", root_path()
+    %li.breadcrumb-item
+      = link_to @product.category.name, @product.category
+    %li.breadcrumb-item.active(aria-current="page")
+      = @product.name
+
+%h1
+  = @product.product_properties.product_type.value.to_s
+  = @product.name
+  .product-summary
+    = @product.summary
+
+%ul.nav.nav-tabs(id="productTab" role="tablist")
+  %li.nav-item.text-center
+    %a#allAboutProduct-tab.nav-link.active(href="#allAboutProduct" data-toggle="tab" role="tab" aria-controls="allAboutProduct" aria-selected="true")
+      Все о #{@product.name}
+  %li.nav-item.text-center
+    %a#specifications-tab.nav-link(href="#specifications" data-toggle="tab" role="tab" aria-controls="specifications" aria-selected="false")
+      Характеристики
+  %li.nav-item.text-center
+    %a#productComments-tab.nav-link(href="#productComments" data-toggle="tab" role="tab" aria-controls="productComments" aria-selected="false")
+      Отзывы
+      (#{@product.product_comments.count})
+  %li.nav-item.text-center
+    %a#productPhoto-tab.nav-link(href="#productPhoto" data-toggle="tab" role="tab" aria-controls="productPhoto" aria-selected="false")
+      Фото
+
+#productTabContent.tab-content
+  #allAboutProduct.tab-pane.fade.show.active(role="tabpanel" aria-labelledby="allAboutProduct-tab")
+    = render 'patrials/product_patrials/allAboutProductTab'
+  #specifications.tab-pane.fade(role="tabpanel" aria-labelledby="specifications-tab")
+    = render 'patrials/product_patrials/specificationsTab'
+  #productComments.tab-pane.fade(role="tabpanel" aria-labelledby="productComments-tab")
+    = render 'patrials/product_patrials/productCommentsTab'
+  #productPhoto.tab-pane.fade(role="tabpanel" aria-labelledby="productPhoto-tab")
+    = render 'patrials/product_patrials/productPhotoTab'
+
+= render 'patrials/product_patrials/product_photo_modal'
+
+= javascript_include_tag 'product.js'

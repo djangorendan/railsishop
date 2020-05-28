@@ -1,0 +1,9 @@
+.product-cards.card
+  .card-body
+    .d-flex
+      .col-4.align-self-center.products-cols
+        - @product.product_photos.main.each do |photo|
+          = image_tag(photo.image.url, class: "mini_allAboutProductPhoto")
+      .col-8.products-cols
+        = @product.product_properties.product_type.value.to_s
+        = @product.name

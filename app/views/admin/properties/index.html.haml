@@ -1,0 +1,34 @@
+= stylesheet_link_tag 'nestable'
+
+%h1= "Характеристики"
+
+.row
+  .dd.col-9
+    %ol.dd-list
+      - @properties.roots.each do |property|
+        %li.dd-item.dd3-item(data-id="#{property.id}")
+          .dd-handle.dd3-handle
+          .dd3-content
+            .row.justify-content-between
+              .col-auto
+                = link_to property.name, edit_admin_property_path(property)
+              .col-auto.text-right(style="padding-right: 0;")
+                = link_to admin_property_path(property), method: :delete, data: { confirm: 'Удалить характеристику?' } do
+                  &times;
+          - if property.children?
+            %ol.dd-list
+              - property.children.each do |property_child|
+                %li.dd-item.dd3-item(data-id='#{property_child.id}')
+                  .dd-handle.dd3-handle
+                  .dd3-content
+                    .row.justify-content-between
+                      .col-auto
+                        = link_to property_child.name, edit_admin_property_path(property_child)
+                      .col-auto.text-right
+                        = link_to admin_property_path(property_child), method: :delete, data: { confirm: 'Удалить характеристику?' } do
+                          &times;
+
+  .col-3.text-right
+    = link_to '+ Добавить хар-ку', new_admin_property_path
+
+= javascript_include_tag 'admin/property.js'

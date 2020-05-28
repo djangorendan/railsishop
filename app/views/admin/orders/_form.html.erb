@@ -2,6 +2,22 @@
   .field {
     padding-bottom: 10px;
   }
+
+  .delivery {
+    display: none;
+  }
+
+  #departament_field {
+    display: block;
+  }
+
+  #address_field {
+    display: none;
+  }
+
+  #submit_button {
+    margin-bottom: 5px;
+  }
 </style>
 
   <div class="row">
@@ -44,7 +60,7 @@
             <option>Доставка Новой Почтой</option>"
           ), {}, {class: "form-control"} %>
         </div>
-        <div class="delivery" style="display: none;">
+        <div class="delivery">
             <input type="radio" name="delivery" value="departament" id="departament" checked>
             <label for="departament">На отделение</label>
             <input type="radio" name="delivery" value="address" id="address">
@@ -58,7 +74,7 @@
               </datalist>
           </div>
 
-          <div class="field" style="display: block" id="departament_field">
+          <div class="field" id="departament_field">
             <%= form.text_field :departament, list: "departament_name", class: "form-control", placeholder: "Отделение Новой Почты" %>
               <datalist id="departament_name">
                 <option value="№1 - тута">
@@ -66,7 +82,7 @@
               </datalist>
           </div>
 
-          <div class="field" style="display: none" id="address_field">
+          <div class="field" id="address_field">
             <%= text_field_tag :departament, list: "address_name", class: "form-control", placeholder: "Адрес" %>
               <datalist id="address_name">
                 <option value="улица тута">
@@ -79,11 +95,13 @@
           <%= form.text_area :discription, placeholder: "Примичания", class: "form-control" %>
         </div>
 
-        <%= form.submit "Изменить заказ", class: "btn btn-primary btn-block" %>
-        <%= link_to 'Назад', admin_orders_path, class: "btn btn-outline-primary btn-block", style: "margin-top: 5px;" %>
+        <%= form.submit "Изменить заказ", class: "btn btn-primary btn-block", id: "submit_button" %>
+        <%= link_to 'Назад', admin_orders_path, class: "btn btn-outline-primary btn-block" %>
       <% end %>
     </div>
     <div class="col-8">
+      <h2>Статус: </h2>
+      <h2>Корзина заказа:</h2>
       <table class="table table-hover">
         <thead>
         </thead>
@@ -92,11 +110,11 @@
             <tr>
               <td>
                 <% cart_product.product.product_photos.main.each do |photo| %>
-                  <%= link_to image_tag(photo.image.url, width: '80px'), cart_product.product %>
+                  <%= link_to image_tag(photo.image.mini_cart_product_thumb.url), cart_product.product %>
                 <% end %>
               </td>
               <td class="text-left">
-                <div><%= link_to cart_product.product.name, cart_product.product %></div>
+                <div><%= link_to cart_product.product.name, edit_admin_product_path(cart_product.product) %></div>
                 <div style="font-size: 0.5rem"><%= cart_product.product.summary %></div>
               </td>
               <td>
@@ -130,6 +148,6 @@
       $('.delivery').css('display', 'block');
     }else{
       $('.delivery').css('display', 'none');
-    }
+    };
   });
 </script>

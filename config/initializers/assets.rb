@@ -12,11 +12,41 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 # application.js, application.css, and all non-JS/CSS in the app/assets
 # folder are already added.
 # Rails.application.config.assets.precompile += %w( admin.js admin.css )
+
+# ckeditor
 Rails.application.config.assets.precompile += %w[ckeditor/config.js]
 
+# bitext
 Rails.application.config.assets.precompile += %w( bigtext.js )
 
-Rails.application.config.assets.precompile += %w( owl_carousel/owl.carousel.js )
+# nestable
+Rails.application.config.assets.precompile += %w( nestable.js )
+Rails.application.config.assets.precompile += %w( nestable.css )
 
+# owl_carousel
+Rails.application.config.assets.precompile += %w( owl_carousel/owl.carousel.js )
 Rails.application.config.assets.precompile += %w( owl_carousel/assets/owl.carousel.css )
-Rails.application.config.assets.precompile += %w( owl_carousel/assets/owl.theme.css )
+
+# custom_css
+  #admins_css
+Rails.application.config.assets.precompile += %w( admin/category.css )
+
+  #main_part_css
+Rails.application.config.assets.precompile += %w( main.css )
+Rails.application.config.assets.precompile += %w( header.css )
+Rails.application.config.assets.precompile += %w( side_bar.css )
+Rails.application.config.assets.precompile += %w( filter_form.css )
+Rails.application.config.assets.precompile += %w( products_list.css )
+Rails.application.config.assets.precompile += %w( product.css )
+Rails.application.config.assets.precompile += %w( cart.css )
+Rails.application.config.assets.precompile += %w( order.css )
+
+# custom_js
+  #admin_js
+Rails.application.config.assets.precompile += %w( admin/category.js )
+Rails.application.config.assets.precompile += %w( admin/property.js )
+
+  #main_part_js
+Rails.application.config.assets.precompile += %w( product.js )
+Rails.application.config.assets.precompile += %w( cart.js )
+Rails.application.config.assets.precompile += %w( order.js )

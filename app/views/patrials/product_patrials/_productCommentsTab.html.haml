@@ -1,0 +1,12 @@
+.row
+  .col-8
+    %h2
+      Отзывы покупателей о
+      %span.title-product-name
+        = @product.product_properties.product_type.value.to_s
+        = @product.name
+    = render 'patrials/product_patrials/product_comments_form'
+    = render 'patrials/product_patrials/product_comments'
+  .col-4
+    = render 'patrials/product_patrials/product_label'
+    = render 'patrials/product_patrials/buy_form'

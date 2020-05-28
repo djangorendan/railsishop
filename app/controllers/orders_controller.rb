@@ -1,12 +1,12 @@
 class OrdersController < ApplicationController
+  layout "etc"
+
+  before_action :authenticate_user!, only: [:index]
   before_action :set_order, only: [:show, :edit, :update, :destroy]
   before_action :set_user, only: [:create]
 
   after_action :update_product_quantity, only: [:create]
 
-  before_action :authenticate_user!, only: [
-    :index
-  ]
 
   # GET /orders
   # GET /orders.json
@@ -39,7 +39,6 @@ class OrdersController < ApplicationController
       departament = params[:address] + params[:house] + params[:apartment]
       @order.update(departament: departament)
     end
-    OrderMailer.with(order: @order).new_order.deliver_now
 
     respond_to do |format|
       if @order.save
@@ -93,13 +92,16 @@ class OrdersController < ApplicationController
 
   private
     def update_product_quantity
-      @order.cart.cart_products.each do |cart_product|
-        product = Product.find(cart_product.product.id)
-        product.quantity -= cart_product.product_count
-        product.display = product.quantity > 0
-        product.save
+      if @order.save
+        @order.cart.cart_products.each do |cart_product|
+          product = Product.find(cart_product.product.id)
+          product.quantity -= cart_product.product_count
+          product.display = product.quantity > 0
+          product.save
+        end
+        session[:current_cart_id] = nil
+        OrderMailer.with(order: @order).new_order.deliver_now
       end
-      session[:current_cart_id] = nil
     end
 
     def set_user

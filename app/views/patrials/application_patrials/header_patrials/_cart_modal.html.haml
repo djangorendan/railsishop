@@ -1,0 +1,14 @@
+#cartModal.modal.fade(tabindex="-1" role="dialog" aria-labelledby="cartModalLabel" aria-hidden="true")
+  .modal-dialog.modal-lg(role="document")
+    .modal-content
+      .modal-header
+        %h2#cartModalLabel.modal-title
+          Корзина товаров
+        %button.close(type="button" data-dismiss="modal" aria-label="Close")
+          %span(aria-hidden="true")
+            &times;
+      .modal-body
+      .modal-footer
+        %button.btn.btn-outline-primary(type="button" data-dismiss="modal" aria-label="Close")
+          Продолжить покупки
+        = link_to "Оформить заказ", new_order_path(), class: "btn btn-yellow"

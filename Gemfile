@@ -75,3 +75,5 @@ gem 'fog-aws'
 gem 'ckeditor', github: 'galetahub/ckeditor'
 gem "figaro"
 gem 'has_scope'
+gem 'jquery-rails'
+gem 'haml'

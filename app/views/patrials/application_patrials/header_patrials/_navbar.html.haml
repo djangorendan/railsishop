@@ -1,0 +1,43 @@
+%nav#navbar.navbar.navbar-expand-lg.navbar-dark.bg-primary
+  .container
+    %button.navbar-toggler.order-first(data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation")
+      %span.navbar-toggler-icon
+    #navbarSupportedContent.collapse.navbar-collapse
+      %ul.navbar-nav.mr-auto
+        %li.nav-item
+          = link_to 'Главная', root_path, class: "nav-link nav-yellow"
+        %li.nav-item
+          = link_to 'Прайс', "https://docs.google.com/spreadsheets/d/1MHJE8QwpMQtp5pESb031vKWT_pocnjgAB9Wv5z6bpRM/edit#gid=2124455559", class: "nav-link nav-yellow", target: "_blank"
+        %li.nav-item.dropdown
+          %a#navbarDropdown.nav-link.nav-yellow.dropdown-toggle(href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")
+            Категории товаров
+          .dropdown-menu(aria-labelledby="navbarDropdown")
+            - categories.each do |category|
+              = link_to category.name, category_path(category), class: "dropdown-item"
+        %li.nav-item.dropdown
+          %a#navbarDropdown.nav-link.nav-yellow.dropdown-toggle(href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")
+            О нас
+          .dropdown-menu(aria-labelledby="navbarDropdown")
+            = link_to "О нас", "/about_us", class: "dropdown-item"
+            = link_to "Способы доставки", "/delivery", class: "dropdown-item"
+            = link_to "Способы оплаты", "/payments", class: "dropdown-item"
+            = link_to "Контакты", "/contacts", class: "dropdown-item"
+    .col-auto
+      = form_tag results_path, method: :get, role: 'search', class: "form-inline my-2 my-lg-0" do
+        = text_field_tag :query, params[:query], class: "form-control", placeholder: "Поиск"
+        %button.btn.btn-outline-warning.custom-button(type="submit")
+          %i.fas.fa-search
+    .col-auto
+      - if session[:current_cart_id] && current_cart.total_product_count != 0
+        - if action_name == 'new' && controller_name == 'orders'
+          %a.btn.btn-yellow.disabled
+            %i.fas.fa-shopping-cart
+            %span#cart_link_count= current_cart.total_product_count
+        -else
+          = link_to cart_path(id: session[:current_cart_id]), remote: true, id: "cart_link", class: "btn btn-yellow"  do
+            %i.fas.fa-shopping-cart
+            %span#cart_link_count= current_cart.total_product_count
+      - else
+        %a#cart_link.btn.btn-yellow.disabled(data-remote="true")
+          %i.fas.fa-shopping-cart
+          %span#cart_link_count= 0

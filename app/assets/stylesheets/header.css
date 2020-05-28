@@ -1,0 +1,100 @@
+#header {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+a.nav-link.nav-yellow,a.nav-link.nav-yellow :hover {
+  color: yellow !important;
+}
+
+#query::placeholder {
+  color: #007bff;
+}
+
+#query {
+  color: #007bff;
+}
+
+.btn-outline-warning.custom-button {
+  margin-left: 5px;
+  color: yellow;
+  border-color: yellow;
+}
+
+.dropdown-item {
+  color: #007bff;
+}
+
+.dropdown-item:hover {
+  color: #007bff;
+}
+
+.btn-outline-warning.custom-button:hover {
+  color: #007bff;
+  background-color: yellow;
+}
+
+.btn.btn-yellow {
+  background-color: yellow;
+  color: #007bff !important;
+}
+
+.btn.btn-yellow:hover {
+  cursor: pointer;
+}
+
+.notice {
+  color: yellow;
+  top: 100px;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  z-index: 9999999999;
+}
+
+.btn.btn-primary,
+.btn.btn-outline-primary:hover,
+.btn.btn-dark {
+  color: yellow;
+}
+
+.table th {
+  border-top: 0px;
+}
+
+#logo {
+  height: 4rem;
+}
+
+address {
+  margin-bottom: -1rem;
+}
+
+#address_list {
+  list-style: none;
+}
+
+.phone_logo {
+  height: 1rem;
+  width: 1rem;
+  vertical-align: top;
+}
+
+.reg_block {
+  margin-top: 15px;
+}
+
+li a,
+li span {
+  font-size: .9rem;
+}
+
+#navbar {
+  padding: 5px 0 5px 1rem;
+  margin-bottom: 10px;
+}
+
+.nav-item {
+  font-size: 1rem;
+  font-weight: bold;
+}

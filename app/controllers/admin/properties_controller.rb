@@ -7,7 +7,7 @@ class Admin::PropertiesController < ApplicationController
   # GET /products
   # GET /products.json
   def index
-    @properties = Property.all
+    @properties = Property.order(:position).all
   end
 
   # GET /products/1

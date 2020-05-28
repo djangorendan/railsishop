@@ -1,4 +1,6 @@
 class CartsController < ApplicationController
+  layout "etc"
+
   before_action :set_cart_for_add_product, only: [
     :product_to_cart,
     :delete_product_from_cart,

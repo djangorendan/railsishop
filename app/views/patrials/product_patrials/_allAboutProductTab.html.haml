@@ -1,0 +1,49 @@
+.row
+  .col-8
+    = render 'patrials/product_patrials/allAboutProduct_photo'
+    %h2= "Описание"
+    = @product.discription.html_safe
+  .col-4(style="padding-left: 0")
+    =render 'patrials/product_patrials/buy_form'
+    .product-cards.card
+      .card-header
+        Способы доставки
+      .card-body
+        %ul#delivery
+          %li.d-flex
+            .col-7.products-cols
+              Самовывоз из магазина
+            .col-5.products-cols
+              - if Time.zone.now < @close_time
+                Сегодня до 21:00
+              - else
+                Завтра с 09:00
+          %li.d-flex
+            .col-7.products-cols
+              %span(title="Отправка без предоплаты")
+                Отправка Новой Почты
+            .col-5.products-cols
+              - if Time.zone.now < @late_delivery_time
+                Отправим сегодня
+              - else
+                Отправим завтра
+    .product-cards.card
+      .card-header
+        Гарантия
+      .card-body
+        .div
+          %span(title="Гарантийное обслуживание действует только при наличии чека и гарантийного талона")
+            3 месяца
+        .div
+          Обмен/возврат товара в течении 14 дней
+        .div(style="font-size: .7rem; margin-left: 1rem;")
+          *Продавец гарантирует упаковку заказанного товара, которая обеспечит целостность и сохранность его товарного вида
+- if @products.count >= 4
+  = render 'patrials/product_patrials/similar_products'
+.row
+  .col-6
+    %h2= "Характеристики"
+    = render 'patrials/product_patrials/specifications'
+  .col-6
+    %h2= "Отзывы"
+    = render 'patrials/product_patrials/product_comments'

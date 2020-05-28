@@ -4,5 +4,5 @@
   $('#products_container').html('Товаров по Вашим настройкам не найдено');
 <% end%>
 
-$('#filter_form_div').html("<%= escape_javascript render(:partial => 'patrials/filter_form') %>");
+$('#filter_form_div').html("<%= escape_javascript render(:partial => 'patrials/application_patrials/side_bar_patrials/filter_form') %>");
 $('body').trigger('filterUpdated');

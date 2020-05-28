@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   mount Ckeditor::Engine => '/ckeditor'
 
-  devise_for :admins, controllers: { sessions: 'admins/sessions' }
+  devise_for :admins
   devise_for :users, controllers: { registrations: 'users/registrations'}
 
   resources :orders, except: [:show, :destroy] do

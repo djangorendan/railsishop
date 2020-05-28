@@ -1,0 +1,9 @@
+= stylesheet_link_tag 'side_bar'
+
+- if @category
+  #filter_form
+    = render "patrials/application_patrials/side_bar_patrials/filter_form"
+
+= render 'patrials/application_patrials/side_bar_patrials/contacts'
+
+= render 'patrials/application_patrials/side_bar_patrials/working_hours'

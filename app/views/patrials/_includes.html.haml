@@ -1,0 +1,35 @@
+= csrf_meta_tags
+= csp_meta_tag
+
+= stylesheet_link_tag    'main'
+= javascript_include_tag 'application'
+= favicon_link_tag app_images.favicon.image.url, :rel => 'icon', :type => "image/x-icon"
+
+/ fontawesome
+%link(crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" rel="stylesheet")/
+
+/ Шрифты
+%link(href="https://fonts.googleapis.com/css?family=Rubik&display=swap" rel="stylesheet")/
+
+/ ajax
+%script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js")
+
+/ bootstrap scripts
+%script(crossorigin="anonymous" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js")
+%script(crossorigin="anonymous" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js")
+
+/ bootstrap
+%link(crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" rel="stylesheet")/
+
+<!-- owl_carousel -->
+= stylesheet_link_tag    'owl_carousel/assets/owl.carousel.css'
+= javascript_include_tag 'owl_carousel/owl.carousel.js'
+
+<!-- bigtext -->
+= javascript_include_tag 'bigtext'
+
+<!-- Ckeditor -->
+= javascript_include_tag Ckeditor.cdn_url
+
+<!-- Nestable -->
+= javascript_include_tag 'nestable'

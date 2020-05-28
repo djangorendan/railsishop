@@ -1,0 +1,26 @@
+= stylesheet_link_tag 'filter_form'
+
+%a.btn.btn-primary.w-100(data-toggle="collapse" href="#collapseFilters" role="button" aria-expanded="false" aria-controls="collapseFilters")
+  %h5= 'Фильтры'
+#collapseFilters.collapse
+  .card.card-body
+    = form_for category_path, method: 'GET', remote: true, html: {id: 'patrials/application_patrials/side_bar_patrials/filter_form'} do |f|
+      .row.row_prices_form
+        = f.hidden_field :product_properties, id: 'product_properties_field'
+        = f.hidden_field :order_by, id: 'order_by_field'
+        = f.hidden_field :order_to, id: 'order_to_field'
+        .col-12.prices_form_title= "Цена:"
+        = f.number_field :price_down, value: @price_down, class: 'form-control prices_form_left', placeholder: "От:"
+        = f.number_field :price_up, value: @price_up, class: 'form-control prices_form_right', placeholder: "До:"
+      - @category.properties.each do |property|
+        - property.children.filter_displayed.order(:position).each do |property_child|
+          %a.property_child(data-toggle="collapse" href="#property_#{property_child.id}" role="button" aria-expanded="false" aria-controls="multiFiltersCollapse")
+            = property_child.name
+          %ul.property_child_value
+            .collapse.multi-collapse(id='property_#{property_child.id}')
+              - property_child.product_properties.grouped_with_product_count(@category.id).each do |product_property|
+                %li
+                  <input class="filter_checkbox" id="#{product_property.value}" type="checkbox" data-category-property-id="#{product_property.property_id}" data-product-name="#{product_property.value}" #{filter_checked?(@product_properties, product_property.value) ? 'checked' : ''}>
+                  %label.form-check-label(for="#{product_property.value}")= product_property.value
+                  <span class="form-check-span"> ( #{product_property.products_count} )</span>
+      = f.submit 'Применить фильтрацию', class: "d-none"

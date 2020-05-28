@@ -1,0 +1,26 @@
+#photoModal.modal.fade(tabindex="-1" role="dialog" aria-labelledby="photoModalLabel" aria-hidden="true")
+  .modal-dialog.product_photo_modal(role="document")
+    .modal-content.product_photo_modal
+      .modal-header
+        %h5.modal-title
+          Фотографии
+          %span.title-product-name
+            = @product.product_properties.product_type.value.to_s
+            = @product.name
+        %button.close(type="button" data-dismiss="modal" aria-label="Close")
+          %span(aria-hidden="true")
+            &times;
+      .modal-body
+        #carouselProductPhoto.carousel.slide
+          .carousel-inner
+            - @product.product_photos.each do |photo|
+              .carousel-item.product_photo_modal_item(id="product_photo_modal_#{photo.id}")
+                = image_tag(photo.image.url, class: "product_photo_modal_image")
+          %a.carousel-control-prev(href="#carouselProductPhoto" role="button" data-slide="prev")
+            %span.carousel-control-prev-icon(aria-hidden="true")
+            %span.sr-only
+              Previous
+          %a.carousel-control-next(href="#carouselProductPhoto" role="button" data-slide="next")
+            %span.carousel-control-next-icon(aria-hidden="true")
+            %span.sr-only
+              Next

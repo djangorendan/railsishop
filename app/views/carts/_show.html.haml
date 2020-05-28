@@ -1,0 +1,9 @@
+= stylesheet_link_tag 'cart'
+
+- unless current_cart.cart_products.empty?
+  = render 'patrials/cart_patrials/cart'
+- else
+  .empty_cart
+    Корзина товаров пуста :(
+
+= javascript_include_tag 'cart'
