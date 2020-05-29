@@ -47,6 +47,7 @@ Rails.application.config.assets.precompile += %w( admin/category.js )
 Rails.application.config.assets.precompile += %w( admin/property.js )
 
   #main_part_js
+Rails.application.config.assets.precompile += %w( layout.js )
 Rails.application.config.assets.precompile += %w( product.js )
 Rails.application.config.assets.precompile += %w( cart.js )
 Rails.application.config.assets.precompile += %w( order.js )
