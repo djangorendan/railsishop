@@ -17,7 +17,7 @@
                   &times;
           - if property.children?
             %ol.dd-list
-              - property.children.each do |property_child|
+              - property.children.order(:position).each do |property_child|
                 %li.dd-item.dd3-item(data-id='#{property_child.id}')
                   .dd-handle.dd3-handle
                   .dd3-content

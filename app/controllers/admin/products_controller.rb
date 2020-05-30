@@ -78,10 +78,15 @@ class Admin::ProductsController < ApplicationController
       end
     end
 
+    if video_ram_size.blank?
+      video = video_chiset
+    else
+      video = video_chiset + ' - ' + video_ram_size
+
     if @product.category.name == 'Ноутбуки'
-      @product.update(summary: 'Экран ' + screen_size + ' (' + screen_resolution + ')' + '/' + processor + '/' + ram_size + ' ' + ram_type + '/' + rom.to_s + '/' + video_chiset + ' - ' + video_ram_size)
+      @product.update(summary: 'Экран ' + screen_size + ' (' + screen_resolution + ')' + '/' + processor + '/' + ram_size + ' ' + ram_type + '/' + rom.to_s + '/' + video)
     elsif @product.category.name == 'Системные блоки'
-      @product.update(summary: processor + '/' + ram_size + ' ' + ram_type + '/' + rom.to_s + '/' + video_chiset + ' - ' + video_ram_size)
+      @product.update(summary: processor + '/' + ram_size + ' ' + ram_type + '/' + rom.to_s + '/' + video)
     end
   end
 
