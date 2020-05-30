@@ -79,9 +79,9 @@ class Admin::ProductsController < ApplicationController
     end
 
     if @product.category.name == 'Ноутбуки'
-      @product.update(summary: 'Экран ' + screen_size + ' (' + screen_resolution + ')' + '/' + processor + '/' + ram_size + ' ' + ram_type + '/' + rom.to_s + '/' + video_chiset + video_ram_size)
+      @product.update(summary: 'Экран ' + screen_size + ' (' + screen_resolution + ')' + '/' + processor + '/' + ram_size + ' ' + ram_type + '/' + rom.to_s + '/' + video_chiset + ' - ' + video_ram_size)
     elsif @product.category.name == 'Системные блоки'
-      @product.update(summary: processor + '/' + ram_size + ' ' + ram_type + '/' + rom.to_s + '/' + video_chiset + video_ram_size)
+      @product.update(summary: processor + '/' + ram_size + ' ' + ram_type + '/' + rom.to_s + '/' + video_chiset + ' - ' + video_ram_size)
     end
   end
 
