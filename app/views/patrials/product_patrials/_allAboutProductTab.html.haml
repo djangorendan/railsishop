@@ -33,7 +33,7 @@
       .card-body
         .div
           %span(title="Гарантийное обслуживание действует только при наличии чека и гарантийного талона")
-            3 месяца
+            = @product.product_properties.waranty.value.to_s
         .div
           Обмен/возврат товара в течении 14 дней
         .div(style="font-size: .7rem; margin-left: 1rem;")

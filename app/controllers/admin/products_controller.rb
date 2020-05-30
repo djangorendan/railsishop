@@ -64,14 +64,8 @@ class Admin::ProductsController < ApplicationController
     hdd_size = @product.product_properties.hdd_size.value.to_s
     ssd_size = @product.product_properties.ssd_size.value.to_s
     video_chiset = @product.product_properties.video_chiset.value.to_s
-
-    # unless hdd_size.blank? and ssd_size.blank?
-    #   rom = 'SSD' + ' ' + ssd_size + ' ' + 'HDD' + ' ' + hdd_size
-    # elsif hdd_size.blank?
-    #   rom = 'HDD' + ' ' + hdd_size
-    # else
-    #   rom = 'SSD' + ' ' + ssd_size
-    # end
+    screen_size = @product.product_properties.screen_size.value.to_s
+    screen_resolution = @product.product_properties.screen_resolution.value.to_s
 
     if hdd_size.blank?
       rom = 'SSD' + ' ' + ssd_size
@@ -83,7 +77,11 @@ class Admin::ProductsController < ApplicationController
       end
     end
 
-    @product.update(summary: processor + '/' + ram_size + ' ' + ram_type + '/' + rom.to_s + '/' + video_chiset)
+    if @product.category.name == 'Ноутбуки'
+      @product.update(summary: 'Экран ' + screen_size + ' (' + screen_resolution + ')' + '/' + processor + '/' + ram_size + ' ' + ram_type + '/' + rom.to_s + '/' + video_chiset)
+    elsif @product.category.name == 'Системные блоки'
+      @product.update(summary: processor + '/' + ram_size + ' ' + ram_type + '/' + rom.to_s + '/' + video_chiset)
+    end
   end
 
   # DELETE /products/1

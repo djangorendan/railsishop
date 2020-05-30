@@ -8,11 +8,11 @@
         %h5.cart_title= link_to cart_product.product.name, cart_product.product
         = cart_product.product.summary
         .row.cart_prices_row
-          .col-5.align-self-end.cart_product_price
+          .col-xl-4.col-5.align-self-end.cart_product_price
             Цена:
             = cart_product.product.price
             грн.
-          #product_quantity.col-2.align-self-end
+          #product_quantity.col-xl-3.col-2.align-self-end
             - unless controller_name == 'orders'
               %input.form-control.cart_item_id{type: "number", name: "quantity", min: "1", max: "#{cart_product.product.quantity}", value: "#{cart_product.product_count}", data: {id: "#{cart_product.product.id}", price: "#{cart_product.product.price}"}}
             - else

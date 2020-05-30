@@ -18,6 +18,8 @@ class ProductProperty < ApplicationRecord
 
   scope :product_type, -> { find_by(property: Property.product_type) }
 
+  scope :waranty, -> {find_by(property: Property.waranty)}
+
   scope :screen_size, -> {find_by(property: Property.screen_size)}
   scope :screen_resolution, -> {find_by(property: Property.screen_resolution)}
   scope :processor, -> {find_by(property: Property.processor)}
@@ -26,4 +28,5 @@ class ProductProperty < ApplicationRecord
   scope :hdd_size, -> { find_by(property: Property.hdd_size) }
   scope :ssd_size, -> { find_by(property: Property.ssd_size) }
   scope :video_chiset, -> { find_by(property: Property.video_chiset) }
+  scope :video_ram_size, -> { find_by(property: Property.video_ram_size) }
 end

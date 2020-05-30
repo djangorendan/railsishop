@@ -9,7 +9,9 @@ class Property < ApplicationRecord
 
   scope :product_type, -> { find_by(name: "Тип") }
 
-  scope :screen_size, -> {find_by(name: "Диагониль экрана")}
+  scope :waranty, -> {find_by(name: "Гарантия (от магазина)")}
+
+  scope :screen_size, -> {find_by(name: "Диагональ экрана")}
   scope :screen_resolution, -> {find_by(name: "Разрешение экрана")}
   scope :processor, -> { find_by(name: "Процессор") }
   scope :ram_size, -> { find_by(name: "Объем оперативной памяти") }
@@ -17,6 +19,7 @@ class Property < ApplicationRecord
   scope :hdd_size, -> { find_by(name: "Объем HDD") }
   scope :ssd_size, -> { find_by(name: "Объем SSD") }
   scope :video_chiset, -> { find_by(name: "Графический контроллер") }
+  scope :video_ram_size, -> { find_by(name: "Объем видеопамяти") }
 
   has_ancestry
 end
