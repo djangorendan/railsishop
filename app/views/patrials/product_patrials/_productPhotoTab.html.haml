@@ -1,5 +1,5 @@
 .row
-  .col-8
+  .col-lg-8
     %h2
       Фотографии
       %span.title-product-name
@@ -7,6 +7,6 @@
         = @product.name
     - @product.product_photos.each do |photo|
       = image_tag(photo.image.url, class: "product_images product_photo_modal_button", data: {id: "#{photo.id}", toggle: "modal", target: "#photoModal"})
-  .col-4
+  .col-lg-4
     = render 'patrials/product_patrials/product_label'
     = render 'patrials/product_patrials/buy_form'

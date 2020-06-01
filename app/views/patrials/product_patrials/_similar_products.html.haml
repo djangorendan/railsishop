@@ -3,7 +3,7 @@
 .row.justify-content-between
   %h2.col-6= "Подобные товары"
   .custom-nav.col-6.text-right.align-self-center
-.owl-carousel
+.owl-carousel(style="margin-bottom: 1rem;")
   - @products.each do |product|
     .item.card
       - product.product_photos.main.each do |photo|

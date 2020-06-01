@@ -1,9 +1,10 @@
 .row
-  .col-8
+  .col-lg-8
     = render 'patrials/product_patrials/allAboutProduct_photo'
-    %h2= "Описание"
-    = @product.discription.html_safe
-  .col-4(style="padding-left: 0")
+    .d-lg-block.d-md-none
+      %h2= "Описание"
+      = @product.discription.html_safe
+  .col-lg-4
     =render 'patrials/product_patrials/buy_form'
     .product-cards.card
       .card-header
@@ -40,7 +41,7 @@
           *Продавец гарантирует упаковку заказанного товара, которая обеспечит целостность и сохранность его товарного вида
 - if @products.count >= 4
   = render 'patrials/product_patrials/similar_products'
-.row
+.row.d-lg-flex.d-md-none
   .col-6
     %h2= "Характеристики"
     = render 'patrials/product_patrials/specifications'

@@ -25,6 +25,9 @@
     %a#allAboutProduct-tab.nav-link.active(href="#allAboutProduct" data-toggle="tab" role="tab" aria-controls="allAboutProduct" aria-selected="true")
       Все о #{@product.name}
   %li.nav-item.text-center
+    %a#specifications-tab.nav-link(href="#discription" data-toggle="tab" role="tab" aria-controls="discription" aria-selected="false")
+      Описание
+  %li.nav-item.text-center
     %a#specifications-tab.nav-link(href="#specifications" data-toggle="tab" role="tab" aria-controls="specifications" aria-selected="false")
       Характеристики
   %li.nav-item.text-center
@@ -38,6 +41,8 @@
 #productTabContent.tab-content
   #allAboutProduct.tab-pane.fade.show.active(role="tabpanel" aria-labelledby="allAboutProduct-tab")
     = render 'patrials/product_patrials/allAboutProductTab'
+  #discription.tab-pane.fade(role="tabpanel" aria-labelledby="discription-tab")
+    = render 'patrials/product_patrials/discriptionTab'
   #specifications.tab-pane.fade(role="tabpanel" aria-labelledby="specifications-tab")
     = render 'patrials/product_patrials/specificationsTab'
   #productComments.tab-pane.fade(role="tabpanel" aria-labelledby="productComments-tab")

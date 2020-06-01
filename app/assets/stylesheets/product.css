@@ -155,3 +155,7 @@
   font-size: 55px;
   color: #007bff;
 }
+
+.product_label_photo {
+  max-width: 25% !important;
+}
