@@ -58,36 +58,33 @@ class Admin::ProductsController < ApplicationController
   end
 
   def create_summary
-    processor = @product.product_properties.processor.value.to_s
-    ram_size = @product.product_properties.ram_size.value.to_s
-    ram_type = @product.product_properties.ram_type.value.to_s
-    hdd_size = @product.product_properties.hdd_size.value.to_s
-    ssd_size = @product.product_properties.ssd_size.value.to_s
-    video_chiset = @product.product_properties.video_chiset.value.to_s
-    video_ram_size = @product.product_properties.video_ram_size.value.to_s
-    screen_size = @product.product_properties.screen_size.value.to_s
-    screen_resolution = @product.product_properties.screen_resolution.value.to_s
-
-    if hdd_size.blank?
-      rom = 'SSD' + ' ' + ssd_size
-    else
-      unless ssd_size.blank?
-        rom = 'SSD' + ' ' + ssd_size + ' + ' + 'HDD' + ' ' + hdd_size
-      else
-        rom = 'HDD' + ' ' + hdd_size
-      end
-    end
-
-    if video_ram_size.blank?
-      video = video_chiset
-    else
-      video = video_chiset + ' - ' + video_ram_size
-
-    if @product.category.name == 'Ноутбуки'
-      @product.update(summary: 'Экран ' + screen_size + ' (' + screen_resolution + ')' + '/' + processor + '/' + ram_size + ' ' + ram_type + '/' + rom.to_s + '/' + video)
-    elsif @product.category.name == 'Системные блоки'
-      @product.update(summary: processor + '/' + ram_size + ' ' + ram_type + '/' + rom.to_s + '/' + video)
-    end
+    # processor = @product.product_properties.processor.value.to_s
+    # ram_size = @product.product_properties.ram_size.value.to_s
+    # ram_type = @product.product_properties.ram_type.value.to_s
+    # hdd_size = @product.product_properties.hdd_size.value.to_s
+    # ssd_size = @product.product_properties.ssd_size.value.to_s
+    # video_chiset = @product.product_properties.video_chiset.value.to_s
+    # video_ram_size = @product.product_properties.video_ram_size.value.to_s
+    # screen_size = @product.product_properties.screen_size.value.to_s
+    # screen_resolution = @product.product_properties.screen_resolution.value.to_s
+    #
+    # if hdd_size.blank?
+    #   rom = 'SSD' + ' ' + ssd_size
+    # else
+    #   unless ssd_size.blank?
+    #     rom = 'SSD' + ' ' + ssd_size + ' + ' + 'HDD' + ' ' + hdd_size
+    #   else
+    #     rom = 'HDD' + ' ' + hdd_size
+    #   end
+    # end
+    #
+    # video_chiset = video_chiset + ' - ' + video_ram_size unless video_ram_size.blank?
+    #
+    # if @product.category.name == 'Ноутбуки'
+    #   @product.update(summary: 'Экран ' + screen_size + ' (' + screen_resolution + ')' + '/' + processor + '/' + ram_size + ' ' + ram_type + '/' + rom.to_s + '/' + video)
+    # elsif @product.category.name == 'Системные блоки'
+    #   @product.update(summary: processor + '/' + ram_size + ' ' + ram_type + '/' + rom.to_s + '/' + video)
+    # end
   end
 
   # DELETE /products/1
