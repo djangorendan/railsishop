@@ -1,0 +1,11 @@
+.row
+  .col-lg-8.col-12
+    %h2
+      Описание
+      %span.title-product-name
+        = @product.product_properties.product_type.value.to_s
+        = @product.name
+    = @product.discription.html_safe
+  .col-lg-4.col-12.product_labels
+    = render 'patrials/product_patrials/product_label'
+    = render 'patrials/product_patrials/buy_form'
