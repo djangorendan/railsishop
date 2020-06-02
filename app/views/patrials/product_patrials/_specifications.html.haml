@@ -1,10 +1,9 @@
-%ul
-  - @product.properties.roots.each do |property|
-    %li
-      #{property.name} :
-    %ul
+- @product.properties.roots.each do |property|
+  .card
+    %h5.card-header.text-left= property.name
+    %ul.list-group.list-group-flush
       - property.children.order(:position).each do |child|
         - if child.product_properties.find_by(product: @product).value?
-          %li
-            #{child.name} :
-            =child.product_properties.find_by(product: @product).value
+          %li.list-group-item.d-flex.specifications_list
+            .col-6.products-cols= child.name
+            .col-6.products-cols= child.product_properties.find_by(product: @product).value

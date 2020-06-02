@@ -20,6 +20,8 @@ class ProductProperty < ApplicationRecord
 
   scope :waranty, -> {find_by(property: Property.waranty)}
 
+  scope :main_properties, -> {where(property: Property.main_properties)}
+
   scope :screen_size, -> {find_by(property: Property.screen_size)}
   scope :screen_resolution, -> {find_by(property: Property.screen_resolution)}
   scope :processor, -> {find_by(property: Property.processor)}

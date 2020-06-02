@@ -5,7 +5,8 @@
       %span.title-product-name
         = @product.product_properties.product_type.value.to_s
         = @product.name
-    = render 'patrials/product_patrials/specifications'
+    .specifications_cards
+      = render 'patrials/product_patrials/specifications'
   .col-lg-4
     = render 'patrials/product_patrials/product_label'
     = render 'patrials/product_patrials/buy_form'

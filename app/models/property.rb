@@ -11,6 +11,8 @@ class Property < ApplicationRecord
 
   scope :waranty, -> {find_by(name: "Гарантия (от магазина)")}
 
+  scope :main_properties, -> {where(main_property: true)}
+
   scope :screen_size, -> {find_by(name: "Диагональ экрана")}
   scope :screen_resolution, -> {find_by(name: "Разрешение экрана")}
   scope :processor, -> { find_by(name: "Процессор") }

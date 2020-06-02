@@ -31,13 +31,17 @@
       </div>
 
       <div class="form-group">
-        <div class="col-6 form-check form-check-inline">
+        <div class="col-3 form-check form-check-inline">
           <%= form.label :display_filter, "Отображение в фильтрах:", class: "form-check-label" %>
           <%= form.check_box :display_filter, class: "form-check-input", style: "margin-left: 5px;" %>
         </div>
-        <div class="form-check form-check-inline">
+        <div class="col-3 form-check form-check-inline">
           <%= form.label :display_product, "Отображение в продукте:", class: "form-check-label" %>
           <%= form.check_box :display_product, checked: true, class: "form-check-input check_box_display", style: "margin-left: 5px;" %>
+        </div>
+        <div class="col-3 form-check form-check-inline">
+          <%= form.label :display_product, "Главная характеристика:", class: "form-check-label" %>
+          <%= form.check_box :main_property, class: "form-check-input check_box_display", style: "margin-left: 5px;" %>
         </div>
       </div>
 

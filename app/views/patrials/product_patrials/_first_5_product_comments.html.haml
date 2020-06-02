@@ -1,0 +1,15 @@
+- @product.product_comments.first(5).each do |comment|
+  .card.comments-wrapper
+    .card-header
+      .row.justify-content-between
+        .col-6.text-left
+          = comment.user.first_name
+          = comment.user.last_name
+        .col-6.text-right
+          = link_to product_like_comment_path(comment_id: comment.id, product_id: @product.id), class: "comments-like-buttons" do
+            %i.fas.fa-thumbs-up
+          %span(id="like_#{comment.id}")= comment.like
+          = link_to product_dislike_comment_path(comment_id: comment.id, product_id: @product.id), class: "comments-like-buttons" do
+            %i.fas.fa-thumbs-down
+    %ul.list-group.list-group-flush
+      %li.list-group-item= comment.comment

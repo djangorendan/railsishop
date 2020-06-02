@@ -103,7 +103,7 @@
 }
 
 .comments-like-buttons {
-    color: yellow;
+  color: yellow;
 }
 
 .product_images {
@@ -158,4 +158,42 @@
 
 .product_label_photo {
   max-width: 25% !important;
+}
+
+.discription {
+  overflow: hidden;
+}
+
+.discription.opener {
+  height: auto !important;
+}
+
+.discription:after {
+  content: "";
+  width: 100%;
+  left: 0;
+  position: absolute;
+  height: 50px;
+  bottom: 20px;
+  background: -moz-linear-gradient(top,  rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+  background: -webkit-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%);
+  background: linear-gradient(to bottom,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=0 );
+}
+
+.discription.opener:after {
+  opacity: 0;
+}
+
+.more_details {
+  padding-bottom: 1rem;
+}
+
+.specifications_list:hover {
+  background-color: rgba(0,0,0,.075);
+}
+
+.specifications_cards,
+.main_specifications {
+  margin-bottom: 1rem;
 }

@@ -50,4 +50,39 @@ $(document).ready(function(){
   $('#photoModal').on('hidden.bs.modal', function () {
     $('.product_photo_modal_item').removeClass('active');
   });
+
+  var product_side_height = $('.product_side').height();
+  var photo_height = $('#carouselAllAboutProductPhotoIndicators').height();
+  var discription_text_height = $('.discription_text').height();
+  var discription_height = product_side_height - photo_height;
+  $('.discription').height(discription_height);
+  console.log(product_side_height);
+  console.log(photo_height);
+  console.log(discription_height);
+  console.log($(discription_text_height));
+
+  if (discription_text_height < discription_height){
+    $('.details').addClass("d-none");
+  };
+
+  $('.details').click(function(e){
+    e.preventDefault();
+    $('.discription').toggleClass('opener');
+    if (!$(this).data('status')) {
+      $(this).data('status', true).html('Скрыть');
+    }else{
+      $(this).data('status', false).html('Подробнее');
+    };
+  });
+
+  $('#more_specifications').click(function(e){
+    e.preventDefault();
+    $('#specifications-tab').tab('show');
+  });
+
+  $('#more_comments').click(function(e){
+    e.preventDefault();
+    $('#productComments-tab').tab('show');
+  });
+
 });
