@@ -26,7 +26,11 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :product_photos
     resources :categories, except: :show
-    resources :properties
+    resources :properties do
+      collection do
+        get :set_position
+      end
+    end
     resources :products, except: :show
     resources :orders, only: [:index, :edit, :update] do
       get :cancel

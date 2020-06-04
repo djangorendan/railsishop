@@ -18,10 +18,13 @@
               .col-7.products-cols
                 Самовывоз из магазина
               .col-5.products-cols
-                - if Time.zone.now < @close_time
-                  Сегодня до 21:00
+                - if Time.zone.now < @today_close_time
+                  - if Time.zone.now < @today_open_time
+                    Сегодня с #{@today_open_time}
+                  - else
+                    Сегодня до #{@today_close_time}
                 - else
-                  Завтра с 09:00
+                  Завтра с #{@tomorrow_open_time}
             %li.d-flex
               .col-7.products-cols
                 %span(title="Отправка без предоплаты")

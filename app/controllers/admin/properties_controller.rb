@@ -54,6 +54,17 @@ class Admin::PropertiesController < ApplicationController
     end
   end
 
+  def set_position
+    @property = Property.find(params[:property_id])
+    respond_to do |format|
+      if @property.update(position: params[:position], parent_id: params[:parent_id])
+        format.js
+      else
+        format.json { render json: @property.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   # DELETE /products/1
   # DELETE /products/1.json
   def destroy

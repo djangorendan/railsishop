@@ -1,4 +1,4 @@
-- @product.properties.roots.each do |property|
+- @product.properties.roots.order(:position).each do |property|
   .card
     %h5.card-header.text-left= property.name
     %ul.list-group.list-group-flush

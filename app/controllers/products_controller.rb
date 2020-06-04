@@ -13,14 +13,14 @@ class ProductsController < ApplicationController
     :dislike_comment
   ]
 
+  before_action :set_working_hours, only: :show
+
   def show
     @product = Product.friendly.find(params[:id])
     @product.increment!(:views)
     @products = Product.displayed.where(category: @product.category)
       .where("price >= ?", @product.price-1000).where("price <= ?", @product.price+1000)
       .where.not(id: @product.id).page params[:page]
-    @late_delivery_time = Time.zone.parse "16:00"
-    @close_time = Time.zone.parse "21:00"
   end
 
   def create_product_comment
@@ -47,6 +47,27 @@ class ProductsController < ApplicationController
     respond_to do |format|
       format.js
     end
+  end
+
+  def set_working_hours
+    @late_delivery_time = Time.zone.parse "16:00"
+    if Date.today.wday == 0 || Date.today.wday == 6
+      @today_open_time = Time.zone.parse "10:00"
+      @today_close_time = Time.zone.parse "17:00"
+    else
+      @today_open_time = Time.zone.parse "09:00"
+      @today_close_time = Time.zone.parse "21:00"
+    end
+    if Date.today.wday == 5
+      @tomorrow_open_time = Time.zone.parse "10:00"
+    elsif Date.today.wday == 0
+      @tomorrow_open_time = Time.zone.parse "09:00"
+    else
+      @tomorrow_open_time = @today_open_time
+    end
+    @today_open_time = @today_open_time.strftime("%H:%M")
+    @today_close_time = @today_close_time.strftime("%H:%M")
+    @tomorrow_open_time = @tomorrow_open_time.strftime("%H:%M")
   end
 
   private

@@ -56,10 +56,6 @@ $(document).ready(function(){
   var discription_text_height = $('.discription_text').height();
   var discription_height = product_side_height - photo_height;
   $('.discription').height(discription_height);
-  console.log(product_side_height);
-  console.log(photo_height);
-  console.log(discription_height);
-  console.log($(discription_text_height));
 
   if (discription_text_height < discription_height){
     $('.details').addClass("d-none");
