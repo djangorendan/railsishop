@@ -1,0 +1,90 @@
+= stylesheet_link_tag 'admin/product'
+
+= stylesheet_link_tag 'https://cdn.jsdelivr.net/npm/gridstack@1.1.1/dist/gridstack.min.css'
+= stylesheet_link_tag 'https://cdn.jsdelivr.net/npm/gridstack@1.1.2/dist/gridstack-extra.css'
+
+= javascript_include_tag 'https://cdn.jsdelivr.net/npm/gridstack@1.1.1/dist/gridstack.all.js'
+
+= form_for [:admin, @product] do |form|
+  - if @product.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@product.errors.count, "error")
+        prohibited this product from being saved:
+
+      %ul
+        - @product.errors.full_messages.each do |message|
+          = message
+
+  .d-flex
+    .col-4
+      -# - if action_name == 'edit'
+      -#   = image_tag(@product.product_photos.main.image.url, class: "image")
+      -#   .row
+      -#     - @product.product_photos.not_main.each do |photo|
+      -#       .col-6
+      -#         = image_tag(photo.image.url, class: "image")
+
+      -# GridStack
+      .grid-stack.grid-stack-2
+        .grid-stack-item.align-self-center(data-gs-width="2" data-gs-height="3")
+          .grid-stack-item-content.justify-content-center.align-self-center.d-flex
+            - @product.product_photos.main.each do |main_photo|
+              = image_tag(main_photo.image.url, class: "image")
+        - @product.product_photos.not_main.each do |not_main_photo|
+          .grid-stack-item.align-self-center(data-gs-width="1" data-gs-height="2")
+            .grid-stack-item-content.justify-content-center.align-self-center.d-flex
+              = image_tag(not_main_photo.image.url, class: "image")
+
+    .col-6
+      .form-group
+        = form.label :display, "Отображение:"
+        = form.check_box :display, checked: true
+
+      .row.form-group
+        = form.label :category_id, "Категория:", class: "col-3 col-form-label"
+        = form.collection_select :category_id, Category.all, :id, :name,{}, {class: "col-9 form-control", autofocus: true}
+
+      .row.form-group
+        = form.label :name, "Наименование:", class: "col-3 col-form-label"
+        = form.text_field :name, class: "col-9 form-control"
+
+      .row.form-group
+        = form.label :price, "Цена:", class: "col-3 col-form-label"
+        = form.number_field :price, class: "col-9 form-control"
+
+      .row.form-group
+        = form.label :quantity, "Количество:", class: "col-3 col-form-label"
+        = form.number_field :quantity, class: "col-9 form-control"
+
+      .row.form-group
+        = form.label :discription, "Описание:", class: "col-3 col-form-label"
+        = form.cktext_area :discription, class: "col-9 form-control", rows: "9"
+
+      - if action_name == 'edit'
+        .row
+          .col-12.specifications-form
+            %h2= "Характеристики:"
+            - @product.properties.roots.each do |property|
+              %button.btn.btn-primary.btn-block.collapse-button(type="button" data-toggle="collapse" data-target="#collapse_#{property.id}" aria-expanded="false" aria-controls="collapseExample")
+                = property.name
+
+              - property.children.order(:position).each do |child|
+                - child.product_properties.where(product: @product).each do |pp|
+                  .col-12
+                    .collapse(id="collapse_#{pp.property.root.id}")
+                      = form.fields_for :product_properties, pp do |pp_form|
+                        .row.form-group
+                          = pp_form.label :value, pp.property.name + ":", class: "col-4 col-form-label"
+                          = pp_form.text_field :value, class: "col-8 form-control"
+
+    .col-2.offset-10.position-fixed
+      - if action_name == 'edit'
+        = link_to "Добавить фото", new_admin_product_photo_path(product_id: @product.id), class: "btn w-100 text-right action-buttons"
+        = link_to 'Новый продукт', new_admin_product_path, class: "btn w-100 text-right action-buttons"
+        = link_to "Посмотреть на сайте", product_path(@product), target: "_blank", class: "btn w-100 text-right action-buttons"
+
+      = form.submit "Сохранить продукт", class: "btn w-100 text-right action-buttons"
+      = link_to "Назад", admin_products_path, class: "btn w-100 text-right action-buttons"
+
+= javascript_include_tag 'admin/product.js'

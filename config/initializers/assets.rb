@@ -30,6 +30,7 @@ Rails.application.config.assets.precompile += %w( owl_carousel/assets/owl.carous
 # custom_css
   #admins_css
 Rails.application.config.assets.precompile += %w( admin/category.css )
+Rails.application.config.assets.precompile += %w( admin/product.css )
 
   #main_part_css
 Rails.application.config.assets.precompile += %w( main.css )
@@ -45,6 +46,7 @@ Rails.application.config.assets.precompile += %w( order.css )
   #admin_js
 Rails.application.config.assets.precompile += %w( admin/category.js )
 Rails.application.config.assets.precompile += %w( admin/property.js )
+Rails.application.config.assets.precompile += %w( admin/product.js )
 
   #main_part_js
 Rails.application.config.assets.precompile += %w( layout.js )
