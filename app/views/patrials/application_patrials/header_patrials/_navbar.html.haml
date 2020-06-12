@@ -22,18 +22,27 @@
             = link_to "Способы доставки", "/delivery", class: "dropdown-item"
             = link_to "Способы оплаты", "/payments", class: "dropdown-item"
             = link_to "Контакты", "/contacts", class: "dropdown-item"
-    .col-auto
+    .col-auto.nav-buttons
       = form_tag results_path, method: :get, role: 'search', class: "form-inline my-2 my-lg-0" do
         = text_field_tag :query, params[:query], class: "form-control", placeholder: "Поиск"
         %button.btn.btn-outline-warning.custom-button(type="submit")
           %i.fas.fa-search
-    .col-auto
+    .col-auto.nav-buttons
+      - if session[:current_compare_id] && current_compare.compare_products.count != 0
+        = link_to compare_path(id: session[:current_compare_id]), class: "btn btn-yellow compare_link" do
+          %i.fas.fa-balance-scale
+          %span.compare_link_count= current_compare.compare_products.count
+      - else
+        %a.compare_link.btn.btn-yellow.disabled
+          %i.fas.fa-balance-scale
+          %span.compare_link_count= 0
+    .col-auto.nav-buttons
       - if session[:current_cart_id] && current_cart.total_product_count != 0
         - if action_name == 'new' && controller_name == 'orders'
           %a.btn.btn-yellow.disabled
             %i.fas.fa-shopping-cart
             %span#cart_link_count= current_cart.total_product_count
-        -else
+        - else
           = link_to cart_path(id: session[:current_cart_id]), remote: true, id: "cart_link", class: "btn btn-yellow"  do
             %i.fas.fa-shopping-cart
             %span#cart_link_count= current_cart.total_product_count

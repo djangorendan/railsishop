@@ -41,6 +41,7 @@ Rails.application.config.assets.precompile += %w( products_list.css )
 Rails.application.config.assets.precompile += %w( product.css )
 Rails.application.config.assets.precompile += %w( cart.css )
 Rails.application.config.assets.precompile += %w( order.css )
+Rails.application.config.assets.precompile += %w( compare.css )
 
 # custom_js
   #admin_js
@@ -53,3 +54,4 @@ Rails.application.config.assets.precompile += %w( layout.js )
 Rails.application.config.assets.precompile += %w( product.js )
 Rails.application.config.assets.precompile += %w( cart.js )
 Rails.application.config.assets.precompile += %w( order.js )
+Rails.application.config.assets.precompile += %w( compare.js )

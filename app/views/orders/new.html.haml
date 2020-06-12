@@ -24,7 +24,7 @@
       = form.email_field :email, value: (current_user.email if current_user), placeholder: 'Адрес электронной почты', class: "form-control field", required: true
       = form.text_field :first_name, value: (current_user.first_name if current_user), placeholder: 'Имя', class: "form-control field", required: true
       = form.text_field :last_name, value: (current_user.last_name if current_user), placeholder: 'Фамилия', class: "form-control field", required: true
-      = form.select :payment, raw("<option>Наличными</option> <option>На карту Приват Банка</option> <option>Наложенный платеж</option>"), {}, {class: "form-control field"}
+      = form.select :payment, raw(@payment_select), {}, {class: "form-control field"}
       = form.select :delivery, raw("<option>Самовывоз</option> <option>Доставка Новой Почтой</option>"), {}, {class: "form-control field field"}
 
       .delivery

@@ -20,7 +20,12 @@ $('#order_payment').on('change', function(){
 $('#order_delivery').on('change', function(){
   if($(this).val() == 'Доставка Новой Почтой'){
     if($('#order_payment').val() == 'Наличными'){
-      $('#order_payment').val('Наложенный платеж')};
+      if(parseInt($('#total_cart_sum').text()) < 1000){
+        $('#order_payment').val('На карту ПриватБанка');
+      }else{
+        $('#order_payment').val('Наложенный платеж');
+      };
+    };
     $('.delivery').css('display', 'block');
   }else if($(this).val() == 'Самовывоз'){
     if($('#order_payment').val() == 'Наложенный платеж'){

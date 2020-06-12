@@ -23,6 +23,15 @@ class OrdersController < ApplicationController
   def new
     @cart = Cart.find_by(id: session[:current_cart_id])
     @order = Order.new
+    @payment_select = [
+      "<option>Наличными</option>
+      <option>На карту ПриватБанка</option>",
+      if @cart.total_cart_sum < 1000
+        "<option title='Заказы менее 1000 грн. отправляются по полной оплате' disabled>Наложенный платеж</option>"
+      else
+        "<option title='Заказы менее 1000 грн. отправляются по полной оплате'>Наложенный платеж</option>"
+      end
+    ]
     redirect_to root_path unless @cart && @cart.total_product_count != 0
   end
 

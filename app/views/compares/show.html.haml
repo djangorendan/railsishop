@@ -1,0 +1,17 @@
+- content_for :head do
+  %title
+    Сравнение товаров | Angar.kh.ua
+
+= stylesheet_link_tag 'compare'
+
+%h1= 'Сравнение товаров'
+
+- if current_compare
+  .compare-list
+    %ol
+      - current_compare.compare_products.each do |compare_product|
+        %li(id="compare_product_#{compare_product.product.id}")
+          = compare_product.product.name
+          = link_to "delete", delete_product_from_compare_compares_path(product_id: compare_product.product.id), remote: true
+
+= javascript_include_tag 'compare'

@@ -23,12 +23,25 @@
   max-width: calc(50% - .25rem);
 }
 
+.col-9.products-list-buttons {
+  max-width: calc(75% - .25rem);
+}
+
+.col-3.products-list-buttons {
+  max-width: calc(25% - .25rem);
+}
+
 .btn.btn-danger {
   color: yellow;
 }
 
-.btn.btn-danger.products-list-buttons {
+.btn.products-list-buttons {
   font-size: .92rem;
+  padding: .375rem .25rem;
+}
+
+.products-list-buttons.first-row {
+  margin-bottom: .5rem;
 }
 
 /* similar_product */

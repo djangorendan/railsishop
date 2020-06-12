@@ -1,0 +1,17 @@
+$('#product-<%= @product.id %>-compare-buttons').empty();
+
+$('<a>', {
+  text: 'Убрать из сравнения',
+  href: '<%= delete_product_from_compare_compares_path(product_id: @product.id) %>',
+  class: 'btn btn-outline-primary col-9 products-list-buttons',
+}).attr("data-remote", true).appendTo('#product-<%= @product.id %>-compare-buttons');
+
+$('<a>', {
+  html: '<i class="fas fa-balance-scale"></i> <span class="compare_link_count"><%= @compare.compare_products.count %></span>',
+  href: '/compares/<%= @compare.id %>',
+  class: 'btn btn-yellow col-3 compare_link products-list-buttons',
+}).appendTo('#product-<%= @product.id %>-compare-buttons');
+
+$('.compare_link_count').text("<%= @compare.compare_products.count %>");
+$('.compare_link').removeClass("disabled");
+$('.compare_link').attr("href", "/compares/<%= @compare.id %>");

@@ -1,0 +1,16 @@
+$('#product-<%= @product.id %>-compare-buttons').empty();
+
+$('<a>', {
+  text: 'Сравнить',
+  href: '<%= product_to_compare_compares_path(product_id: @product.id) %>',
+  class: 'btn btn-outline-primary col-6 products-list-buttons',
+}).attr("data-remote", true).appendTo('#product-<%= @product.id %>-compare-buttons');
+
+$("#compare_product_<%= @product.id %>").remove();
+$('.compare_link_count').text("<%= @compare.compare_products.count %>");
+
+if(<%= @compare.compare_products.count %> == 0){
+  $(".compare-list").empty();
+  $(".compare-list").text("Список сравнений пуст");
+  $('.compare_link').addClass("disabled");
+};

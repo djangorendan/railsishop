@@ -13,6 +13,7 @@ class Product < ApplicationRecord
 
   has_many :cart_products, dependent: :destroy
   has_many :product_comments, dependent: :destroy
+  has_many :compare_products, dependent: :destroy
 
   extend FriendlyId
   friendly_id :name, use: :slugged
@@ -20,7 +21,7 @@ class Product < ApplicationRecord
   paginates_per 12
 
   scope :displayed, -> { where(display: true) }
-  scope :not_displayed, -> { where.not(display: true) }
+  scope :not_displayed, -> { where(display: false) }
   scope :by_category, -> category { where(category: category) }
 
   scope :filter_by_category, -> (params) {

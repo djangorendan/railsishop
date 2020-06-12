@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_02_225956) do
+ActiveRecord::Schema.define(version: 2020_06_10_124516) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -88,6 +88,20 @@ ActiveRecord::Schema.define(version: 2020_06_02_225956) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["type"], name: "index_ckeditor_assets_on_type"
+  end
+
+  create_table "compare_products", force: :cascade do |t|
+    t.bigint "product_id"
+    t.bigint "compare_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["compare_id"], name: "index_compare_products_on_compare_id"
+    t.index ["product_id"], name: "index_compare_products_on_product_id"
+  end
+
+  create_table "compares", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
@@ -203,6 +217,8 @@ ActiveRecord::Schema.define(version: 2020_06_02_225956) do
   add_foreign_key "cart_products", "products"
   add_foreign_key "category_properties", "categories"
   add_foreign_key "category_properties", "properties"
+  add_foreign_key "compare_products", "compares"
+  add_foreign_key "compare_products", "products"
   add_foreign_key "orders", "carts"
   add_foreign_key "orders", "users"
   add_foreign_key "product_comments", "products"

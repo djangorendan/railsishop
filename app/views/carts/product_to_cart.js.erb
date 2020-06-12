@@ -1,6 +1,6 @@
-document.getElementById('cart_link_count').innerText = "<%= @cart.total_product_count %>";
-document.getElementById('cart_link').className = "btn btn-yellow";
-document.getElementById('cart_link').href = "/carts/<%= @cart.id %>"
+$('#cart_link_count').text("<%= @cart.total_product_count %>");
+$('#cart_link').removeClass("disabled");
+$('#cart_link').attr("href", "/carts/<%= @cart.id %>");
 
 <% if @add_in_cart_modal%>
   $("#product_<%= @product.id %>_sum").html("<%= @total_product_sum %> грн.");

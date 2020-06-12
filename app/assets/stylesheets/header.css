@@ -98,3 +98,7 @@ li span {
   font-size: 1rem;
   font-weight: bold;
 }
+
+.nav-buttons {
+  padding: 0 .5rem;
+}

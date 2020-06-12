@@ -1,6 +1,6 @@
-document.getElementById('cart_product_<%= @cart_product.id %>').remove();
-document.getElementById('cart_link_count').innerText = "<%= @cart.total_product_count %>";
-document.getElementById('total_cart_sum').innerText = "<%= @cart.total_cart_sum %> грн.";
+$('#cart_product_<%= @cart_product.id %>').remove();
+$('#cart_link_count').text("<%= @cart.total_product_count %>");
+$('#total_cart_sum').text("<%= @cart.total_cart_sum %> грн.");
 
 if (<%= @cart.total_product_count %> == 0){
   if ($("div").is(".cart_wrapper")) {
@@ -10,7 +10,7 @@ if (<%= @cart.total_product_count %> == 0){
     $(".cart_buttons").html('<%= link_to "На главную", root_path, class: "cart_button btn btn-outline-primary" %>');
   };
   $("#cartModal").modal('hide');
-  document.getElementById("cart_link").classList.add('disabled');
+  $("#cart_link").addClass('disabled');
 };
 
 notice();

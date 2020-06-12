@@ -16,6 +16,11 @@ module ApplicationHelper
     Cart.find(session[:current_cart_id]) if cart_id
   end
 
+  def current_compare
+    compare_id = session[:current_compare_id]
+    Compare.find(session[:current_compare_id]) if compare_id
+  end
+
   def filter_checked? prorerties, name
     return false unless prorerties.present?
     prorerties.split(',').index(name).present?

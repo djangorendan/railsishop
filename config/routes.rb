@@ -16,10 +16,17 @@ Rails.application.routes.draw do
 
   resources :categories, only: :show
 
-  resources :carts do
+  resources :carts, only: :show do
     collection do
       get :product_to_cart
       get :delete_product_from_cart
+    end
+  end
+
+  resources :compares, only: :show do
+    collection do
+      get :product_to_compare
+      get :delete_product_from_compare
     end
   end
 
